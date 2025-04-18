@@ -1,0 +1,10 @@
+1,Pan blanco,Pan blanco artesanal,15,20
+2,Leche 1L,Leche entera pasteurizada 1L,25,15
+3,Queso 500g,Queso manchego rallado finamente 500g,50,10
+4,Docena de huevos,Docena de huevos orgánicos traidos de la granja de Juan,40,12
+5,Jugo de naranja 1l,1L de jugo de naranja natural del arbol a tu casa,22,18
+6,Cereal Cheerios,Cereal de avena con miel mezclando una gran combinacion de sabores,35,25
+7,Café 250g,250g de café molido para que disfrutes cada momento de tu dia,60,8
+8,Azúcar 1kg, 1kg de azúcar cuidadosamente refinada,20,30
+9,Sal 500g,500g de fina sal de mar,12,40
+10,Aceite 1L,1L de aceite vegetal bajo en grasas,45,10
