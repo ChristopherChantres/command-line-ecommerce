@@ -11,6 +11,10 @@ puvlic class Vndedor extends Usuario{
   }
 
   public void AgragarProducto(Producto producto){
+    if(producto != null && ptoductosVendidos.contains(producto){
+      productosVendidos.add(producto);
+    }
+
     
   }
 }
