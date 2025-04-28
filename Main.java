@@ -243,23 +243,23 @@ public class Main {
             switch (opcion) {
                 case 1:
                     // Lógica para Carrito
-                    mensaje("Ver carrito - Funcionalidad en desarrollo", TipoDeMensaje.INFO);
-                    continuarEvento();
+                    limpiarConsola();
+                    carritoDelComprador();
                     break;
                 case 2:
                     // Lógica para Mostrar productos
-                    mensaje("Mostrar productos - Funcionalidad en desarrollo", TipoDeMensaje.INFO);
-                    continuarEvento();
+                    limpiarConsola();
+                    mostrarProductosComprador();
                     break;
                 case 3:
                     // Lógica para Pagar
-                    mensaje("Pagar - Funcionalidad en desarrollo", TipoDeMensaje.INFO);
-                    continuarEvento();
+                    limpiarConsola();
+                    realizarPagoComprador();
                     break;
                 case 4:
                     // Lógica para Mi cuenta
-                    mensaje("Mi cuenta - Funcionalidad en desarrollo", TipoDeMensaje.INFO);
-                    continuarEvento();
+                    limpiarConsola();
+                    consultarMiCuentaComprador();
                     break;
                 case 5:
                     // Salir
@@ -271,6 +271,39 @@ public class Main {
                     continuarEvento();
             }
         }
+    }
+
+    public static void carritoDelComprador() {
+        // Hacer fetch de los productos del carrito
+        // Mostrar los productos en el carrito
+        // Permitir al usuario eliminar productos o proceder a pagar
+        // Lógica para gestionar el carrito
+        // ...
+        mensaje("Este es el carrito |--|/", TipoDeMensaje.INFO);
+        continuarEvento();
+    }
+
+    public static void mostrarProductosComprador() {
+        // Hacer fetch de los productos disponibles
+        // Mostrar los productos al usuario
+        // Lógica para mostrar productos
+        // ...
+        mensaje("Estos son los productos disponibles |--|/", TipoDeMensaje.INFO);
+        continuarEvento();
+    }
+
+    public static void realizarPagoComprador() {
+        // Lógica para gestionar el pago
+        // ...
+        mensaje("Realizando el pago |--|/", TipoDeMensaje.INFO);
+        continuarEvento();
+    }
+
+    public static void consultarMiCuentaComprador() {
+        // Lógica para mostrar la cuenta del usuario
+        // ...
+        mensaje("Esta es tu cuenta |--|/", TipoDeMensaje.INFO);
+        continuarEvento();
     }
 
     // -------------------- METODOS PARA VENDEDOR -------------------- //
@@ -311,27 +344,32 @@ public class Main {
             switch (opcion) {
                 case 1:
                     // Lógica para Agregar nuevo producto
-                    mensaje("Agregar producto - Funcionalidad en desarrollo", TipoDeMensaje.INFO);
+                    limpiarConsola();
+                    agregarNuevoProductoVendedor();
                     continuarEvento();
                     break;
                 case 2:
                     // Lógica para Ver mis productos
-                    mensaje("Ver mis productos - Funcionalidad en desarrollo", TipoDeMensaje.INFO);
+                    limpiarConsola();
+                    verMisProductosVendedor();
                     continuarEvento();
                     break;
                 case 3:
                     // Lógica para Ver mis ventas
-                    mensaje("Ver mis ventas - Funcionalidad en desarrollo", TipoDeMensaje.INFO);
+                    limpiarConsola();
+                    verMisVentasVendedor();
                     continuarEvento();
                     break;
                 case 4:
                     // Lógica para Editar detalles de productos
-                    mensaje("Editar productos - Funcionalidad en desarrollo", TipoDeMensaje.INFO);
+                    limpiarConsola();
+                    editarDetallesProductoVendedor();
                     continuarEvento();
                     break;
                 case 5:
                     // Lógica para Mi cuenta
-                    mensaje("Mi cuenta - Funcionalidad en desarrollo", TipoDeMensaje.INFO);
+                    limpiarConsola();
+                    consultarMiCuentaVendedor();
                     continuarEvento();
                     break;
                 case 6:
@@ -344,5 +382,35 @@ public class Main {
                     continuarEvento();
             }
         }
+    }
+
+    public static void agregarNuevoProductoVendedor() {
+        // Lógica para agregar un nuevo producto
+        // ...
+        mensaje("Agregando nuevo producto |--|/", TipoDeMensaje.INFO);
+    }
+
+    public static void verMisProductosVendedor() {
+        // Lógica para ver los productos del vendedor
+        // ...
+        mensaje("Estos son tus productos |--|/", TipoDeMensaje.INFO);
+    }
+
+    public static void verMisVentasVendedor() {
+        // Lógica para ver las ventas del vendedor
+        // ...
+        mensaje("Estas son tus ventas |--|/", TipoDeMensaje.INFO);
+    }
+
+    public static void editarDetallesProductoVendedor() {
+        // Lógica para editar los detalles de un producto
+        // ...
+        mensaje("Editando detalles del producto |--|/", TipoDeMensaje.INFO);
+    }
+
+    public static void consultarMiCuentaVendedor() {
+        // Lógica para mostrar la cuenta del vendedor
+        // ...
+        mensaje("Esta es tu cuenta |--|/", TipoDeMensaje.INFO);
     }
 }
