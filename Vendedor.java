@@ -7,6 +7,10 @@ puvlic class Vndedor extends Usuario{
   public Vendedor(String nombre, String correo, String contrasena, String tienda){
     super(nombre, correo, contrasena);
     this.tienda = tienda;
-    this.productosVendidos = new ArrayList<>();v
+    this.productosVendidos = new ArrayList<>();
+  }
+
+  public void AgragarProducto(Producto producto){
+    
   }
 }
