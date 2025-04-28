@@ -4,6 +4,7 @@ public class Producto{//Viktor
     protected int id, stock, id_vendedor;
     protected double precio;
     protected String nombre, descripcion, nombreVendedor;
+    protected int cantidad;
 
     //constructor con las caracteristicas del producto
     public Producto(int id, String nombre, String descripcion, double precio, int stock, int id_vendedor){
@@ -39,6 +40,8 @@ public class Producto{//Viktor
     public int getId_vendedor(){
         return id_vendedor;
     }
+
+    public set 
 
     //public int getNombreVendedor(){
         //llamar a metodo que refresque el nombre del vendedor

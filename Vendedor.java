@@ -1,7 +1,7 @@
 import java.security.PublicKey;
 import java.util.ArrayList;
 
-public class Vendedor extends Usuarios{
+public class Vendedor extends Usuario{
   private String tienda;
   private ArrayList <Producto> productosVendidos;
 

@@ -9,6 +9,7 @@ public class Tienda {
     
     public Tienda(){
         productos=new ArrayList<>();
+        cargarProductosDesdeArchivo();
     }
 
         //metodo que extrae en una arraylist todos los productos de la tienda desde un archivo
