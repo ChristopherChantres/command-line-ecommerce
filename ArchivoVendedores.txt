@@ -1,0 +1,7 @@
+-1,Juan_Vende,NoSoyJuan
+-2,Miscelanea_Chris,Contrasena
+-3,Tienda_de_Fer,123456
+-4,Sebas_marinela,12345678
+-5,Granjero_Viktor,qwerty
+-6,Soriana,123456
+-7,vendedor,123456

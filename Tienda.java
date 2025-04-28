@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class Tienda {
     protected ArrayList<Producto> productos= new ArrayList<>();
 
+    
     public Tienda(){
         productos=new ArrayList<>();
     }
@@ -19,14 +20,15 @@ public class Tienda {
                 String linea= scanner.nextLine();
                 String [] partesProducto=linea.split(",");
 
-                if(partesProducto.length==5){//comprueba que el arreglo es de tamano 5, tiene todos los atributos bien
+                if(partesProducto.length==6){//comprueba que el arreglo es de tamano 5, tiene todos los atributos bien
                     int id= Integer.parseInt(partesProducto[0]);
                     String nombre=partesProducto[1];
                     String descripcion=partesProducto[2];
                     double precio=Double.parseDouble(partesProducto[3]);
                     int stock= Integer.parseInt(partesProducto[4]);
+                    int id_vendedor= Integer.parseInt(partesProducto[5]);
                     
-                    Producto p= new Producto(id, nombre, descripcion, precio, stock);
+                    Producto p= new Producto(id, nombre, descripcion, precio, stock,id_vendedor);
                     productos.add(p);
                 }
 
