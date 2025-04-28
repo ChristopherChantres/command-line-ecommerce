@@ -23,7 +23,6 @@ public class Usuarios {
         return id;
     }
 
-    @Override
     public String toString() {
         return "Nombre: " + nombre + ", ID: " + id;
     }
