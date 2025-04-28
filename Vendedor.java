@@ -1,6 +1,7 @@
+import java.security.PublicKey;
 import java.util.ArrayList;
 
-puvlic class Vndedor extends Usuario{
+public class Vendedor extends Usuarios{
   private String tienda;
   private ArrayList <Producto> productosVendidos;
 
@@ -10,11 +11,16 @@ puvlic class Vndedor extends Usuario{
     this.productosVendidos = new ArrayList<>();
   }
 
-  public void AgragarProducto(Producto producto){
-    if(producto != null && ptoductosVendidos.contains(producto){
+  public void agregarProducto(Producto producto){
+    if(producto != null && productosVendidos.contains(producto)){
       productosVendidos.add(producto);
     }
-
-    
   }
+
+    public void eliminarProducto(Producto producto){
+      if(producto ! = null){
+        productosVendidos.remove(producto);
+      }
+    }
+  
 }
