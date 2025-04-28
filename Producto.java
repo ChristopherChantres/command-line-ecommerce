@@ -5,7 +5,7 @@ public class Producto{//Viktor
     protected double precio;
     protected String nombre, descripcion, nombreVendedor;
     protected int cantidad;
-    protected double precioParcial;
+    protected double subTotal;
 
     //constructor con las caracteristicas del producto
     public Producto(int id, String nombre, String descripcion, double precio, int stock, int id_vendedor){
@@ -43,6 +43,11 @@ public class Producto{//Viktor
         return id_vendedor;
     }
 
+    public double getSubtotal(){
+        subTotal=precio*cantidad;
+        return subTotal;
+    }
+
     public void modificarCantidad(int cantidadModificada){
         //comprobar si despues de la operacion el stock es positivo o cero
         if(stock>= cantidadModificada +cantidad){
@@ -67,6 +72,7 @@ public class Producto{//Viktor
     public void modificarStock(int cambioStock){
         stock+=cambioStock;
     }
+
 
 
     //metodo que imprime las caracteristicas completas del producto
