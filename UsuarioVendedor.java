@@ -1,9 +1,9 @@
 import java.util.Random;
 
-public class UsuariosVendedores extends Usuarios {
+public class UsuarioVendedor extends Usuario {
     // Constructor
-    public UsuariosVendedores(String nombre, String contraseña) {
-        super(nombre, contraseña, generarIDNegativo());
+    public UsuarioVendedor(int id,String nombre, String contrasena){
+        super(nombre, contrasena, generarIDNegativo());
     }
 
     // Generar un ID negativo

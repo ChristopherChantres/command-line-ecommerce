@@ -1,12 +1,12 @@
-public class Usuarios {
-    private final String nombre;
-    private final String contraseña;
+public class Usuario {
+    private String nombre;
+    private String contrasena;
     private final int id;
 
     // Constructor
-    public Usuarios(String nombre, String contraseña, int id) {
+    public Usuario(String nombre, String contrasena, int id) {
         this.nombre = nombre;
-        this.contraseña = contraseña;
+        this.contrasena = contrasena;
         this.id = id;
     }
 
@@ -15,12 +15,16 @@ public class Usuarios {
         return nombre;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasena() {
+        return contrasena;
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setContrasena(String contrasena){
+        this.contrasena=contrasena;
     }
 
     public String toString() {

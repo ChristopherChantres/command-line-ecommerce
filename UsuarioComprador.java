@@ -1,9 +1,19 @@
 import java.util.Random;
 
-public class UsuariosCompradores extends Usuarios {
+public class UsuarioComprador extends Usuario {
+    private double saldo;
+
     // Constructor
-    public UsuariosCompradores(String nombre, String contraseña) {
-        super(nombre, contraseña, generarIDPositivo());
+    public UsuarioComprador(int id,String nombre, String contrasena, int saldo) {
+        super(nombre, contrasena, generarIDPositivo());
+    }
+
+    public UsuarioComprador(int id,String nombre, String contrasena) {
+        super(nombre, contrasena, id);
+    }
+
+    public void setSaldo(double saldo){
+        this.saldo=saldo;
     }
 
     // Generar un ID positivo
