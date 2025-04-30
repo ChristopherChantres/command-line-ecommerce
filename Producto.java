@@ -42,16 +42,37 @@ public class Producto{//Viktor
     public int getId_vendedor(){
         return id_vendedor;
     }
+    public double get_subtotal(){
+        subTotal=precio*cantidad;
+        return subTotal;
+    }
+
+    public int getCantidad(){
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad){
+        this.cantidad=cantidad;
+    }
+
+    public void setPrecioPorSubtotal(double subtotal){
+        precio=subtotal/(double)cantidad;
+
+    }
 
     public double getSubtotal(){
         subTotal=precio*cantidad;
         return subTotal;
     }
 
+
+
     public void modificarCantidad(int cantidadModificada){
         //comprobar si despues de la operacion el stock es positivo o cero
         if(stock>= cantidadModificada +cantidad){
             cantidad+=cantidadModificada;
+        }else{
+            cantidad=stock;
         }
         
         if(cantidad<0){
@@ -90,7 +111,20 @@ public class Producto{//Viktor
         System.out.println(id+" "+nombre+" $"+precio);
     }
 
+    public void imprimirParaCarrito(){
+        System.out.println("Cantidad: "+cantidad+"  ID: "+id+" "+nombre+" Subtotal $"+subTotal);
+    }
 
+    public void imprimirActualizacionProducto(){
+        System.out.println("Ahora tienes "+cantidad+" unidades del producto "+nombre);
+    }
 
+    public void imprimirProductoAgregado(){
+        System.out.println("Agregaste "+cantidad+" unidades del producto "+nombre);
+    }
+
+    public void imprimirEliminarProducto(){
+        System.out.println("Eliminaste el producto "+nombre+"con ID: "+id+" del carrito");
+    }
 
 }
