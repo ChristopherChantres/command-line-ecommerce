@@ -46,6 +46,7 @@ public class Carrito {//Clase Carrito, que almacena los productos que el comprad
                 }else{
                     p.imprimirActualizacionProducto();
                 }
+                break;
             }
         }
 
@@ -56,6 +57,7 @@ public class Carrito {//Clase Carrito, que almacena los productos que el comprad
                 p.setCantidad(cantidad);
                 productos_en_carrito.add(p);
                 p.imprimirProductoAgregado();
+                break;
             }
         }
        }
@@ -73,6 +75,7 @@ public class Carrito {//Clase Carrito, que almacena los productos que el comprad
             if(productoTemporal.getID()==id){
                 productoTemporal.imprimirEliminarProducto();
                 productos_en_carrito.remove(i);
+                break;
             }
         }
     }
@@ -100,7 +103,7 @@ public class Carrito {//Clase Carrito, que almacena los productos que el comprad
         }
     }
     
-    public void guardarEnArchivo(int idCompra) {
+    public void guardarEnArchivo() {
         //id del usuario, id de la compra, total, [Producto1], [Producto2], ... [ProductoN]
         //Por cada [Productok] almacenamos idProducto, nombre, cantidad, subtotal
         if(saldoComprador<total){
@@ -136,13 +139,15 @@ public class Carrito {//Clase Carrito, que almacena los productos que el comprad
     }
     
 
-    public double pagar() {//regresa el saldo restante del comprador
-
+    public double pagar(int idCompra) {//regresa el saldo restante del comprador
+        this.idCompra=idCompra;
     //imprimir carrito
     imprimirCarrito();
     //guardar carrito al archivo
-    guardarEnArchivo(idCompra);
+    guardarEnArchivo();
     
+    vaciarCarrito();
+
     //System.exit(0);
     double saldoRestante=saldoComprador;
     return saldoRestante;
