@@ -145,8 +145,8 @@ public class Main {
             String[] datos_del_usuario = getDatosDelUsuario();
             String username_login = datos_del_usuario[0];
             String password_login = datos_del_usuario[1];
-    
             AccesoUsuario accesoUsuario = new AccesoUsuario(username_login, password_login, tipoUsuario);
+            
             if (accesoUsuario.getExisteUsuario()) {
                 if (tipoUsuario.equals(Utileria.usuarioComprador)) {
                     // Lógica para el flujo del comprador
@@ -157,6 +157,7 @@ public class Main {
                     // Lógica para el flujo del vendedor
                     Utileria.mensaje("Bienvenido " + username_login + " (Perfil de Vendedor)", Utileria.TipoDeMensaje.EXITO);
                     Utileria.continuarEvento();
+                    return Optional.of(accesoUsuario);
                 }
             } else {
                 Utileria.mensaje("Usuario o contraseña incorrectos. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
@@ -171,25 +172,51 @@ public class Main {
     }
 
     public static void registrarUsuario(String tipoUsuario) {
-        Utileria.limpiarConsola();
-        System.out.println("=================================================");
-        System.out.println("              Bienvenido a OnlineDeal           ");
-        System.out.println("=================================================");
-        System.out.println("                Registro de Usuario              ");
-        System.out.println("-------------------------------------------------");
-        
-        String[] datos_del_usuario = getDatosDelUsuario();
-        String username_registro = datos_del_usuario[0];
-        String password_registro = datos_del_usuario[1];
-        /*
-        
-        Aquí puedes agregar el código para insertar el username_registro y password_registro en la base de datos.
-        
-        */
-        
-        Utileria.mensaje("Usuario registrado correctamente: " + username_registro, Utileria.TipoDeMensaje.EXITO);
-        Utileria.continuarEvento();
-        
+        int intentos = 0;
+
+        while (intentos < 3) {
+            Utileria.limpiarConsola();
+            System.out.println("=================================================");
+            System.out.println("              Bienvenido a OnlineDeal           ");
+            System.out.println("=================================================");
+            System.out.println("                Registro de Usuario              ");
+            System.out.println("-------------------------------------------------");
+            
+            String[] datos_del_usuario = getDatosDelUsuario();
+            String username_registro = datos_del_usuario[0];
+            String password_registro = datos_del_usuario[1];
+            AccesoUsuario accesoUsuario = new AccesoUsuario(username_registro, password_registro, tipoUsuario);
+
+            // Verificar si el usuario ya existe
+            if (accesoUsuario.getExisteUsuario(username_registro, tipoUsuario)) {
+                Utileria.mensaje("El usuario ya existe. Intente con otro nombre de usuario.", Utileria.TipoDeMensaje.ERROR);
+                Utileria.continuarEvento();
+                intentos++;
+                continue;
+            }
+
+            // Dependiendo del tipo de usuario, se registra como comprador o vendedor en el sistema
+            boolean registroExitoso = false;
+            if (tipoUsuario.equals(Utileria.usuarioComprador)) {
+                registroExitoso = accesoUsuario.registrarComprador(username_registro, password_registro);
+            } else if (tipoUsuario.equals(Utileria.usuarioVendedor)) {
+                registroExitoso = accesoUsuario.registrarVendedor(username_registro, password_registro);
+            }
+
+            if (!registroExitoso) {
+                Utileria.mensaje("Error al registrar el usuario. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
+                Utileria.continuarEvento();
+                intentos++;
+                continue;
+            }
+
+            Utileria.mensaje("Usuario registrado correctamente: " + username_registro, Utileria.TipoDeMensaje.EXITO);
+            Utileria.continuarEvento();
+            return;
+        }
+
+        Utileria.mensaje("Demasiados intentos fallidos. Saliendo del programa por razones de seguridad.", Utileria.TipoDeMensaje.INFO);
+        System.exit(0);
     }
 
     // -------------------- METODOS PARA COMPRADOR  -------------------- //
@@ -296,7 +323,7 @@ public class Main {
     public static void mostrarMenuVendedor() {
         System.out.println("=================================================");
         System.out.println("            Bienvenido a OnlineDeal             ");
-        System.out.println("                 Portal Vendedor                ");
+        System.out.println("                 (Portal Vendedor)              ");
         System.out.println("=================================================");
         System.out.println("                     MENU                       ");
         System.out.println("-------------------------------------------------");

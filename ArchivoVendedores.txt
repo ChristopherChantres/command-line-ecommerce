@@ -5,3 +5,4 @@
 -5,Granjero_Viktor,qwerty
 -6,Soriana,123456
 -7,vendedor,123456
+-8,Barcel,chombo

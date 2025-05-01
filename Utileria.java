@@ -6,6 +6,11 @@
 public class Utileria {
     public final static String usuarioComprador = "comprador";
     public final static String usuarioVendedor = "vendedor";
+    public final static String archivoCompradores = "ArchivoCompradores.txt";
+    public final static String archivoVendedores = "ArchivoVendedores.txt";
+    public final static String archivoProductos = "ArchivoProductos.txt";
+    public final static String archivoCompras = "ArchivoCompras.txt";
+
 
     public static void limpiarConsola() {
         try {
