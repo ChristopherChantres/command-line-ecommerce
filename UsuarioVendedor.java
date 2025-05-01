@@ -3,15 +3,15 @@ import java.util.ArrayList;
 
 public class UsuarioVendedor extends Usuario {
     // Constructor
+    private Utileria utileria = new Utileria();
     protected double montoVendido;//almacena el monto total vendido por el vendedor
     protected ArrayList <Producto> productosOfrecidos;//almacena los productos que el vendedor tiene a la venta, el los puede modificar o eliminar
 
     protected ArrayList <Producto> productosVendidos;//almacena los productos de las ordenes pasadas, integrar con CompradorOrdenesPasadas
     protected Tienda tienda;//accede a la tienda para obtener los productos que tiene a la venta, modificar los productos de la tienda, etc
 
-    protected ArrayList <Integer> idProductosAEliminar;//almacena los id de los productos que el vendedor ha eliminado, para que se eliminen del archivo de la tienda
-    protected ArrayList <Integer> productosAmodificar;
-
+    //----------------------------------------------------------------------------------------------------------------------------------
+    //INICIALIZACION 
     public UsuarioVendedor(int id,String username, String contrasena){
         super(username, contrasena, id);
         iniciarProductos();
@@ -22,18 +22,9 @@ public class UsuarioVendedor extends Usuario {
         this.productosOfrecidos = tienda.getProductosOfrecidos(super.getId());
     }
 
-    //metodo que elimina un producto de la lista de productos ofrecidos por el vendedor
-    public void eliminarProducto(int id_producto){
-        for(Producto p: productosOfrecidos){
-            if(p.getID()==id_producto){
-                productosOfrecidos.remove(p);//elimina el producto de la lista de productos ofrecidos por el vendedor
 
-                tienda.eliminarProducto(id_producto);//elimina el producto de la tienda
-                break;
-            }
-        }
-    }
-
+    //----------------------------------------------------------------------------------------------------------------------------------
+    //MODIFICACION DE PRODUCTOS PROPIOS
     //agrega un nuevo producto a la lista de productos ofrecidos por el vendedor
     public void agregarProducto(Producto producto){
         //le asignamos el id del vendedor al producto
@@ -75,6 +66,22 @@ public class UsuarioVendedor extends Usuario {
         }
     }
 
+    //metodo que elimina un producto de la lista de productos ofrecidos por el vendedor
+    public void eliminarProducto(int id_producto){
+        for(Producto p: productosOfrecidos){
+            if(p.getID()==id_producto){
+                productosOfrecidos.remove(p);//elimina el producto de la lista de productos ofrecidos por el vendedor
+
+                tienda.eliminarProducto(id_producto);//elimina el producto de la tienda
+                break;
+            }
+        }
+    }
+
+
+//----------------------------------------------------------------------------------------------------------------------------------
+//MODIFICACION DEL USUARIO
+
     public void eliminarUsuario(){
         //eliminar el usuario de la tienda, solo elimina los productos existentes del usuario, el usuario en si se elimina desde control de accesos
         for(Producto p: productosOfrecidos){
@@ -83,6 +90,23 @@ public class UsuarioVendedor extends Usuario {
         salir();
     }
 
+//----------------------------------------------------------------------------------------------------------------------------------
+//IMPRESION DE PRODUCTOS, VENTAS Y ORDENES PASADAS
+    //imprime los productos ofrecidos por el vendedor, se ejecuta al iniciar sesion
+    public void imprimirProductosOfrecidos(){
+        if(productosOfrecidos.isEmpty()){
+            Utileria.mensaje("No tienes productos a la venta", Utileria.TipoDeMensaje.INFO);
+        }else{
+            for(Producto p: productosOfrecidos){
+                p.imprimirBasico();
+            }
+        }
+    }
+
+
+
+//----------------------------------------------------------------------------------------------------------------------------------
+//GUARDAR CAMBIOS EN LOS PRODUCTOS, EN EL ARCHIVO DE PRODUCTOS
     public void salir(){//metodo que se ejecuta al cerrar sesion, guarda los cambios de productos y elimina los productos correspondientes en el archivo de la tienda
         tienda.guardarProductosEnArchivo();//guarda los cambios de productos en el archivo de la tienda
     }

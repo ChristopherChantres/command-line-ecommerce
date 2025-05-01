@@ -400,6 +400,7 @@ public class Main {
         // Lógica para agregar un nuevo producto
         // ...
         Utileria.mensaje("Agregando nuevo producto |--|/", Utileria.TipoDeMensaje.INFO);
+        
     }
 
     public static void verMisProductosVendedor() {

@@ -66,7 +66,7 @@ public class AccesoUsuario {
                 String linea= scanner.nextLine();
                 String [] partesEntrada=linea.split(",");
 
-                if(partesEntrada.length==3){//comprueba que el arreglo es de tamano 5, tiene todos los atributos bien
+                if(partesEntrada.length==3){//comprueba que el arreglo es de tamano 3, tiene todos los atributos necesarios
                     int id= Integer.parseInt(partesEntrada[0]);
                     String usuario=partesEntrada[1];
                     String contrasena=partesEntrada[2];
