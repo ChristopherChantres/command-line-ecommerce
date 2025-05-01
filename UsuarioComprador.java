@@ -8,7 +8,7 @@ public class UsuarioComprador extends Usuario {
         super(nombre, contrasena, id);
     }
 
-    public UsuarioComprador(int id,String nombre, String contrasena) {
+    public UsuarioComprador(int id, String nombre, String contrasena) {
         super(nombre, contrasena, id);
     }
 

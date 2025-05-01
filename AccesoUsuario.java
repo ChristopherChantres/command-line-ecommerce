@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,7 +24,7 @@ public class AccesoUsuario {
         this.tipoUsuario = tipoUsuario;
 
         /*
-            Se valida el tiposde suario, si es comprador o vendedor
+            Se valida el tipo de usuario, si es comprador o vendedor
             y se cargan los usuarios al ArrayList desde el archivo correspondiente para poder
             verificar si el usuario existe o no, y posteriormente iniciar sesion
         */
@@ -57,9 +59,9 @@ public class AccesoUsuario {
         }
     }
 
-    public void cargarVendedoresDesdeArchivo(){
+    public void cargarVendedoresDesdeArchivo() {
         try {
-            Scanner scanner=new Scanner(new File("ArchivoVendedores.txt"));
+            Scanner scanner=new Scanner(new File(Utileria.archivoVendedores));
             while(scanner.hasNextLine()){
                 String linea= scanner.nextLine();
                 String [] partesEntrada=linea.split(",");
@@ -71,21 +73,18 @@ public class AccesoUsuario {
                     maxIDVendedor=-max(-maxIDVendedor, -id);
 
                     UsuarioVendedor u=new UsuarioVendedor(id,usuario,contrasena);
-                    
                     vendedores.add(u);
                 }
             }
-            //cerramos el archivo
             scanner.close();
         } catch (FileNotFoundException e){
             Utileria.mensaje("Archivo no encontrado:"+ e.getMessage(), Utileria.TipoDeMensaje.ERROR);
         }
     }
 
-    public void cargarCompradoresDesdeArchivo(){
-        try{
-
-            Scanner scanner=new Scanner(new File("ArchivoCompradores.txt"));
+    public void cargarCompradoresDesdeArchivo() {
+        try {
+            Scanner scanner=new Scanner(new File(Utileria.archivoCompradores));
             while (scanner.hasNextLine()) {
                 String linea= scanner.nextLine();
                 String [] partesEntrada=linea.split(",");
@@ -97,28 +96,39 @@ public class AccesoUsuario {
                     maxIDComprador=max(maxIDComprador, id);
 
                     UsuarioComprador u=new UsuarioComprador(id,usuario,contrasena);
-                    
                     compradores.add(u);
                 }
             }
-
-            //cerramos el archivo
             scanner.close();
         } catch (FileNotFoundException e){
             Utileria.mensaje("Archivo no encontrado:"+ e.getMessage(), Utileria.TipoDeMensaje.ERROR);
         }
     }
 
-    public void agregarComprador(String usuario,String contrasena){
-        maxIDComprador += 1;
-        UsuarioComprador u = new UsuarioComprador(maxIDComprador,usuario,contrasena);
-        compradores.add(u);
+    public boolean registrarComprador(String username, String password) {
+        int ultimoIndice = compradores.size() - 1;
+        int siguienteId = (compradores.isEmpty() ? 1 : compradores.get(ultimoIndice).getId() + 1);
+
+        try (FileWriter w = new FileWriter(Utileria.archivoCompradores, true)) {
+            w.write("\n" + siguienteId + "," + username + "," + password + "\n");
+            return true;
+        } catch (IOException e) {
+            Utileria.mensaje("Error al registrar comprador el archivo: " + e.getMessage(), Utileria.TipoDeMensaje.ERROR);
+            return false;
+        }
     }
 
-    public void agregarVendedor(String usuario,String contrasena){
-        maxIDVendedor -= 1;
-        UsuarioVendedor u = new UsuarioVendedor(maxIDVendedor, usuario, contrasena);
-        vendedores.add(u);
+    public boolean registrarVendedor(String username, String password){
+        int ultimoIndice = vendedores.size() - 1;
+        int siguienteId = (vendedores.isEmpty() ? -1 : vendedores.get(ultimoIndice).getId() - 1);
+
+        try (FileWriter w = new FileWriter(Utileria.archivoVendedores, true)) {
+            w.write("\n" + siguienteId + "," + username + "," + password + "\n");
+            return true;
+        } catch (IOException e) {
+            Utileria.mensaje("Error al registrar vendedor en el archivo: " + e.getMessage(), Utileria.TipoDeMensaje.ERROR);
+            return false;
+        }
     }
 
     //agregar verificacion de usuarios
@@ -152,5 +162,22 @@ public class AccesoUsuario {
 
     public boolean getExisteUsuario() {
         return this.existeUsuario;
+    }
+
+    public boolean getExisteUsuario(String username, String tipoDeUsuario) {
+        if (tipoDeUsuario.equals(Utileria.usuarioComprador)) {
+            for (UsuarioComprador comprador : compradores) {
+                if (comprador.getUsername().equals(username)) {
+                    return true;
+                }
+            }
+        } else if (tipoDeUsuario.equals(Utileria.usuarioVendedor)) {
+            for (UsuarioVendedor vendedor : vendedores) {
+                if (vendedor.getUsername().equals(username)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
