@@ -83,6 +83,8 @@ public class AccesoUsuario {
         vendedores.add(u);
     }
 
+    //agregar verificacion de usuarios
+
     public int max(int a, int b){
         if(a>b)return a;
         return b;

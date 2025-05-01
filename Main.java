@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         String tipoUsuario = obtenerTipoUsuario();
         limpiarConsola();
-
+        
         String username = "";
         boolean tieneCuenta = tieneCuenta();
         if (tieneCuenta) {

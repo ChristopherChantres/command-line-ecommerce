@@ -20,19 +20,33 @@ public class Carrito {//Clase Carrito, que almacena los productos que el comprad
         this.total=0;
     }
 
+    //setter id comprador
     public void setIdComprador(int idComprador){
         this.idComprador=idComprador;
     }
 
+    //setter saldo
     public void setSaldo(double saldoComprador){
         this.saldoComprador=saldoComprador;
     }
 
+    //setter id compra
+    public void setIdCompra(int idCompra){
+        this.idCompra=idCompra;
+    }
+
+    //almacenar el catalogo de productos, es necesario para que el carrito funcione
     public void almacenarCatalogo(ArrayList <Producto> catalogoProductos){
         this.catalogoProductos=catalogoProductos;
     }
 
+    //get de id de la compra
+    public int getIdCompra(){
+        return idCompra;
+    }
 
+
+    //agregar o quitar la cantidad de un producto al carrito
     public void agregarOQuitarCantidadProducto(int id,int cantidad) {
         //comprobar si ya esta en carrito, modificar la cantidad
         boolean yaEnCarrrito=false;
@@ -69,6 +83,7 @@ public class Carrito {//Clase Carrito, que almacena los productos que el comprad
         
     }
 
+    //eliminar en su totalidad un tipo de producto del carrito
     public void eliminarProducto(int id){
         for(int i=0;i<productos_en_carrito.size();i++){
             Producto productoTemporal=productos_en_carrito.get(i);
@@ -80,10 +95,12 @@ public class Carrito {//Clase Carrito, que almacena los productos que el comprad
         }
     }
 
+    //eliminar todos los productos del carrito al terminar la compra
     public void vaciarCarrito(){
         productos_en_carrito.clear();
     }
 
+    //imprimir el carrito producto por producto, si no hay productos, imprimir mensaje de carrito vacio
     public void imprimirCarrito(){
         if(productos_en_carrito.size()==0){
             System.out.println("El carrito está vacío!");
@@ -103,6 +120,8 @@ public class Carrito {//Clase Carrito, que almacena los productos que el comprad
         }
     }
     
+
+    //guardar el carrito en un archivo, se guardara en el formato: id del usuario, id de la compra, total, [Producto1], [Producto2], ... [ProductoN]
     public void guardarEnArchivo() {
         //id del usuario, id de la compra, total, [Producto1], [Producto2], ... [ProductoN]
         //Por cada [Productok] almacenamos idProducto, nombre, cantidad, subtotal
@@ -138,7 +157,7 @@ public class Carrito {//Clase Carrito, que almacena los productos que el comprad
         }
     }
     
-
+    //metodo que se llama al pagar
     public double pagar(int idCompra) {//regresa el saldo restante del comprador
         this.idCompra=idCompra;
     //imprimir carrito
