@@ -142,11 +142,8 @@ public class Carrito {//Clase Carrito, que almacena los productos que el comprad
             String totalString= String.valueOf(total);
             String stringAguardar= idUsuarioString + "," + idCompraString + "," + totalString + ",";
             for(Producto p: productos_en_carrito){
-                String idProductoString= String.valueOf(p.getID());
-                String nombreString= p.getNombre();
-                String cantidadString= String.valueOf(p.getCantidad());
-                String subtotalString= String.valueOf(p.getSubtotal());
-                stringAguardar+= idProductoString + "," + nombreString + "," + cantidadString + "," + subtotalString + ",";
+                //idProducto, nombre, cantidad, subtotal
+                stringAguardar+= p.stringRegistrarProductoEnOrden();
             }
 
             writer.write(stringAguardar + "\n");

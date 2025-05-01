@@ -22,7 +22,9 @@ public class Producto{//Viktor
     public Producto(){
         
     }
-    //metodos set
+
+    //---------------------------------------------------------------------------------------------------------------------
+    //METODOS SETTERS
     public void setID(int id){
         this.id=id;
     }
@@ -43,12 +45,17 @@ public class Producto{//Viktor
         this.cantidad=cantidad;
     }
 
+    public void setId_vendedor(int id_vendedor){
+        this.id_vendedor=id_vendedor;
+    }
+
     public void setPrecioPorSubtotal(double subtotal){
         precio=subtotal/(double)cantidad;
 
     }
 
-    //metodos get
+    //---------------------------------------------------------------------------------------------------------------------
+    //METODOS GETTERS
     public int getID(){
         return id;
     }
@@ -82,7 +89,8 @@ public class Producto{//Viktor
     }
 
 
-
+    //---------------------------------------------------------------------------------------------------------------------
+    //METODOS MODIFICADORES
     public void modificarCantidad(int cantidadModificada){
         //comprobar si despues de la operacion el stock es positivo o cero
         if(stock>= cantidadModificada +cantidad){
@@ -111,7 +119,8 @@ public class Producto{//Viktor
     }
 
 
-
+    //---------------------------------------------------------------------------------------------------------------------
+    //METODOS DE IMPRESION PARA EL COMPRADOR Y EL CARRITO
     //metodo que imprime las caracteristicas completas del producto
     public void imprimirDetalles(){
         //refrescar nombre vendedor
@@ -127,20 +136,48 @@ public class Producto{//Viktor
         System.out.println(id+" "+nombre+" $"+precio);
     }
 
-    public void imprimirParaCarrito(){
+    public void imprimirParaCarrito(){//imprime el producto para retroalimentacion del carrito
         System.out.println("Cantidad: "+cantidad+"  ID: "+id+" "+nombre+" Subtotal $"+subTotal);
     }
 
-    public void imprimirActualizacionProducto(){
+    public void imprimirActualizacionProducto(){//imprime el producto para retroalimentacion del carrito
         System.out.println("Ahora tienes "+cantidad+" unidades del producto "+nombre);
     }
 
-    public void imprimirProductoAgregado(){
+    public void imprimirProductoAgregado(){//imprime el producto gregado al carrito
         System.out.println("Agregaste "+cantidad+" unidades del producto "+nombre);
     }
 
-    public void imprimirEliminarProducto(){
+    public void imprimirEliminarProducto(){//imprime el producto eliminado del carrito
         System.out.println("Eliminaste el producto "+nombre+"con ID: "+id+" del carrito");
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------
+    //METODOS PARA GENERAR REGISTROS
+    //metodo para registrar cada producto del carrito
+    public String stringRegistrarProductoEnOrden(){
+        String idProductoString= String.valueOf(id);
+        String nombreString= nombre;
+        String cantidadString= String.valueOf(cantidad);
+        String subtotalString= String.valueOf(subTotal);
+
+        String stringRetornable=idProductoString + "," + nombreString + "," + cantidadString + "," + subtotalString + ",";
+        return stringRetornable;
+    }
+
+    public String stringRegistrarProductoEnArchivo(){
+        //formato: idProducto, nombre,descripcion, precio, stock, id_vendedor
+        //12,Piguinos,Unos ricos pinguinos,28,10,-4
+        String idProductoString= String.valueOf(id);
+        String nombreString= nombre;
+        String descripcionString= descripcion;
+        String precioString= String.valueOf(precio);
+        String stockString= String.valueOf(stock);
+        String idVendedorString= String.valueOf(id_vendedor);
+
+        String stringRetornable=idProductoString + "," + nombreString + "," +descripcionString+ ","+ precioString + "," + stockString + ","+idVendedorString;
+        return stringRetornable;
+
     }
 
 }

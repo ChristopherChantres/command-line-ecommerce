@@ -1,9 +1,11 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Tienda {
+public class Tienda {//clase que representa la tienda, administra los productos ofrecidos en el catalogo.
     protected ArrayList<Producto> productos= new ArrayList<>();
     protected int idUsuario;
     protected int proximoIdProducto;
@@ -25,7 +27,7 @@ public class Tienda {
                 String linea= scanner.nextLine();
                 String [] partesProducto=linea.split(",");
 
-                if(partesProducto.length==6){//comprueba que el arreglo es de tamano 5, tiene todos los atributos bien
+                if(partesProducto.length==6){//comprueba que el arreglo es de tamano 6, tiene todos los atributos bien
                     int id= Integer.parseInt(partesProducto[0]);
                     String nombre=partesProducto[1];
                     String descripcion=partesProducto[2];
@@ -122,11 +124,61 @@ public class Tienda {
     public void agregarProducto(Producto producto){
         if(producto != null && !productos.contains(producto)){
             productos.add(producto);
+            proximoIdProducto++;//incrementamos el id del proximo producto, para que no se repitan los id
+        }
+    }
+
+    public void agregarStockProducto(int id_producto, int stock){
+        for(Producto p: productos){
+            if(p.getID()==id_producto){
+                p.setStock(p.getStock()+stock);
+                break;
+            }
         }
     }
 
     //metodo para eliminar un producto de la tienda, se ejecuta al eliminar un producto del vendedor
+    public void eliminarProducto(int id_producto){
+        for(Producto p: productos){
+            if(p.getID()==id_producto){
+                productos.remove(p);
+                break;
+            }
+        }
+    }
 
+    //metodo para modificar un producto de la tienda, se ejecuta al modificar un producto del vendedor
+    public void modificarProducto(int id_producto, String nombre, String descripcion, double precio, int stock){
+        for(Producto p: productos){
+            if(p.getID()==id_producto){
+                p.setNombre(nombre);
+                p.setDescripcion(descripcion);
+                p.setPrecio(precio);
+                p.setStock(stock);
+                break;
+            }
+        }
+    }
+
+
+
+    //----------------------------------------------------------------------------------------------------------------------------------
+    //METODO PARA GUARDAR LOS PRODUCTOS EN EL ARCHIVO
 
     //metodo para reescribir el archivo de productos de la tienda, se ejecuta al cerrar sesion, o guardar cambios
+    public void guardarProductosEnArchivo(){
+        //se guarda el archivo de productos, se sobrescribe el archivo
+        //12,Piguinos,Unos ricos pinguinos,28,10,-4
+        try (FileWriter writer = new FileWriter("ArchivoProductos.txt")) {
+
+            //formato: idProducto, nombre,descripcion, precio, stock, id_vendedor
+            for(Producto p: productos){
+                writer.write(p.stringRegistrarProductoEnArchivo() + "\n");
+            }
+            writer.close();
+            System.out.println("Archivo guardado correctamente.");
+        } catch (IOException e) {
+            System.out.println("Error al guardar el archivo: " + e.getMessage());
+        }
+    }
 }

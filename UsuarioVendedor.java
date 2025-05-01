@@ -1,6 +1,4 @@
-import java.util.Random;
-import java.io.FileWriter;
-import java.io.IOException;
+
 import java.util.ArrayList;
 
 public class UsuarioVendedor extends Usuario {
@@ -28,8 +26,9 @@ public class UsuarioVendedor extends Usuario {
     public void eliminarProducto(int id_producto){
         for(Producto p: productosOfrecidos){
             if(p.getID()==id_producto){
-                productosOfrecidos.remove(p);
-                idProductosAEliminar.add(id_producto);//agregamos el id del producto a eliminar al arraylist de productos a eliminar
+                productosOfrecidos.remove(p);//elimina el producto de la lista de productos ofrecidos por el vendedor
+
+                tienda.eliminarProducto(id_producto);//elimina el producto de la tienda
                 break;
             }
         }
@@ -40,16 +39,22 @@ public class UsuarioVendedor extends Usuario {
         //le asignamos el id del vendedor al producto
         if(producto != null && !productosOfrecidos.contains(producto)){
             producto.setID(tienda.getProximoIdProducto());
+            producto.setId_vendedor(super.getId());//le asignamos el id del vendedor al producto
             productosOfrecidos.add(producto);//agrega el producto a la lista de productos ofrecidos por el vendedor
 
             tienda.agregarProducto(producto);//agrega el producto a la tienda
         }
     }
 
+    //agrega el stock de un producto en particular
     public void agregarStockProducto(int id_producto, int stock){
+        //busca el producto en la lista de productos del vendedor
         for(Producto p: productosOfrecidos){
             if(p.getID()==id_producto){
+                //si el producto existe, se le agrega el stock
                 p.setStock(p.getStock()+stock);
+
+                tienda.agregarStockProducto(id_producto, stock);//agrega el stock a la tienda
                 break;
             }
         }
@@ -64,6 +69,7 @@ public class UsuarioVendedor extends Usuario {
                 p.setDescripcion(descripcion);
                 p.setPrecio(precio);
                 p.setStock(stock);
+                tienda.modificarProducto(id_producto, nombre, descripcion, precio, stock);//modifica el producto en la tienda
                 break;
             }
         }
@@ -78,7 +84,7 @@ public class UsuarioVendedor extends Usuario {
     }
 
     public void salir(){//metodo que se ejecuta al cerrar sesion, guarda los cambios de productos y elimina los productos correspondientes en el archivo de la tienda
-
+        tienda.guardarProductosEnArchivo();//guarda los cambios de productos en el archivo de la tienda
     }
 
 
