@@ -1,70 +1,39 @@
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
-    private static final Scanner scanner = new Scanner(System.in); // Scanner global
+    public static final Scanner scanner = new Scanner(System.in); // Scanner global
 
     public static void main(String[] args) {
         String tipoUsuario = obtenerTipoUsuario();
-        limpiarConsola();
-        
-        String username = "";
+        Utileria.limpiarConsola();
         boolean tieneCuenta = tieneCuenta();
+        AccesoUsuario user; // Usado para almacenar el usuario (objeto real)
+        Optional<AccesoUsuario> userLoggedIn; // Usado para almacenar el Opcional(usuario logueado)
+
+        // Iniciar sesión o registrar usuario
         if (tieneCuenta) {
-            username = iniciarSesion(tipoUsuario);
+            userLoggedIn = iniciarSesion(tipoUsuario);
         } else {
             registrarUsuario(tipoUsuario);
-            username = iniciarSesion(tipoUsuario);
+            userLoggedIn = iniciarSesion(tipoUsuario);
+        }
+
+        // Verificar si el usuario se ha logueado correctamente (que el usuario este dentro de un Optional)
+        if (userLoggedIn.isPresent()) {
+            user = userLoggedIn.get(); // Usuario que sera usado en el flujo
+        } else {
+            Utileria.mensaje("Error al iniciar sesión. Saliendo del programa.", Utileria.TipoDeMensaje.ERROR);
+            System.exit(0);
+            return;
         }
 
         // Bifurcación de la lógica según el tipo de usuario
         if (tipoUsuario.equals("comprador")) {
-            // LÓGICA PARA COMPRADORES
-            gestionarFlujoComprador(username);
+            gestionarFlujoComprador(user);
         } else if (tipoUsuario.equals("vendedor")) {
-            // LÓGICA PARA VENDEDORES
-            gestionarFlujoVendedor(username);
+            gestionarFlujoVendedor(user);
         }
-    }
-
-    // -------------------- METODOS DE UTILERIA -------------------- //
-    public static void limpiarConsola() {
-        try {
-            if (System.getProperty("os.name").contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else {
-                new ProcessBuilder("clear").inheritIO().start().waitFor();
-            }
-        } catch (Exception e) {
-            mensaje("No se pudo limpiar la consola: " + e.getMessage(), TipoDeMensaje.INFO);
-        }
-    }
-
-    public enum TipoDeMensaje {
-        ERROR,
-        INFO,
-        EXITO
-    }
-
-    public static void mensaje(String mensaje, TipoDeMensaje tipo) {
-        switch (tipo) {
-            case ERROR:
-                System.out.println("[ERROR]: " + mensaje);
-                break;
-            case INFO:
-                System.out.println("[INFO]: " + mensaje);
-                break;
-            case EXITO:
-                System.out.println("[EXITO]: " + mensaje);
-                break;
-            default:
-                System.out.println(mensaje);
-        }
-    }
-
-    public static void continuarEvento() {
-        System.out.println("Presione Enter para continuar...");
-        scanner.nextLine();
-        limpiarConsola();
     }
 
     // -------------------- METODOS GENERALES -------------------- //
@@ -77,8 +46,8 @@ public class Main {
         System.out.print("Username: ");
         String username = scanner.nextLine();
         if (username.isEmpty()) {
-            mensaje("El username no puede estar vacio.", TipoDeMensaje.ERROR);
-            continuarEvento();
+            Utileria.mensaje("El username no puede estar vacio.", Utileria.TipoDeMensaje.ERROR);
+            Utileria.continuarEvento();
             getDatosDelUsuario(); // Reintentar registro
         }
 
@@ -86,9 +55,9 @@ public class Main {
         System.out.print("Password: ");
         String password = scanner.nextLine();
         if (password.isEmpty()) {
-            mensaje("El password no puede estar vacio.", TipoDeMensaje.ERROR);
-            limpiarConsola();
-            continuarEvento();
+            Utileria.mensaje("El password no puede estar vacio.", Utileria.TipoDeMensaje.ERROR);
+            Utileria.limpiarConsola();
+            Utileria.continuarEvento();
             getDatosDelUsuario(); // Reintentar registro
         }
 
@@ -99,7 +68,7 @@ public class Main {
     }
 
     public static String obtenerTipoUsuario() {
-        limpiarConsola();
+        Utileria.limpiarConsola();
         System.out.println("=================================================");
         System.out.println("              Bienvenido a OnlineDeal           ");
         System.out.println("=================================================");
@@ -113,25 +82,25 @@ public class Main {
         try {
             opcion = Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
-            mensaje("Por favor, ingrese un número válido.", TipoDeMensaje.ERROR);
-            continuarEvento();
+            Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
+            Utileria.continuarEvento();
             obtenerTipoUsuario();
         }
         
         switch (opcion) {
             case 1:
-                return "comprador";
+                return Utileria.usuarioComprador;
             case 2:
-                return "vendedor";
+                return Utileria.usuarioVendedor;
             default:
-                mensaje("Opción no válida. Intente nuevamente.", TipoDeMensaje.ERROR);
-                continuarEvento();
+                Utileria.mensaje("Opción no válida. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
+                Utileria.continuarEvento();
                 return obtenerTipoUsuario();
         }
     }
 
     public static boolean tieneCuenta() {
-        limpiarConsola();
+        Utileria.limpiarConsola();
         // Validar si el usuario tiene una cuenta
         System.out.println("=================================================");
         System.out.println("              Bienvenido a OnlineDeal           ");
@@ -145,8 +114,8 @@ public class Main {
         try {
             opcion = Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
-            mensaje("Por favor, ingrese un número válido.", TipoDeMensaje.ERROR);
-            continuarEvento();
+            Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
+            Utileria.continuarEvento();
             tieneCuenta();
         }
 
@@ -155,38 +124,54 @@ public class Main {
         } else if (opcion == 2) {
             return false; // El usuario no tiene cuenta
         } else {
-            mensaje("Opción no válida. Intente nuevamente.", TipoDeMensaje.ERROR);
-            continuarEvento();
+            Utileria.mensaje("Opción no válida. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
+            Utileria.continuarEvento();
             return tieneCuenta();
         }
     }
 
-    public static String iniciarSesion(String tipoUsuario) {
-        limpiarConsola();
-        System.out.println("=================================================");
-        System.out.println("              Bienvenido a OnlineDeal           ");
-        System.out.println("=================================================");
-        System.out.println("                 Inicio de Sesion                ");
-        System.out.println("-------------------------------------------------");
-        
-        String[] datos_del_usuario = getDatosDelUsuario();
-        String username_login = datos_del_usuario[0];
-        String password_login = datos_del_usuario[1];
+    // Verificar el tipo de retorno de iniciarSesion [bolean o AccesoUsuario]
+    public static Optional<AccesoUsuario> iniciarSesion(String tipoUsuario) {
+        int intentos = 0;
 
-        mensaje("Inicio de sesion satisfactorio.", TipoDeMensaje.EXITO);
-        continuarEvento();
+        while (intentos < 3) {
+            Utileria.limpiarConsola();
+            System.out.println("=================================================");
+            System.out.println("              Bienvenido a OnlineDeal           ");
+            System.out.println("=================================================");
+            System.out.println("                 Inicio de Sesion                ");
+            System.out.println("-------------------------------------------------");
+            
+            String[] datos_del_usuario = getDatosDelUsuario();
+            String username_login = datos_del_usuario[0];
+            String password_login = datos_del_usuario[1];
+    
+            AccesoUsuario accesoUsuario = new AccesoUsuario(username_login, password_login, tipoUsuario);
+            if (accesoUsuario.getExisteUsuario()) {
+                if (tipoUsuario.equals(Utileria.usuarioComprador)) {
+                    // Lógica para el flujo del comprador
+                    Utileria.mensaje("Bienvenido " + username_login, Utileria.TipoDeMensaje.EXITO);
+                    Utileria.continuarEvento();
+                    return Optional.of(accesoUsuario);
+                } else if (tipoUsuario.equals(Utileria.usuarioVendedor)) {
+                    // Lógica para el flujo del vendedor
+                    Utileria.mensaje("Bienvenido " + username_login + " (Perfil de Vendedor)", Utileria.TipoDeMensaje.EXITO);
+                    Utileria.continuarEvento();
+                }
+            } else {
+                Utileria.mensaje("Usuario o contraseña incorrectos. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
+                Utileria.continuarEvento();
+                intentos++;
+            }
+        }
 
-        /*
-
-            Aquí puedes agregar la lógica para verificar el usuario y la contraseña en la base de datos
-        
-        */
-
-        return username_login; // Retorna el username para usarlo en el flujo del comprador o vendedor
+        Utileria.mensaje("Demasiados intentos fallidos. Saliendo del programa por razones de seguridad.", Utileria.TipoDeMensaje.INFO);
+        System.exit(0);
+        return Optional.empty(); // Si no se encuentra el usuario, retornar vacío
     }
 
     public static void registrarUsuario(String tipoUsuario) {
-        limpiarConsola();
+        Utileria.limpiarConsola();
         System.out.println("=================================================");
         System.out.println("              Bienvenido a OnlineDeal           ");
         System.out.println("=================================================");
@@ -197,8 +182,8 @@ public class Main {
         String username_registro = datos_del_usuario[0];
         String password_registro = datos_del_usuario[1];
 
-        mensaje("Usuario registrado correctamente: " + username_registro, TipoDeMensaje.EXITO);
-        continuarEvento();
+        Utileria.mensaje("Usuario registrado correctamente: " + username_registro, Utileria.TipoDeMensaje.EXITO);
+        Utileria.continuarEvento();
         
         /*
 
@@ -225,7 +210,7 @@ public class Main {
     }
 
     // Método para gestionar el flujo del comprador
-    public static void gestionarFlujoComprador(String username) {
+    public static void gestionarFlujoComprador(AccesoUsuario user) {
         boolean salir = false;
         
         while (!salir) {
@@ -235,40 +220,40 @@ public class Main {
             try {
                 opcion = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                mensaje("Por favor, ingrese un número válido.", TipoDeMensaje.ERROR);
-                continuarEvento();
+                Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
+                Utileria.continuarEvento();
                 continue;
             }
             
             switch (opcion) {
                 case 1:
                     // Lógica para Carrito
-                    limpiarConsola();
+                    Utileria.limpiarConsola();
                     carritoDelComprador();
                     break;
                 case 2:
                     // Lógica para Mostrar productos
-                    limpiarConsola();
+                    Utileria.limpiarConsola();
                     mostrarProductosComprador();
                     break;
                 case 3:
                     // Lógica para Pagar
-                    limpiarConsola();
+                    Utileria.limpiarConsola();
                     realizarPagoComprador();
                     break;
                 case 4:
                     // Lógica para Mi cuenta
-                    limpiarConsola();
+                    Utileria.limpiarConsola();
                     consultarMiCuentaComprador();
                     break;
                 case 5:
                     // Salir
-                    mensaje("Gracias por usar OnlineDeal. ¡Hasta pronto!", TipoDeMensaje.EXITO);
+                    Utileria.mensaje("Gracias por usar OnlineDeal. ¡Hasta pronto!", Utileria.TipoDeMensaje.EXITO);
                     salir = true;
                     break;
                 default:
-                    mensaje("Opción no válida. Intente nuevamente.", TipoDeMensaje.ERROR);
-                    continuarEvento();
+                    Utileria.mensaje("Opción no válida. Intente nuevamente.",Utileria.TipoDeMensaje.ERROR);
+                    Utileria.continuarEvento();
             }
         }
     }
@@ -279,8 +264,8 @@ public class Main {
         // Permitir al usuario eliminar productos o proceder a pagar
         // Lógica para gestionar el carrito
         // ...
-        mensaje("Este es el carrito |--|/", TipoDeMensaje.INFO);
-        continuarEvento();
+        Utileria.mensaje("Este es el carrito |--|/", Utileria.TipoDeMensaje.INFO);
+        Utileria.continuarEvento();
     }
 
     public static void mostrarProductosComprador() {
@@ -288,22 +273,22 @@ public class Main {
         // Mostrar los productos al usuario
         // Lógica para mostrar productos
         // ...
-        mensaje("Estos son los productos disponibles |--|/", TipoDeMensaje.INFO);
-        continuarEvento();
+        Utileria.mensaje("Estos son los productos disponibles |--|/", Utileria.TipoDeMensaje.INFO);
+        Utileria.continuarEvento();
     }
 
     public static void realizarPagoComprador() {
         // Lógica para gestionar el pago
         // ...
-        mensaje("Realizando el pago |--|/", TipoDeMensaje.INFO);
-        continuarEvento();
+        Utileria.mensaje("Realizando el pago |--|/", Utileria.TipoDeMensaje.INFO);
+        Utileria.continuarEvento();
     }
 
     public static void consultarMiCuentaComprador() {
         // Lógica para mostrar la cuenta del usuario
         // ...
-        mensaje("Esta es tu cuenta |--|/", TipoDeMensaje.INFO);
-        continuarEvento();
+        Utileria.mensaje("Esta es tu cuenta |--|/", Utileria.TipoDeMensaje.INFO);
+        Utileria.continuarEvento();
     }
 
     // -------------------- METODOS PARA VENDEDOR -------------------- //
@@ -326,7 +311,7 @@ public class Main {
     }
 
     // Método para gestionar el flujo de un vendedor
-    public static void gestionarFlujoVendedor(String username) {
+    public static void gestionarFlujoVendedor(AccesoUsuario user) {
         boolean salir = false;
         
         while (!salir) {
@@ -336,50 +321,50 @@ public class Main {
             try {
                 opcion = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                mensaje("Por favor, ingrese un número válido.", TipoDeMensaje.ERROR);
-                continuarEvento();
+                Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
+                Utileria.continuarEvento();
                 continue;
             }
             
             switch (opcion) {
                 case 1:
                     // Lógica para Agregar nuevo producto
-                    limpiarConsola();
+                    Utileria.limpiarConsola();
                     agregarNuevoProductoVendedor();
-                    continuarEvento();
+                    Utileria.continuarEvento();
                     break;
                 case 2:
                     // Lógica para Ver mis productos
-                    limpiarConsola();
+                    Utileria.limpiarConsola();
                     verMisProductosVendedor();
-                    continuarEvento();
+                    Utileria.continuarEvento();
                     break;
                 case 3:
                     // Lógica para Ver mis ventas
-                    limpiarConsola();
+                    Utileria.limpiarConsola();
                     verMisVentasVendedor();
-                    continuarEvento();
+                    Utileria.continuarEvento();
                     break;
                 case 4:
                     // Lógica para Editar detalles de productos
-                    limpiarConsola();
+                    Utileria.limpiarConsola();
                     editarDetallesProductoVendedor();
-                    continuarEvento();
+                    Utileria.continuarEvento();
                     break;
                 case 5:
                     // Lógica para Mi cuenta
-                    limpiarConsola();
+                    Utileria.limpiarConsola();
                     consultarMiCuentaVendedor();
-                    continuarEvento();
+                    Utileria.continuarEvento();
                     break;
                 case 6:
                     // Salir
-                    mensaje("Gracias por usar OnlineDeal. ¡Hasta pronto!", TipoDeMensaje.EXITO);
+                    Utileria.mensaje("Gracias por usar OnlineDeal. ¡Hasta pronto!", Utileria.TipoDeMensaje.EXITO);
                     salir = true;
                     break;
                 default:
-                    mensaje("Opción no válida. Intente nuevamente.", TipoDeMensaje.ERROR);
-                    continuarEvento();
+                    Utileria.mensaje("Opción no válida. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
+                    Utileria.continuarEvento();
             }
         }
     }
@@ -387,30 +372,30 @@ public class Main {
     public static void agregarNuevoProductoVendedor() {
         // Lógica para agregar un nuevo producto
         // ...
-        mensaje("Agregando nuevo producto |--|/", TipoDeMensaje.INFO);
+        Utileria.mensaje("Agregando nuevo producto |--|/", Utileria.TipoDeMensaje.INFO);
     }
 
     public static void verMisProductosVendedor() {
         // Lógica para ver los productos del vendedor
         // ...
-        mensaje("Estos son tus productos |--|/", TipoDeMensaje.INFO);
+        Utileria.mensaje("Estos son tus productos |--|/", Utileria.TipoDeMensaje.INFO);
     }
 
     public static void verMisVentasVendedor() {
         // Lógica para ver las ventas del vendedor
         // ...
-        mensaje("Estas son tus ventas |--|/", TipoDeMensaje.INFO);
+        Utileria.mensaje("Estas son tus ventas |--|/", Utileria.TipoDeMensaje.INFO);
     }
 
     public static void editarDetallesProductoVendedor() {
         // Lógica para editar los detalles de un producto
         // ...
-        mensaje("Editando detalles del producto |--|/", TipoDeMensaje.INFO);
+        Utileria.mensaje("Editando detalles del producto |--|/", Utileria.TipoDeMensaje.INFO);
     }
 
     public static void consultarMiCuentaVendedor() {
         // Lógica para mostrar la cuenta del vendedor
         // ...
-        mensaje("Esta es tu cuenta |--|/", TipoDeMensaje.INFO);
+        Utileria.mensaje("Esta es tu cuenta |--|/", Utileria.TipoDeMensaje.INFO);
     }
 }

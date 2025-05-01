@@ -1,33 +1,38 @@
 public class Usuario {
-    private String nombre;
-    private String contrasena;
+    private String username;
+    private String password;
     private final int id;
 
     // Constructor
-    public Usuario(String nombre, String contrasena, int id) {
-        this.nombre = nombre;
-        this.contrasena = contrasena;
+    public Usuario(String username, String password, int id) {
+        this.username = username;
+        this.password = password;
         this.id = id;
     }
 
     // Getters
-    public String getNombre() {
-        return nombre;
+    public String getUsername() {
+        return username;
     }
 
-    public String getContrasena() {
-        return contrasena;
+    public String getPassword() {
+        return password;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setContrasena(String contrasena){
-        this.contrasena=contrasena;
+    // Setters
+    public void setPassword(String password){
+        this.password=password;
+    }
+
+    public void setUsername(String username){
+        this.username=username;
     }
 
     public String toString() {
-        return "Nombre: " + nombre + ", ID: " + id;
+        return "username: " + username + ", ID: " + id;
     }
 }

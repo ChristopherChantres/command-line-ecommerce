@@ -12,8 +12,14 @@ public class UsuarioComprador extends Usuario {
         super(nombre, contrasena, id);
     }
 
+    // Getters
+    public double getSaldo() {
+        return this.saldo;
+    }
+
+    // Setters
     public void setSaldo(double saldo){
-        this.saldo=saldo;
+        this.saldo = saldo;
     }
 
     /* 
