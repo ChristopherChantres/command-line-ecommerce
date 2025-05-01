@@ -22,6 +22,31 @@ public class Producto{//Viktor
     public Producto(){
         
     }
+    //metodos set
+    public void setID(int id){
+        this.id=id;
+    }
+    public void setNombre(String nombre){
+        this.nombre=nombre;
+    }
+    public void setDescripcion(String descripcion){
+        this.descripcion=descripcion;
+    }
+    public void setPrecio(double precio){
+        this.precio=precio;
+    }
+    public void setStock(int stock){
+        this.stock=stock;
+    }
+
+    public void setCantidad(int cantidad){
+        this.cantidad=cantidad;
+    }
+
+    public void setPrecioPorSubtotal(double subtotal){
+        precio=subtotal/(double)cantidad;
+
+    }
 
     //metodos get
     public int getID(){
@@ -49,15 +74,6 @@ public class Producto{//Viktor
 
     public int getCantidad(){
         return cantidad;
-    }
-
-    public void setCantidad(int cantidad){
-        this.cantidad=cantidad;
-    }
-
-    public void setPrecioPorSubtotal(double subtotal){
-        precio=subtotal/(double)cantidad;
-
     }
 
     public double getSubtotal(){

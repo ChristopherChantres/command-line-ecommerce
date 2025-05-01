@@ -5,14 +5,18 @@ import java.util.Scanner;
 
 public class Tienda {
     protected ArrayList<Producto> productos= new ArrayList<>();
+    protected int idUsuario;
+    protected int proximoIdProducto;
 
-    
+    //----------------------------------------------------------------------------------------------------------------------------------
+    //INICIALIZACION DE LA TIENDA
+    // Constructor de la clase Tienda, inicializa el ArrayList de productos y carga los productos desde el archivo de productos
     public Tienda(){
         productos=new ArrayList<>();
         cargarProductosDesdeArchivo();
     }
 
-        //metodo que extrae en una arraylist todos los productos de la tienda desde un archivo
+    //metodo que extrae en una arraylist todos los productos de la tienda desde un archivo
     public void cargarProductosDesdeArchivo(){
         try{
 
@@ -31,6 +35,10 @@ public class Tienda {
                     
                     Producto p= new Producto(id, nombre, descripcion, precio, stock,id_vendedor);
                     productos.add(p);
+
+                    if(id>=proximoIdProducto){
+                        proximoIdProducto=id+1;//si el id es mayor al proximo id, lo actualizamos
+                    }
                 }
 
             }
@@ -41,7 +49,10 @@ public class Tienda {
             System.out.println("Archivo no encontrado:"+ e.getMessage());
         }
     }
+    //----------------------------------------------------------------------------------------------------------------------------------
+    //METODOS RELACIONADOS AL COMPRADOR
 
+    //metodo que devuelve la lista de productos de la tienda, se utiliza para que el comprador pueda ver los productos disponibles, y los pueda agregar al carrito
     public ArrayList <Producto> getListaDeProductos(){
         cargarProductosDesdeArchivo();
         return productos;
@@ -67,6 +78,10 @@ public class Tienda {
             p.imprimirDetalles();
         }
     }
+
+
+
+
     
     //devuelve el producto con el ID requerido, aunque cuidado, devuelve un Producto vacio si no encuentra ninguno con el id requerido
     public Producto getProductoConID(int id){
@@ -83,4 +98,35 @@ public class Tienda {
         }
         return productoTemporal;
     }
+
+    //----------------------------------------------------------------------------------------------------------------------------------
+    //METODOS RELACIONADOS AL VENDEDOR
+
+
+    //metodo que devuelve la lista de productos de un vendedor de la tienda
+    public ArrayList <Producto> getProductosOfrecidos(int id_vendedor){
+        ArrayList <Producto> productosVendedor= new ArrayList<>();
+        for(Producto p: productos){
+            if(p.getId_vendedor()==id_vendedor){
+                productosVendedor.add(p);
+            }
+        }
+        return productosVendedor;
+    }
+
+    public int getProximoIdProducto(){
+        return proximoIdProducto;
+    }
+
+    //metodo para agregar un producto a la tienda, se ejecuta al agregar un producto por parte del vendedor
+    public void agregarProducto(Producto producto){
+        if(producto != null && !productos.contains(producto)){
+            productos.add(producto);
+        }
+    }
+
+    //metodo para eliminar un producto de la tienda, se ejecuta al eliminar un producto del vendedor
+
+
+    //metodo para reescribir el archivo de productos de la tienda, se ejecuta al cerrar sesion, o guardar cambios
 }
