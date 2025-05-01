@@ -116,7 +116,7 @@ public class Main {
         } catch (NumberFormatException e) {
             Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
             Utileria.continuarEvento();
-            tieneCuenta();
+            return tieneCuenta();
         }
 
         if (opcion == 1) {
@@ -181,15 +181,15 @@ public class Main {
         String[] datos_del_usuario = getDatosDelUsuario();
         String username_registro = datos_del_usuario[0];
         String password_registro = datos_del_usuario[1];
-
+        /*
+        
+        Aquí puedes agregar el código para insertar el username_registro y password_registro en la base de datos.
+        
+        */
+        
         Utileria.mensaje("Usuario registrado correctamente: " + username_registro, Utileria.TipoDeMensaje.EXITO);
         Utileria.continuarEvento();
         
-        /*
-
-            Aquí puedes agregar el código para insertar el username_registro y password_registro en la base de datos.
-        
-        */
     }
 
     // -------------------- METODOS PARA COMPRADOR  -------------------- //
