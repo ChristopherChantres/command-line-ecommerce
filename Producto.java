@@ -57,30 +57,26 @@ public class Producto{//Viktor
     //---------------------------------------------------------------------------------------------------------------------
     //METODOS GETTERS
     public int getID(){
-        return id;
+        return this.id;
     }
     public String getNombre(){
-        return nombre;
+        return this.nombre;
     }
     public String getDescripcion(){
-        return descripcion;
+        return this.descripcion;
     }
     public double getPrecio(){
-        return precio;
+        return this.precio;
     }
     public int getStock(){
-        return stock;
+        return this.stock;
     }
     public int getId_vendedor(){
-        return id_vendedor;
-    }
-    public double get_subtotal(){
-        subTotal=precio*cantidad;
-        return subTotal;
+        return this.id_vendedor;
     }
 
     public int getCantidad(){
-        return cantidad;
+        return this.cantidad;
     }
 
     public double getSubtotal(){
