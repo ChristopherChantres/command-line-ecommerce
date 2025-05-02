@@ -19,6 +19,15 @@ public class Producto{//Viktor
         //obtener nombre del vendedor a partir de su id
     }
 
+    //Por cada [Productok] almacenamos idProducto, nombre, cantidad, subtotal
+    public Producto(int id, String nombre, int cantidad, double subtotal){//formato para consultar ordenes pasadas y devolver productos
+        this.id=id;
+        this.nombre=nombre;
+        this.cantidad=cantidad;
+        this.subTotal=subtotal;
+        setPrecioPorSubtotal(subtotal);
+    }
+
     public Producto(){
         
     }
