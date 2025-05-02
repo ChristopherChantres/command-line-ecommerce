@@ -9,6 +9,8 @@ public class Main {
         Utileria.limpiarConsola();
         boolean tieneCuenta = tieneCuenta();
         AccesoUsuario user; // Usado para almacenar el usuario (objeto real)
+        UsuarioComprador comprador;
+        UsuarioVendedor vendedor;
         Optional<AccesoUsuario> userLoggedIn; // Usado para almacenar el Opcional(usuario logueado)
 
         // Iniciar sesión o registrar usuario
@@ -29,17 +31,25 @@ public class Main {
         }
 
         // Bifurcación de la lógica según el tipo de usuario
-        if (tipoUsuario.equals("comprador")) {
-            gestionarFlujoComprador(user);
-        } else if (tipoUsuario.equals("vendedor")) {
-            gestionarFlujoVendedor(user);
+        if (tipoUsuario.equals(Utileria.usuarioComprador)) {
+            comprador = user.getUsuarioComprador();
+            gestionarFlujoComprador(comprador); // Comprador
+        } else if (tipoUsuario.equals(Utileria.usuarioVendedor)) {
+            vendedor = user.getUsuarioVendedor();
+            gestionarFlujoVendedor(vendedor); // Vendedor
         }
     }
 
     // -------------------- METODOS GENERALES -------------------- //
 
     // Método para registrar un nuevo usuario
-    public static String[] getDatosDelUsuario() {
+    public static String[] getDatosDelUsuario(String accionEjecutar) {
+        Utileria.limpiarConsola();
+        System.out.println("=================================================");
+        System.out.println("              Bienvenido a OnlineDeal           ");
+        System.out.println("=================================================");
+        System.out.println("                  " + accionEjecutar);
+        System.out.println("-------------------------------------------------");
         String[] datos_del_usuario = new String[2];
 
         // Solicitar el username
@@ -48,7 +58,7 @@ public class Main {
         if (username.isEmpty()) {
             Utileria.mensaje("El username no puede estar vacio.", Utileria.TipoDeMensaje.ERROR);
             Utileria.continuarEvento();
-            getDatosDelUsuario(); // Reintentar registro
+            return getDatosDelUsuario(accionEjecutar); // Reintentar registro
         }
 
         // Solicitar el password
@@ -58,7 +68,7 @@ public class Main {
             Utileria.mensaje("El password no puede estar vacio.", Utileria.TipoDeMensaje.ERROR);
             Utileria.limpiarConsola();
             Utileria.continuarEvento();
-            getDatosDelUsuario(); // Reintentar registro
+            return getDatosDelUsuario(accionEjecutar); // Reintentar registro
         }
 
         // Guardar los datos del usuario en el array
@@ -134,15 +144,8 @@ public class Main {
     public static Optional<AccesoUsuario> iniciarSesion(String tipoUsuario) {
         int intentos = 0;
 
-        while (intentos < 3) {
-            Utileria.limpiarConsola();
-            System.out.println("=================================================");
-            System.out.println("              Bienvenido a OnlineDeal           ");
-            System.out.println("=================================================");
-            System.out.println("                 Inicio de Sesion                ");
-            System.out.println("-------------------------------------------------");
-            
-            String[] datos_del_usuario = getDatosDelUsuario();
+        while (intentos < 3) {            
+            String[] datos_del_usuario = getDatosDelUsuario("Iniciar Sesion");
             String username_login = datos_del_usuario[0];
             String password_login = datos_del_usuario[1];
             AccesoUsuario accesoUsuario = new AccesoUsuario(username_login, password_login, tipoUsuario);
@@ -175,14 +178,7 @@ public class Main {
         int intentos = 0;
 
         while (intentos < 3) {
-            Utileria.limpiarConsola();
-            System.out.println("=================================================");
-            System.out.println("              Bienvenido a OnlineDeal           ");
-            System.out.println("=================================================");
-            System.out.println("                Registro de Usuario              ");
-            System.out.println("-------------------------------------------------");
-            
-            String[] datos_del_usuario = getDatosDelUsuario();
+            String[] datos_del_usuario = getDatosDelUsuario("Registro de Usuario");
             String username_registro = datos_del_usuario[0];
             String password_registro = datos_del_usuario[1];
             AccesoUsuario accesoUsuario = new AccesoUsuario(username_registro, password_registro, tipoUsuario);
@@ -221,11 +217,11 @@ public class Main {
 
     // -------------------- METODOS PARA COMPRADOR  -------------------- //
 
-    public static void mostrarMenuComprador() {
+    public static void mostrarMenuComprador(double saldoActual) {
         System.out.println("=================================================");
         System.out.println("              Bienvenido a OnlineDeal           ");
         System.out.println("=================================================");
-        System.out.println("                     MENU                       ");
+        System.out.println("                     MENU       " + "Saldo: $" + saldoActual);
         System.out.println("-------------------------------------------------");
         System.out.println("|  1. Carrito                                   |");
         System.out.println("|  2. Mostrar productos                         |");
@@ -237,11 +233,12 @@ public class Main {
     }
 
     // Método para gestionar el flujo del comprador
-    public static void gestionarFlujoComprador(AccesoUsuario user) {
+    public static void gestionarFlujoComprador(UsuarioComprador comprador) {
         boolean salir = false;
+        double saldoActual = comprador.getSaldo();
         
         while (!salir) {
-            mostrarMenuComprador();
+            mostrarMenuComprador(saldoActual);
             int opcion = 0;
             
             try {
@@ -338,7 +335,7 @@ public class Main {
     }
 
     // Método para gestionar el flujo de un vendedor
-    public static void gestionarFlujoVendedor(AccesoUsuario user) {
+    public static void gestionarFlujoVendedor(UsuarioVendedor vendedor) {
         boolean salir = false;
         
         while (!salir) {

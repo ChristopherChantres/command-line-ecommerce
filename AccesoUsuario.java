@@ -34,7 +34,8 @@ public class AccesoUsuario {
                 for (int i=0 ; i < compradores.size(); i++){
                     if (compradores.get(i).getUsername().equals(this.username) && compradores.get(i).getPassword().equals(this.password)){
                         // El usuario comprador existe
-                        setUsuarioComprador(usuarioComprador);
+                        int id = compradores.get(i).getId();
+                        this.usuarioComprador = new UsuarioComprador(id, this.username, this.password);
                         setExisteUsuario(true);
                     }
                 }
@@ -47,7 +48,8 @@ public class AccesoUsuario {
                 for (int i=0 ; i < vendedores.size(); i++){
                     if (vendedores.get(i).getUsername().equals(this.username) && vendedores.get(i).getPassword().equals(this.password)){
                         // El usuario vendedor existe
-                        setUsuarioVendedor(usuarioVendedor);
+                        int id = vendedores.get(i).getId();
+                        this.usuarioVendedor = new UsuarioVendedor(id, this.username, this.password);
                         setExisteUsuario(true);
                     }
                 }
@@ -110,7 +112,7 @@ public class AccesoUsuario {
         int siguienteId = (compradores.isEmpty() ? 1 : compradores.get(ultimoIndice).getId() + 1);
 
         try (FileWriter w = new FileWriter(Utileria.archivoCompradores, true)) {
-            w.write("\n" + siguienteId + "," + username + "," + password + "\n");
+            w.write(siguienteId + "," + username + "," + password + "\n");
             return true;
         } catch (IOException e) {
             Utileria.mensaje("Error al registrar comprador el archivo: " + e.getMessage(), Utileria.TipoDeMensaje.ERROR);
@@ -123,7 +125,7 @@ public class AccesoUsuario {
         int siguienteId = (vendedores.isEmpty() ? -1 : vendedores.get(ultimoIndice).getId() - 1);
 
         try (FileWriter w = new FileWriter(Utileria.archivoVendedores, true)) {
-            w.write("\n" + siguienteId + "," + username + "," + password + "\n");
+            w.write(siguienteId + "," + username + "," + password + "\n");
             return true;
         } catch (IOException e) {
             Utileria.mensaje("Error al registrar vendedor en el archivo: " + e.getMessage(), Utileria.TipoDeMensaje.ERROR);
@@ -143,21 +145,13 @@ public class AccesoUsuario {
         this.existeUsuario = existeUsuario;
     }
 
-    private void setUsuarioComprador(UsuarioComprador usuarioComprador) {
-        this.usuarioComprador = usuarioComprador;
-    }
-
-    private void setUsuarioVendedor(UsuarioVendedor usuarioVendedor) {
-        this.usuarioVendedor = usuarioVendedor;
-    }
-
     // ----------------- Getters ----------------- //
     public UsuarioComprador getUsuarioComprador() {
-        return usuarioComprador;
+        return this.usuarioComprador;
     }
 
     public UsuarioVendedor getUsuarioVendedor() {
-        return usuarioVendedor;
+        return this.usuarioVendedor;
     }
 
     public boolean getExisteUsuario() {

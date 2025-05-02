@@ -3,7 +3,6 @@ import java.util.ArrayList;
 
 public class UsuarioVendedor extends Usuario {
     // Constructor
-    private Utileria utileria = new Utileria();
     protected double montoVendido;//almacena el monto total vendido por el vendedor
     protected ArrayList <Producto> productosOfrecidos;//almacena los productos que el vendedor tiene a la venta, el los puede modificar o eliminar
 

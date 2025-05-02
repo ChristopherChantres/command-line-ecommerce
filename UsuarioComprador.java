@@ -1,5 +1,3 @@
-import java.util.Random;
-
 public class UsuarioComprador extends Usuario {
     private double saldo;
 

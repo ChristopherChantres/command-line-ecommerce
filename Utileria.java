@@ -51,4 +51,9 @@ public class Utileria {
         Main.scanner.nextLine();
         limpiarConsola();
     }
+
+    public static void continuarEventoSinLimpiarConsola() {
+        System.out.println("Presione Enter para continuar...");
+        Main.scanner.nextLine();
+    }
 }
