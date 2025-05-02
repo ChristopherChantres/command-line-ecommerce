@@ -140,7 +140,6 @@ public class Main {
         }
     }
 
-    // Verificar el tipo de retorno de iniciarSesion [bolean o AccesoUsuario]
     public static Optional<AccesoUsuario> iniciarSesion(String tipoUsuario) {
         int intentos = 0;
 
@@ -268,7 +267,7 @@ public class Main {
                 case 4:
                     // Lógica para Mi cuenta
                     Utileria.limpiarConsola();
-                    consultarMiCuentaComprador();
+                    consultarMiCuentaComprador(comprador);
                     break;
                 case 5:
                     // Salir
@@ -308,11 +307,80 @@ public class Main {
         Utileria.continuarEvento();
     }
 
-    public static void consultarMiCuentaComprador() {
+    public static void consultarMiCuentaComprador(UsuarioComprador comprador) {
         // Lógica para mostrar la cuenta del usuario
-        // ...
-        Utileria.mensaje("Esta es tu cuenta |--|/", Utileria.TipoDeMensaje.INFO);
-        Utileria.continuarEvento();
+        System.out.println("=================================================");
+        System.out.println("             Mi Cuenta                          ");
+        System.out.println("=================================================");
+        System.out.println("Usuario: " + comprador.getUsername());
+        System.out.println("Contraseña: " + comprador.getPassword());
+        System.out.println("Saldo: $" + comprador.getSaldo());
+        System.out.println("-------------------------------------------------");
+        System.out.println("1. Cambiar contraseña");
+        System.out.println("2. Depositar saldo");
+        System.out.println("3. Salir");
+        System.out.println("-------------------------------------------------");
+        System.out.print("Seleccione una opción: ");
+        int opcion = 0;
+
+        try {
+            opcion = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
+            Utileria.continuarEvento();
+            return;
+        }
+
+        switch (opcion) {
+            case 1:
+                // Lógica para cambiar contraseña
+                System.out.print("Ingrese la nueva contraseña: ");
+                String nuevaPassword = scanner.nextLine();
+
+                if (nuevaPassword.isEmpty()) {
+                    Utileria.mensaje("Contraseña password no puede estar vacía.", Utileria.TipoDeMensaje.ERROR);
+                    Utileria.continuarEvento();
+                    return;
+                }
+
+                boolean passwordCambiada = comprador.setPassword(nuevaPassword);
+                if (passwordCambiada) {
+                    Utileria.mensaje("Contraseña cambiada con éxito.", Utileria.TipoDeMensaje.EXITO);
+                    Utileria.continuarEvento();
+                } else {
+                    Utileria.mensaje("Error al cambiar la contraseña. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
+                    Utileria.continuarEvento();
+                    return;
+                }
+                break;
+            case 2:
+                // Lógica para depositar saldo
+                System.out.print("Ingrese la cantidad a depositar: ");
+                double cantidadADepositar = 0;
+
+                try {
+                    cantidadADepositar = Double.parseDouble(scanner.nextLine());
+                } catch (NumberFormatException e) {
+                    Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
+                    Utileria.continuarEvento();
+                    return;
+                }
+
+                if (cantidadADepositar <= 0) {
+                    Utileria.mensaje("La cantidad a depositar debe ser mayor que cero.", Utileria.TipoDeMensaje.ERROR);
+                    Utileria.continuarEvento();
+                    return;
+                }
+
+                
+                break;
+            case 3:
+                // Salir
+                Utileria.mensaje("Gracias por usar OnlineDeal. ¡Hasta pronto!", Utileria.TipoDeMensaje.EXITO);
+                break;
+            default:
+                Utileria.mensaje("Opción no válida. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
+        }
     }
 
     // -------------------- METODOS PARA VENDEDOR -------------------- //

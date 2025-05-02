@@ -24,8 +24,10 @@ public class Usuario {
     }
 
     // Setters
-    public void setPassword(String password){
+    public boolean setPassword(String password){
+        // Implementar la logica para guaradar el password en el archivo
         this.password=password;
+        return true;
     }
 
     public void setUsername(String username){
