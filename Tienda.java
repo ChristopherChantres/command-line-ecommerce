@@ -22,7 +22,7 @@ public class Tienda {//clase que representa la tienda, administra los productos 
     public void cargarProductosDesdeArchivo(){
         try{
 
-            Scanner scanner=new Scanner(new File("ArchivoProductos.txt"));
+            Scanner scanner=new Scanner(new File(Utileria.archivoProductos));//se abre el archivo de productos
             while(scanner.hasNextLine()){
                 String linea= scanner.nextLine();
                 String [] partesProducto=linea.split(",");
