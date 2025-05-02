@@ -7,7 +7,7 @@ public class UsuarioVendedor extends Usuario {
     protected ArrayList <Producto> productosOfrecidos;//almacena los productos que el vendedor tiene a la venta, el los puede modificar o eliminar
 
     protected ArrayList <Producto> productosVendidos;//almacena los productos de las ordenes pasadas, integrar con CompradorOrdenesPasadas
-    protected Tienda tienda;//accede a la tienda para obtener los productos que tiene a la venta, modificar los productos de la tienda, etc
+    protected TiendaAdministradoraCatalogo tienda;//accede a la tienda para obtener los productos que tiene a la venta, modificar los productos de la tienda, etc
 
     //----------------------------------------------------------------------------------------------------------------------------------
     //INICIALIZACION 

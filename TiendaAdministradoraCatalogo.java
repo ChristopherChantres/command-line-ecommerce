@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Tienda {//clase que representa la tienda, administra los productos ofrecidos en el catalogo.
+public class TiendaAdministradoraCatalogo {//clase que representa la tienda, administra los productos ofrecidos en el catalogo.
     protected ArrayList<Producto> productos= new ArrayList<>();
     protected int idUsuario;
     protected int proximoIdProducto;
@@ -13,7 +13,7 @@ public class Tienda {//clase que representa la tienda, administra los productos 
     //----------------------------------------------------------------------------------------------------------------------------------
     //INICIALIZACION DE LA TIENDA
     // Constructor de la clase Tienda, inicializa el ArrayList de productos y carga los productos desde el archivo de productos
-    public Tienda(){
+    public TiendaAdministradoraCatalogo(){
         productos=new ArrayList<>();
         cargarProductosDesdeArchivo();
     }

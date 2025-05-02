@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 
-public class Devolucion {
+public class Devolucion {//no funciona esta clase, no accede a los archivos correctamente.
     public static void procesarDevolucion() {
         Scanner scanner = new Scanner(System.in);
         
