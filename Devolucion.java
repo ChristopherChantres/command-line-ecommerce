@@ -32,7 +32,7 @@ public class Devolucion {
         }
 
         public static void devolverProductos(String ArchivoCompras, String ArchivoProductos)throws IOException {
-            List<String> productos = Files.readAllLines(Paths.get(ArchivoCompras));
+            List<String> productos = Files.readAll  Lines(Paths.get(ArchivoCompras));
 
             FileWriter fw = new FileWriter(ArchivoCompras, true);
             for (String producto : productos) {
