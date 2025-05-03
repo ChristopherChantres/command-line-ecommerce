@@ -32,10 +32,10 @@ public class TiendaAdministradoraCatalogo {//clase que representa la tienda, adm
                     String nombre=partesProducto[1];
                     String descripcion=partesProducto[2];
                     double precio=Double.parseDouble(partesProducto[3]);
-                    int stock= Integer.parseInt(partesProducto[4]);
-                    int id_vendedor= Integer.parseInt(partesProducto[5]);
+                    int id_vendedor= Integer.parseInt(partesProducto[4]);
+                    //int stock= Integer.parseInt(partesProducto[4]); poda del stock
                     
-                    Producto p= new Producto(id, nombre, descripcion, precio, stock,id_vendedor);
+                    Producto p= new Producto(id, nombre, descripcion, precio,id_vendedor);
                     productos.add(p);
 
                     if(id>=proximoIdProducto){

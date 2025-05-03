@@ -19,6 +19,16 @@ public class Producto{//Viktor
         //obtener nombre del vendedor a partir de su id
     }
 
+    public Producto(int id, String nombre, String descripcion, double precio, int id_vendedor){
+        this.id=id;
+        this.nombre=nombre;
+        this.descripcion=descripcion;
+        this.precio=precio;
+        this.id_vendedor=id_vendedor;
+        cantidad=0;
+        //obtener nombre del vendedor a partir de su id
+    }
+
     //Por cada [Productok] almacenamos idProducto, nombre, cantidad, subtotal
     public Producto(int id, String nombre, int cantidad, double subtotal){//formato para consultar ordenes pasadas y devolver productos
         this.id=id;
@@ -177,10 +187,10 @@ public class Producto{//Viktor
         String nombreString= nombre;
         String descripcionString= descripcion;
         String precioString= String.valueOf(precio);
-        String stockString= String.valueOf(stock);
+        //String stockString= String.valueOf(stock);
         String idVendedorString= String.valueOf(id_vendedor);
 
-        String stringRetornable=idProductoString + "," + nombreString + "," +descripcionString+ ","+ precioString + "," + stockString + ","+idVendedorString;
+        String stringRetornable=idProductoString + "," + nombreString + "," +descripcionString+ ","+ precioString + ","+idVendedorString;
         return stringRetornable;
 
     }

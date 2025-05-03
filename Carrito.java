@@ -155,7 +155,7 @@ public class Carrito {//Clase Carrito, que almacena los productos que el comprad
     }
     
     //metodo que se llama al pagar
-    public double pagar(int idCompra) {//regresa el saldo restante del comprador
+    public double pagar(int idCompra) {// regresa el saldo restante del comprador
         this.idCompra=idCompra;
     //imprimir carrito
     imprimirCarrito();

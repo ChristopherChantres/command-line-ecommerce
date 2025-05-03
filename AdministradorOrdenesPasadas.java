@@ -50,4 +50,7 @@ public class AdministradorOrdenesPasadas {
             System.out.println("Archivo no encontrado: " + e.getMessage());
         }
     }
+
+    //metodo que retroalimenta al vendedor de las ordenes pasadas
+    
 }

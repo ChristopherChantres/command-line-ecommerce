@@ -1,12 +1,12 @@
-1,Pan blanco,Pan blanco artesanal,15,20,-2
+1,Pan blanco,Pan blanco artesanal,15,-2
 2,Leche 1L,Leche entera pasteurizada 1L,25,15,-2
-3,Queso 500g,Queso manchego rallado finamente 500g,50,10,-2
-4,Docena de huevos,Docena de huevos orgánicos traidos de la granja de Juan,40,12,-5
-5,Jugo de naranja 1l,1L de jugo de naranja natural del arbol a tu casa,22,18,-5
-6,Cereal Cheerios,Cereal de avena con miel mezclando una gran combinacion de sabores,35,25,-3
-7,Café 250g,250g de café molido para que disfrutes cada momento de tu dia,60,8,-3
-8,Azúcar 1kg, 1kg de azúcar cuidadosamente refinada,20,30,-2
-9,Sal 500g,500g de fina sal de mar,12,40,-3
-10,Aceite 1L,1L de aceite vegetal bajo en grasas,45,10,-3
-11,Gansito Marinela,Un delicioso gansito marinela,20,15,-4
-12,Piguinos,Unos ricos pinguinos,28,10,-4
+3,Queso 500g,Queso manchego rallado finamente 500g,50,-2
+4,Docena de huevos,Docena de huevos orgánicos traidos de la granja de Juan,40,-5
+5,Jugo de naranja 1l,1L de jugo de naranja natural del arbol a tu casa,22,-5
+6,Cereal Cheerios,Cereal de avena con miel mezclando una gran combinacion de sabores,35,-3
+7,Café 250g,250g de café molido para que disfrutes cada momento de tu dia,60,-3
+8,Azúcar 1kg, 1kg de azúcar cuidadosamente refinada,20,-2
+9,Sal 500g,500g de fina sal de mar,12,-3
+10,Aceite 1L,1L de aceite vegetal bajo en grasas,45,-3
+11,Gansito Marinela,Un delicioso gansito marinela,20,-4
+12,Piguinos,Unos ricos pinguinos,28,-4
