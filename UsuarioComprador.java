@@ -70,8 +70,8 @@ public class UsuarioComprador extends Usuario {
         }
     }
 
-    public boolean devolverOrdenPasada(int idOrden, int idComprador) {
-        if (this.administradorOrdenesPasadas.devolverCompra(idOrden, idComprador)) {
+    public boolean devolverOrdenPasada(int idOrden) {
+        if (this.administradorOrdenesPasadas.devolverCompra(idOrden, super.getId())) {
             return true;
         } else {
             return false;
