@@ -1,9 +1,6 @@
 1,JuanGamer,NoSoyJuan
 2,ChrisPericos,Contrasena
-<<<<<<< Updated upstream
-=======
 3,FerHashBull,123
->>>>>>> Stashed changes
 4,SebasGansito,12345678
 5,Vikce,Qwerty
 6,usuario,123456
