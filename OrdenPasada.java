@@ -40,8 +40,8 @@ public class OrdenPasada {
     }
 
     public void imprimirOrden() {
-        System.out.println("Orden ID: " + idOrden);
-        System.out.println("Comprador ID: " + idComprador);
+        System.out.println("ID de compra: " + idOrden);
+        //System.out.println("Comprador ID: " + idComprador);
         System.out.println("Total: " + total);
         System.out.println("Productos comprados:");
         for (Producto producto : productosComprados) {

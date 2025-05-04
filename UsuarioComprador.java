@@ -2,6 +2,7 @@ public class UsuarioComprador extends Usuario {
     private double saldo;
     private Carrito carrito;
     private TiendaAdministradoraCatalogo tienda;
+    private AdministradorOrdenesPasadas administradorOrdenesPasadas; // Instancia del administrador de ordenes pasadas
 
     // Constructor
     public UsuarioComprador(int idUsuario,String username, String password, int saldo) {
@@ -10,6 +11,7 @@ public class UsuarioComprador extends Usuario {
         // ******** Implementar la logica para generar el id de compra ******** //
         this.carrito = new Carrito(idUsuario);
         this.tienda = new TiendaAdministradoraCatalogo();
+        this.administradorOrdenesPasadas = new AdministradorOrdenesPasadas();
     }
 
     public UsuarioComprador(int idUsuario, String usernmae, String contrasena) {
@@ -54,6 +56,26 @@ public class UsuarioComprador extends Usuario {
     public boolean setSaldo(double saldo){
         this.saldo = saldo;
         return true;
+    }
+
+
+    //-----------------------------------------------------------------------------------------------
+    // MANEJO DE ORDENES PASADAS
+
+    public boolean imprimirOrdenesPasadas() {
+        if (this.administradorOrdenesPasadas.imprimirOrdenesPasadas(super.getId())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean devolverOrdenPasada(int idOrden, int idComprador) {
+        if (this.administradorOrdenesPasadas.devolverCompra(idOrden, idComprador)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /* 

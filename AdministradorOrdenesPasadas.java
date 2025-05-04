@@ -83,14 +83,17 @@ public class AdministradorOrdenesPasadas {
     }
 
     //metodo que da al usuario la lista de ordenes pasadas
-    public ArrayList<OrdenPasada> getOrdenesPasadas(int idComprador) {
-        ArrayList<OrdenPasada> ordenesDelComprador = new ArrayList<OrdenPasada>(); // Almacena las ordenes del comprador
+    public boolean imprimirOrdenesPasadas(int idComprador) {
+        //ArrayList<OrdenPasada> ordenesDelComprador = new ArrayList<OrdenPasada>(); // Almacena las ordenes del comprador
+        boolean ordenesDelComprador = false; // Variable que indica si el comprador tiene ordenes pasadas que se imprimieron
+        System.out.println("Las ordenes pasadas del comprador con ID: " + idComprador);
         for (OrdenPasada orden : ordenesPasadas) { // Recorre todas las ordenes pasadas
             if (orden.getIdComprador() == idComprador) { // Si la orden es del comprador
-                ordenesDelComprador.add(orden); // Agrega la orden a la lista de ordenes del comprador
+                orden.imprimirOrden(); // Imprime la orden
+                ordenesDelComprador = true; // Cambia la variable a true
             }
         }
-        return ordenesDelComprador; // Devuelve la lista de ordenes del comprador
+        return ordenesDelComprador; // Devuelve si se imprimieron ordenes del comprador
     }
 
     //devolver compra
@@ -98,11 +101,12 @@ public class AdministradorOrdenesPasadas {
         boolean seDevolvio = false; // Variable que indica si se devolvió la compra
         for (OrdenPasada orden : ordenesPasadas) { // Recorre todas las ordenes pasadas
             if (orden.getIdOrden() == idCompra && orden.getIdComprador() == idComprador) { // Si la orden es del comprador
+                System.out.println("Se devolvió la compra con ID: " + idCompra + " del comprador con ID: " + idComprador);
+                orden.imprimirOrden(); // Imprime la orden
                 ordenesPasadas.remove(orden); // Elimina la orden de la lista de ordenes pasadas
                 guardarOrdenesEnArchivo();// Guarda las ordenes en el archivo
                 seDevolvio = true; // Cambia la variable a true
                 return seDevolvio; // Devuelve true, se devolvio la compra
-
             }
         }
 
