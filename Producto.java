@@ -100,7 +100,7 @@ public class Producto{//Viktor
     }
 
     public double getSubtotal(){
-        subTotal=precio*cantidad;
+        this.subTotal=this.precio*this.cantidad;
         return subTotal;
     }
 
@@ -116,11 +116,12 @@ public class Producto{//Viktor
             cantidad=stock;
         }
         */
-        cantidad+=cantidadModificada;
-        if(cantidad<0){
-            cantidad=0;
+        this.cantidad+=cantidadModificada;
+        if(this.cantidad<0){
+            this.cantidad=0;
         }
         //cantidad mayor o igual a cero
+        this.subTotal=(this.precio)*(double)(this.cantidad);//actualiza el subtotal
     }
 
     public void restarDelStock(){

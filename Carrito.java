@@ -10,25 +10,33 @@ public class Carrito {
     private int idCompra;
     private int idComprador;
     private double saldoComprador;
+    private TiendaAdministradoraCatalogo tienda;
+    /*
     public Carrito(int idComprador, double saldoComprador, int idCompra) { 
         this.idComprador=idComprador;
         this.saldoComprador=saldoComprador;
         this.idCompra=idCompra;
 
         //inicializamos arreglo el carrito
-        productos_en_carrito = new ArrayList <Producto>();
-        catalogoProductos= new ArrayList <Producto>();
+        this.productos_en_carrito = new ArrayList <Producto>();
+        this.catalogoProductos= tienda.getListaDeProductos();
         this.total=0;
+        //almacenar el catalogo de productos, es necesario para que el carrito funcione
+        tienda= new TiendaAdministradoraCatalogo();
     }
+         */
 
     public Carrito(int idComprador, int idCompra) { 
         this.idComprador=idComprador;
         this.idCompra=idCompra;
 
         //inicializamos arreglo el carrito
-        productos_en_carrito = new ArrayList <Producto>();
-        catalogoProductos= new ArrayList <Producto>();
+        tienda= new TiendaAdministradoraCatalogo();
+        this.productos_en_carrito = new ArrayList <Producto>();
+        this.catalogoProductos= tienda.getListaDeProductos();
         this.total=0;
+        //almacenar el catalogo de productos, es necesario para que el carrito funcione
+
     }
 
     //setter id comprador
@@ -47,9 +55,12 @@ public class Carrito {
     }
 
     //almacenar el catalogo de productos, es necesario para que el carrito funcione
-    public void almacenarCatalogo(ArrayList <Producto> catalogoProductos){
-        this.catalogoProductos=catalogoProductos;
+    /* 
+    public void almacenarCatalogo(){
+        this.catalogoProductos=tienda.getListaDeProductos();
     }
+    */
+
 
     //get de id de la compra
     public int getIdCompra(){

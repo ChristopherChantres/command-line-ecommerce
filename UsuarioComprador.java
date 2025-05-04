@@ -8,14 +8,14 @@ public class UsuarioComprador extends Usuario {
         super(username, password, idUsuario);
         this.saldo = saldo;
         // ******** Implementar la logica para generar el id de compra ******** //
-        this.carrito = new Carrito(idUsuario, idUsuario, 1);
+        this.carrito = new Carrito(idUsuario, idUsuario);
         this.tienda = new TiendaAdministradoraCatalogo();
     }
 
     public UsuarioComprador(int idUsuario, String usernmae, String contrasena) {
         super(usernmae, contrasena, idUsuario);
         // ******** Implementar la logica para generar el id de compra ******** //
-        this.carrito = new Carrito(idUsuario, idUsuario, 1);
+        this.carrito = new Carrito(idUsuario, idUsuario);
         this.tienda = new TiendaAdministradoraCatalogo();
     }
 
