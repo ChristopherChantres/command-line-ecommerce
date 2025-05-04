@@ -13,6 +13,7 @@ public class AccesoUsuario {
     private String username;
     private String password;
     private String tipoUsuario;
+    private int idUsuario;
     private boolean existeUsuario = false;
     protected UsuarioComprador usuarioComprador;
     protected UsuarioVendedor usuarioVendedor;
@@ -34,8 +35,8 @@ public class AccesoUsuario {
                 for (int i=0 ; i < compradores.size(); i++){
                     if (compradores.get(i).getUsername().equals(this.username) && compradores.get(i).getPassword().equals(this.password)){
                         // El usuario comprador existe
-                        int id = compradores.get(i).getId();
-                        this.usuarioComprador = new UsuarioComprador(id, this.username, this.password);
+                        idUsuario = compradores.get(i).getId();
+                        this.usuarioComprador = new UsuarioComprador(idUsuario, this.username, this.password);
                         setExisteUsuario(true);
                     }
                 }
@@ -48,8 +49,8 @@ public class AccesoUsuario {
                 for (int i=0 ; i < vendedores.size(); i++){
                     if (vendedores.get(i).getUsername().equals(this.username) && vendedores.get(i).getPassword().equals(this.password)){
                         // El usuario vendedor existe
-                        int id = vendedores.get(i).getId();
-                        this.usuarioVendedor = new UsuarioVendedor(id, this.username, this.password);
+                        idUsuario= vendedores.get(i).getId();
+                        this.usuarioVendedor = new UsuarioVendedor(idUsuario, this.username, this.password);
                         setExisteUsuario(true);
                     }
                 }
@@ -131,6 +132,22 @@ public class AccesoUsuario {
             Utileria.mensaje("Error al registrar vendedor en el archivo: " + e.getMessage(), Utileria.TipoDeMensaje.ERROR);
             return false;
         }
+    }
+
+    public boolean cambiarContrasenaComprador(int id, String password) {
+        for (UsuarioComprador comprador : compradores) {
+            if (comprador.getId()==id) {
+                comprador.setPassword(password);
+                try (FileWriter w = new FileWriter(Utileria.archivoCompradores, true)) {
+                    w.write(comprador.getId() + "," + comprador.getUsername() + "," + comprador.getPassword() + "\n");
+                    return true;
+                } catch (IOException e) {
+                    Utileria.mensaje("Error al cambiar la contraseña del comprador en el archivo: " + e.getMessage(), Utileria.TipoDeMensaje.ERROR);
+                    return false;
+                }
+            }
+        }
+        return false;
     }
 
     //agregar verificacion de usuarios

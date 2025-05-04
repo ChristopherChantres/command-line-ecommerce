@@ -87,6 +87,7 @@ public class UsuarioVendedor extends Usuario {
         for(Producto p: productosOfrecidos){
             eliminarProducto(p.getID());
         }
+        //eliminar usuario con acceso USUARIOS
         salir();
     }
 
