@@ -474,6 +474,7 @@ public class Main {
                         boolean pagoExitoso = comprador.getCarrito().ordenar();
                         if (pagoExitoso) {
                             Utileria.mensaje("Pago realizado con éxito." + comprador.getSaldo(), Utileria.TipoDeMensaje.EXITO);
+                            Utileria.continuarEvento();
                         } else {
                             Utileria.mensaje("Error al realizar el pago. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
                             Utileria.continuarEvento();
