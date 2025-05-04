@@ -99,8 +99,8 @@ public class Carrito {
         for(int i=0;i<productos_en_carrito.size();i++){
             Producto productoTemporal=productos_en_carrito.get(i);
             if(productoTemporal.getID()==id){
-                productoTemporal.imprimirEliminarProducto();
                 productos_en_carrito.remove(i);
+                productoTemporal.imprimirEliminarProducto();
                 break;
             }
         }
@@ -114,7 +114,7 @@ public class Carrito {
     //imprimir el carrito producto por producto, si no hay productos, imprimir mensaje de carrito vacio
     public void imprimirCarrito(){
         if(productos_en_carrito.size()==0){
-            System.out.println("El carrito está vacío!");
+            Utileria.mensaje("El carrito está vacío!", Utileria.TipoDeMensaje.INFO);
         }else{
             total=0;
             System.out.println("");

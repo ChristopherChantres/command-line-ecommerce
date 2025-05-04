@@ -14,7 +14,7 @@ public class TiendaAdministradoraCatalogo {//clase que representa la tienda, adm
     //INICIALIZACION DE LA TIENDA
     // Constructor de la clase Tienda, inicializa el ArrayList de productos y carga los productos desde el archivo de productos
     public TiendaAdministradoraCatalogo(){
-        productos=new ArrayList<>();
+        productos=new ArrayList<Producto>();
         cargarProductosDesdeArchivo();
     }
 
@@ -27,7 +27,9 @@ public class TiendaAdministradoraCatalogo {//clase que representa la tienda, adm
                 String linea= scanner.nextLine();
                 String [] partesProducto=linea.split(",");
 
-                if(partesProducto.length==6){//comprueba que el arreglo es de tamano 6, tiene todos los atributos bien
+                // 1,Pan blanco,Pan blanco artesanal,15,-2
+                // ID, nombre, descripcion, precio, stock, id_vendedor
+                if(partesProducto.length==5){//comprueba que el arreglo es de tamano 6, tiene todos los atributos bien
                     int id= Integer.parseInt(partesProducto[0]);
                     String nombre=partesProducto[1];
                     String descripcion=partesProducto[2];

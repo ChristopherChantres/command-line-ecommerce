@@ -141,7 +141,8 @@ public class Producto{//Viktor
     public void imprimirDetalles(){
         //refrescar nombre vendedor
         System.out.println("ID: "+id+" "+nombre+" \t$"+precio);
-        System.out.println(" \tNombre del vendedor:"+nombreVendedor);
+        System.out.println(" \tID del Vendedor:" + this.id_vendedor);
+        // System.out.println(" \tNombre del vendedor:"+nombreVendedor);
         //System.out.println(" \tDisponibilidad de: "+stock+" Piezas");
         System.out.println(" \tDescripcion: "+descripcion);
     }
