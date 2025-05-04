@@ -168,7 +168,7 @@ public class TiendaAdministradoraCatalogo {//clase que representa la tienda, adm
     public void guardarProductosEnArchivo(){
         //se guarda el archivo de productos, se sobrescribe el archivo
         //12,Piguinos,Unos ricos pinguinos,28,10,-4
-        try (FileWriter writer = new FileWriter("ArchivoProductos.txt")) {
+        try (FileWriter writer = new FileWriter(Utileria.archivoProductos)) {
 
             //formato: idProducto, nombre,descripcion, precio, stock, id_vendedor
             for(Producto p: productos){

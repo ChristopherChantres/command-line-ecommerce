@@ -340,7 +340,7 @@ public class Main {
                 case 2:
                     // Lógica para vaciar el carrito
                     comprador.vaciarCarrito();
-                    Utileria.mensaje("Carrito vaciado con éxito.", Utileria.TipoDeMensaje.EXITO);
+                    Utileria.mensaje("Carrito vaciado.", Utileria.TipoDeMensaje.EXITO);
                     Utileria.continuarEvento();
                     break;
                 case 3:

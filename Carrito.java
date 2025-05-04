@@ -130,12 +130,11 @@ public class Carrito {
         }else{
             total=0;
             System.out.println("");
-            System.out.println("Carrito:");
             for(Producto p: productos_en_carrito){
                 p.imprimirParaCarrito();
                 total+=p.getSubtotal();
             }
-            System.out.println("Total: " + total);
+            System.out.println("Total: $" + total);
             //System.out.println("Saldo disponible: " + saldoComprador);
             /*
             if(saldoComprador<total){
