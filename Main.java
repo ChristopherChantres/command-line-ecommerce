@@ -291,8 +291,79 @@ public class Main {
     }
 
     public static void mostrarProductosComprador(UsuarioComprador comprador) {
-        comprador.mostrarProductosDeLaTienda();
-        Utileria.continuarEvento();
+        boolean salirDeProductos = false;
+
+        while (!salirDeProductos) {
+            // Limpiar la pantalla para mostrar información actualizada
+            Utileria.limpiarConsola();
+            
+            // Lógica para mostrar
+            System.out.println("=================================================");
+            System.out.println("             Productos Disponibles               ");
+            System.out.println("=================================================");
+        
+            comprador.mostrarProductosDeLaTienda();
+            System.out.println("-------------------------------------------------");
+            System.out.println("1. Agregar producto al carrito");
+            System.out.println("2. Regresar");
+    
+            int opcion = 0;
+            System.out.print("Seleccione una opción: ");
+            try {
+                opcion = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
+                Utileria.continuarEvento();
+                return; // Salir del método
+            }
+    
+            switch (opcion) {
+                case 1:
+                    // Lógica para agregar producto al carrito
+                    System.out.print("Ingrese el ID del producto a agregar: ");
+                    int idProducto = 0;
+                    try {
+                        idProducto = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
+                        Utileria.continuarEvento();
+                        continue;
+                    }
+                    
+                    System.out.print("Ingrese la cantidad a agregar (positivo) o quitar (negativo): ");
+                    int cantidad = 0;
+                    try {
+                        cantidad = Integer.parseInt(scanner.nextLine());
+                        if (cantidad == 0) {
+                            Utileria.mensaje("La cantidad no puede ser cero.", Utileria.TipoDeMensaje.ERROR);
+                            Utileria.continuarEvento();
+                            continue; // Salir del método
+                        }
+                    } catch (NumberFormatException e) {
+                        Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
+                        Utileria.continuarEvento();
+                        continue; // Salir del método
+                    }
+
+                    comprador.agregarProductoOQuitarDelCarrito(idProducto, cantidad);
+                    if (cantidad > 0) {
+                        Utileria.mensaje("Producto agregado al carrito con éxito.", Utileria.TipoDeMensaje.EXITO);
+                        Utileria.continuarEvento();
+                    } else {
+                        Utileria.mensaje("Producto eliminado del carrito con éxito.", Utileria.TipoDeMensaje.EXITO);
+                        Utileria.continuarEvento();
+                    }
+                    break;
+                case 2:
+                    // Regresar
+                    salirDeProductos = true;
+                    break;
+                default:
+                    Utileria.mensaje("Opción no válida. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
+                    break;
+            }
+        }
+        Utileria.limpiarConsola();
     }
 
     public static void realizarPagoComprador(UsuarioComprador comprador) {

@@ -75,9 +75,6 @@ public class TiendaAdministradoraCatalogo {//clase que representa la tienda, adm
 
     //imprime todo de cada producto, incluyendo nombre, descripcion, stock...
     public void impirmirCatalogoConDetalles(){
-
-        System.out.println("---------------------------------------------------------------");//separador
-        System.out.println("El catalogo detallado de la tienda es el siguiente: ");
         for(Producto p: productos){
             p.imprimirDetalles();
         }

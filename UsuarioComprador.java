@@ -29,7 +29,7 @@ public class UsuarioComprador extends Usuario {
     }
 
     // Metodos
-    public void agregarProductoAlCarrito(int idProducto, int cantidad) {
+    public void agregarProductoOQuitarDelCarrito(int idProducto, int cantidad) {
         this.carrito.agregarOQuitarCantidadProducto(idProducto, cantidad);
     }
     
