@@ -9,7 +9,8 @@ public class Test {
         usuario.mostrarProductosDeLaTienda();
         UsuarioVendedor vendedor=new UsuarioVendedor(-2,"chris","Contrasena");
         vendedor.imprimirVentas();
-        AccesoUsuario acceso=new AccesoUsuario("SebasGansito","12345678",Utileria.TipoDeUsuario.Comprador);
+        AccesoUsuario acceso=new AccesoUsuario("SebasGansito","12345678",Utileria.usuarioComprador);
+        acceso.
 
 
         //tienda.impirmirCatalogoConDetalles();

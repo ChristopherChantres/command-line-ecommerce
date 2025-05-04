@@ -539,10 +539,11 @@ public class Main {
                         continue;
                     }
                     
-                    AccesoUsuario accesoUsuario = new AccesoUsuario(comprador.getUsername(), nuevaPassword, Utileria.usuarioComprador);
+                    AccesoUsuario accesoUsuario = new AccesoUsuario(comprador.getUsername(), comprador.getPassword(), Utileria.usuarioComprador);
                     boolean passwordCambiada = accesoUsuario.cambiarPassword(nuevaPassword);
                     if (passwordCambiada) {
                         Utileria.mensaje("Contraseña cambiada con éxito.", Utileria.TipoDeMensaje.EXITO);
+                        comprador.setPassword(nuevaPassword); // Actualizar la contraseña en el objeto UsuarioComprador
                         Utileria.continuarEvento();
                     } else {
                         Utileria.mensaje("Error al cambiar la contraseña. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
