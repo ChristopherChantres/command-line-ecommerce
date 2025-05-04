@@ -165,7 +165,7 @@ public class Producto{//Viktor
     }
 
     public void imprimirProductoAgregado(){//imprime el producto gregado al carrito
-        System.out.println("Agregaste "+cantidad+" unidades del producto "+nombre);
+        Utileria.mensaje("Agregaste "+cantidad+" unidades del producto "+nombre, Utileria.TipoDeMensaje.EXITO);
     }
 
     public void imprimirEliminarProducto(){//imprime el producto eliminado del carrito

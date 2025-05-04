@@ -426,6 +426,7 @@ public class Main {
                     break;
                 default:
                     Utileria.mensaje("Opción no válida. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
+                    Utileria.continuarEvento();
                     break;
             }
         }
