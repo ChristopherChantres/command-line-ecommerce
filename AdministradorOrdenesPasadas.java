@@ -8,12 +8,13 @@ import java.util.Scanner;
 public class AdministradorOrdenesPasadas {
     private ArrayList<OrdenPasada> ordenesPasadas = new ArrayList<>(); // Almacena las ordenes pasadas
     private int sigIdCompra;
-
+//-----------------------------------------------------------------------------------------------------------------------
+// Constructor de la clase Administrador de Ordenes Pasadas
     AdministradorOrdenesPasadas() {
         cargarOrdenesDesdeArchivo(); // Carga las ordenes desde el archivo al iniciar la clase
     }
+    
     // Carga las ordenes desde el archivo
-
     public void cargarOrdenesDesdeArchivo() {
         try {
             Scanner scanner = new Scanner(new File(Utileria.archivoCompras)); // Abre el archivo de ordenes pasadas
@@ -52,10 +53,30 @@ public class AdministradorOrdenesPasadas {
             }
             scanner.close(); // Cierra el archivo
         } catch (FileNotFoundException e) {
-            System.out.println("Archivo no encontrado: " + e.getMessage());
+            Utileria.mensaje("Archivo no encontrado: " + e.getMessage(), Utileria.TipoDeMensaje.ERROR); // Muestra un mensaje de error
         }
     }
 
+    //Volver a registrar las ordenes pasadas en el archivo
+    public void guardarOrdenesEnArchivo() {
+        try {
+            FileWriter writer = new FileWriter(Utileria.archivoCompras); // Abre el archivo de ordenes pasadas
+            for (OrdenPasada orden : ordenesPasadas) { // Recorre todas las ordenes pasadas
+                writer.write(orden.getIdComprador() + "," + orden.getIdOrden() + "," + orden.getTotal() + ","); // Escribe el id del comprador, id de la compra y total
+                for (Producto producto : orden.getProductosComprados()) { // Recorre todos los productos de la orden
+                    writer.write(producto.stringRegistrarProductoEnOrden()); // Escribe el id del producto, nombre, id del vendedor, cantidad y subtotal
+                }
+                writer.write("\n"); // Salto de linea
+            }
+            writer.close(); // Cierra el archivo
+        } catch (IOException e) {
+            Utileria.mensaje("Error al guardar las ordenes en el archivo: " + e.getMessage(), Utileria.TipoDeMensaje.ERROR); // Muestra un mensaje de error
+        }
+    }
+
+
+//-----------------------------------------------------------------------------------------------------------------------
+//COMPRADOR
     //get id compra
     public int getSigIdCompra() {
         return sigIdCompra; // Devuelve el siguiente id de compra
@@ -72,6 +93,24 @@ public class AdministradorOrdenesPasadas {
         return ordenesDelComprador; // Devuelve la lista de ordenes del comprador
     }
 
+    //devolver compra
+    public boolean devolverCompra(int idCompra, int idComprador) {
+        boolean seDevolvio = false; // Variable que indica si se devolvió la compra
+        for (OrdenPasada orden : ordenesPasadas) { // Recorre todas las ordenes pasadas
+            if (orden.getIdOrden() == idCompra && orden.getIdComprador() == idComprador) { // Si la orden es del comprador
+                ordenesPasadas.remove(orden); // Elimina la orden de la lista de ordenes pasadas
+                guardarOrdenesEnArchivo();// Guarda las ordenes en el archivo
+                seDevolvio = true; // Cambia la variable a true
+                return seDevolvio; // Devuelve true, se devolvio la compra
+
+            }
+        }
+
+
+        return seDevolvio; // Si no se encuentra la orden, devuelve false
+    }
+//-----------------------------------------------------------------------------------------------------------------------
+//VENDEDOR
     //metodo que retroalimenta al vendedor de las ordenes pasadas
     public ArrayList <Producto> ordenesPasadasVendedor(int idVendedor) {
         ArrayList<Producto> productosVendidos = new ArrayList<Producto>(); // Almacena los productos del vendedor
