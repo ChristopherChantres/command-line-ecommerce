@@ -358,11 +358,7 @@ public class Main {
             // Limpiar la pantalla para mostrar información actualizada
             Utileria.limpiarConsola();
             
-            // Lógica para mostrar
-            System.out.println("=================================================");
-            System.out.println("             Productos Disponibles               ");
-            System.out.println("=================================================");
-        
+            // Lógica para mostrar        
             comprador.mostrarProductosDeLaTienda();
             System.out.println("-------------------------------------------------");
             System.out.println("1. Agregar producto al carrito");
@@ -512,7 +508,8 @@ public class Main {
             System.out.println("-------------------------------------------------");
             System.out.println("1. Cambiar contraseña");
             System.out.println("2. Depositar saldo");
-            System.out.println("3. Regresar");
+            System.out.println("3. Ver mis compras");
+            System.out.println("4. Regresar");
             System.out.println("-------------------------------------------------");
             System.out.print("Seleccione una opción: ");
             int opcion = 0;
@@ -579,16 +576,29 @@ public class Main {
                     break;
                     
                 case 3:
+                    mostrarComprasComprador(comprador);
+                    break;
+                
+                case 4:
                     salirDeCuenta = true; // Establecer la bandera para salir del bucle
                     Utileria.limpiarConsola();
                     break;
-                    
                 default:
                     Utileria.mensaje("Opción no válida. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
                     Utileria.continuarEvento();
                     break;
             }
         }
+    }
+
+    public static void mostrarComprasComprador(UsuarioComprador comprador) {
+        // Lógica para ver mis compras
+        Utileria.limpiarConsola();
+        System.out.println("=================================================");
+        System.out.println("             Mis Compras                        ");
+        System.out.println("=================================================");
+        // comprador.mostrarCompras(); // Método para mostrar las compras del comprador
+        Utileria.continuarEvento();
     }
 
     // -------------------- METODOS PARA VENDEDOR -------------------- //

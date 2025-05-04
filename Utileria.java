@@ -56,4 +56,15 @@ public class Utileria {
         System.out.println("Presione Enter para continuar...");
         Main.scanner.nextLine();
     }
+
+    // Repite un string un número específico de veces
+    public static String repeat(String s, int times) {
+        return new String(new char[times]).replace("\0", s);
+    }
+
+    // Centra un texto dentro de un ancho específico
+    public static String centerText(String text, int width) {
+        int pad = (width - text.length()) / 2;
+        return repeat(" ", pad) + text + repeat(" ", width - text.length() - pad);
+    }
 }

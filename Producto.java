@@ -144,17 +144,17 @@ public class Producto{//Viktor
     //metodo que imprime las caracteristicas completas del producto
 
     public static void imprimirEncabezado() {
-        String line = repeat("=", 63);
+        String line = Utileria.repeat("=", 63);
         System.out.println(line);
-        System.out.println(centerText("PRODUCTOS DISPONIBLES", 63));
+        System.out.println(Utileria.centerText("PRODUCTOS DISPONIBLES", 63));
         System.out.println(line);
         System.out.printf("| %-2s | %-20s | %7s | %8s | %-11s |\n",
                           "ID", "Nombre", "Precio", "Vendedor", "Descripción");
-        System.out.println("|" + repeat("-", 4)
-                         + "+" + repeat("-", 22)
-                         + "+" + repeat("-", 9)
-                         + "+" + repeat("-", 10)
-                         + "+" + repeat("-", 13)
+        System.out.println("|" + Utileria.repeat("-", 4)
+                         + "+" + Utileria.repeat("-", 22)
+                         + "+" + Utileria.repeat("-", 9)
+                         + "+" + Utileria.repeat("-", 10)
+                         + "+" + Utileria.repeat("-", 13)
                          + "|");
     }
 
@@ -171,17 +171,6 @@ public class Producto{//Viktor
             System.out.printf("| %-2s | %-20s | %7s | %8s | %-11s |\n",
                               "", "", "", "", descLines.get(i));
         }
-    }
-
-    // Repite un string un número específico de veces
-    private static String repeat(String s, int times) {
-        return new String(new char[times]).replace("\0", s);
-    }
-
-    // Centra un texto dentro de un ancho específico
-    private static String centerText(String text, int width) {
-        int pad = (width - text.length()) / 2;
-        return repeat(" ", pad) + text + repeat(" ", width - text.length() - pad);
     }
 
     // Divide un texto en líneas de longitud máxima especificada
