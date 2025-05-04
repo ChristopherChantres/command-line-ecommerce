@@ -143,7 +143,7 @@ public class Main {
     public static Optional<AccesoUsuario> iniciarSesion(String tipoUsuario) {
         int intentos = 0;
 
-        while (intentos < 3) {            
+        while (intentos < 3) {
             String[] datos_del_usuario = getDatosDelUsuario("Iniciar Sesion");
             String username_login = datos_del_usuario[0];
             String password_login = datos_del_usuario[1];
@@ -256,7 +256,7 @@ public class Main {
                 case 2:
                     // Lógica para Mostrar productos
                     Utileria.limpiarConsola();
-                    mostrarProductosComprador();
+                    mostrarProductosComprador(comprador);
                     break;
                 case 3:
                     // Lógica para Pagar
@@ -290,12 +290,8 @@ public class Main {
         Utileria.continuarEvento();
     }
 
-    public static void mostrarProductosComprador() {
-        // Hacer fetch de los productos disponibles
-        // Mostrar los productos al usuario
-        // Lógica para mostrar productos
-        // ...
-        Utileria.mensaje("Estos son los productos disponibles |--|/", Utileria.TipoDeMensaje.INFO);
+    public static void mostrarProductosComprador(UsuarioComprador comprador) {
+        comprador.mostrarProductosDeLaTienda();
         Utileria.continuarEvento();
     }
 

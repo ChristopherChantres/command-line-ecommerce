@@ -1,5 +1,5 @@
 1,Pan blanco,Pan blanco artesanal,15,-2
-2,Leche 1L,Leche entera pasteurizada 1L,25,15,-2
+2,Leche 1L,Leche entera pasteurizada 1L,25,-2
 3,Queso 500g,Queso manchego rallado finamente 500g,50,-2
 4,Docena de huevos,Docena de huevos orgánicos traidos de la granja de Juan,40,-5
 5,Jugo de naranja 1l,1L de jugo de naranja natural del arbol a tu casa,22,-5

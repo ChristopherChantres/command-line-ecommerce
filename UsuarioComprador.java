@@ -1,18 +1,52 @@
 public class UsuarioComprador extends Usuario {
     private double saldo;
+    private Carrito carrito;
+    private TiendaAdministradoraCatalogo tienda;
 
     // Constructor
-    public UsuarioComprador(int id,String nombre, String contrasena, int saldo) {
-        super(nombre, contrasena, id);
+    public UsuarioComprador(int idUsuario,String username, String password, int saldo) {
+        super(username, password, idUsuario);
+        this.saldo = saldo;
+        // ******** Implementar la logica para generar el id de compra ******** //
+        this.carrito = new Carrito(idUsuario, idUsuario, 1);
+        this.tienda = new TiendaAdministradoraCatalogo();
     }
 
-    public UsuarioComprador(int id, String nombre, String contrasena) {
-        super(nombre, contrasena, id);
+    public UsuarioComprador(int idUsuario, String usernmae, String contrasena) {
+        super(usernmae, contrasena, idUsuario);
+        // ******** Implementar la logica para generar el id de compra ******** //
+        this.carrito = new Carrito(idUsuario, idUsuario, 1);
+        this.tienda = new TiendaAdministradoraCatalogo();
     }
 
     // Getters
     public double getSaldo() {
         return this.saldo;
+    }
+
+    public Carrito getCarrito() {
+        return this.carrito;
+    }
+
+    // Metodos
+    public void agregarProductoAlCarrito(int idProducto, int cantidad) {
+        this.carrito.agregarOQuitarCantidadProducto(idProducto, cantidad);
+    }
+    
+    public void eliminarProductoDelCarrito(int idProducto) {
+        this.carrito.eliminarProducto(idProducto);
+    }
+    
+    public void mostrarCarrito() {
+        this.carrito.imprimirCarrito();
+    }
+
+    public void vaciarCarrito() {
+        this.carrito.vaciarCarrito();
+    }
+
+    public void mostrarProductosDeLaTienda() {
+        this.tienda.impirmirCatalogoConDetalles();
     }
 
     // Setters
