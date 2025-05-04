@@ -216,11 +216,11 @@ public class Main {
 
     // -------------------- METODOS PARA COMPRADOR  -------------------- //
 
-    public static void mostrarMenuComprador(double saldoActual) {
+    public static void mostrarMenuComprador(double saldo) {
         System.out.println("=================================================");
         System.out.println("              Bienvenido a OnlineDeal           ");
         System.out.println("=================================================");
-        System.out.println("                     MENU       " + "Saldo: $" + saldoActual);
+        System.out.println("                     MENU       " + "Saldo: $" + saldo);
         System.out.println("-------------------------------------------------");
         System.out.println("|  1. Carrito                                   |");
         System.out.println("|  2. Mostrar productos                         |");
@@ -234,10 +234,9 @@ public class Main {
     // Método para gestionar el flujo del comprador
     public static void gestionarFlujoComprador(UsuarioComprador comprador) {
         boolean salir = false;
-        double saldoActual = comprador.getSaldo();
         
         while (!salir) {
-            mostrarMenuComprador(saldoActual);
+            mostrarMenuComprador(comprador.getSaldo());
             int opcion = 0;
             
             try {
@@ -308,78 +307,96 @@ public class Main {
     }
 
     public static void consultarMiCuentaComprador(UsuarioComprador comprador) {
-        // Lógica para mostrar la cuenta del usuario
-        System.out.println("=================================================");
-        System.out.println("             Mi Cuenta                          ");
-        System.out.println("=================================================");
-        System.out.println("Usuario: " + comprador.getUsername());
-        System.out.println("Contraseña: " + comprador.getPassword());
-        System.out.println("Saldo: $" + comprador.getSaldo());
-        System.out.println("-------------------------------------------------");
-        System.out.println("1. Cambiar contraseña");
-        System.out.println("2. Depositar saldo");
-        System.out.println("3. Salir");
-        System.out.println("-------------------------------------------------");
-        System.out.print("Seleccione una opción: ");
-        int opcion = 0;
-
-        try {
-            opcion = Integer.parseInt(scanner.nextLine());
-        } catch (NumberFormatException e) {
-            Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
-            Utileria.continuarEvento();
-            return;
-        }
-
-        switch (opcion) {
-            case 1:
-                // Lógica para cambiar contraseña
-                System.out.print("Ingrese la nueva contraseña: ");
-                String nuevaPassword = scanner.nextLine();
-
-                if (nuevaPassword.isEmpty()) {
-                    Utileria.mensaje("Contraseña password no puede estar vacía.", Utileria.TipoDeMensaje.ERROR);
+        boolean salirDeCuenta = false;
+        
+        while (!salirDeCuenta) {
+            // Limpiar la pantalla para mostrar información actualizada
+            Utileria.limpiarConsola();
+            
+            // Lógica para mostrar la cuenta del usuario
+            System.out.println("=================================================");
+            System.out.println("             Mi Cuenta                          ");
+            System.out.println("=================================================");
+            System.out.println("Usuario: " + comprador.getUsername());
+            System.out.println("Contraseña: " + comprador.getPassword());
+            System.out.println("Saldo: $" + comprador.getSaldo());
+            System.out.println("-------------------------------------------------");
+            System.out.println("1. Cambiar contraseña");
+            System.out.println("2. Depositar saldo");
+            System.out.println("3. Regresar");
+            System.out.println("-------------------------------------------------");
+            System.out.print("Seleccione una opción: ");
+            int opcion = 0;
+    
+            try {
+                opcion = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
+                Utileria.continuarEvento();
+                continue; // Continuar el ciclo sin salir
+            }
+    
+            switch (opcion) {
+                case 1:
+                    // Lógica para cambiar contraseña
+                    System.out.print("Ingrese la nueva contraseña: ");
+                    String nuevaPassword = scanner.nextLine();
+    
+                    if (nuevaPassword.isEmpty()) {
+                        Utileria.mensaje("Contraseña password no puede estar vacía.", Utileria.TipoDeMensaje.ERROR);
+                        Utileria.continuarEvento();
+                        continue; // Continuar en Mi Cuenta
+                    }
+    
+                    boolean passwordCambiada = comprador.setPassword(nuevaPassword);
+                    if (passwordCambiada) {
+                        Utileria.mensaje("Contraseña cambiada con éxito.", Utileria.TipoDeMensaje.EXITO);
+                        Utileria.continuarEvento();
+                    } else {
+                        Utileria.mensaje("Error al cambiar la contraseña. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
+                        Utileria.continuarEvento();
+                    }
+                    break;
+                    
+                case 2:
+                    // Lógica para depositar saldo
+                    System.out.print("Ingrese la cantidad a depositar: ");
+                    double cantidadADepositar = 0;
+    
+                    try {
+                        cantidadADepositar = Double.parseDouble(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
+                        Utileria.continuarEvento();
+                        continue; // Continuar en Mi Cuenta
+                    }
+    
+                    if (cantidadADepositar <= 0) {
+                        Utileria.mensaje("La cantidad a depositar debe ser mayor que cero.", Utileria.TipoDeMensaje.ERROR);
+                        Utileria.continuarEvento();
+                        continue; // Continuar en Mi Cuenta
+                    }
+    
+                    boolean saldoDepositado = comprador.setSaldo(comprador.getSaldo() + cantidadADepositar);
+                    if (saldoDepositado) {
+                        Utileria.mensaje("Nuevo saldo: $" + comprador.getSaldo(), Utileria.TipoDeMensaje.EXITO);
+                        Utileria.continuarEvento();
+                    } else {
+                        Utileria.mensaje("Error al depositar el saldo. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
+                        Utileria.continuarEvento();
+                    }
+                    break;
+                    
+                case 3:
+                    salirDeCuenta = true; // Establecer la bandera para salir del bucle
+                    Utileria.limpiarConsola();
+                    break;
+                    
+                default:
+                    Utileria.mensaje("Opción no válida. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
                     Utileria.continuarEvento();
-                    return;
-                }
-
-                boolean passwordCambiada = comprador.setPassword(nuevaPassword);
-                if (passwordCambiada) {
-                    Utileria.mensaje("Contraseña cambiada con éxito.", Utileria.TipoDeMensaje.EXITO);
-                    Utileria.continuarEvento();
-                } else {
-                    Utileria.mensaje("Error al cambiar la contraseña. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
-                    Utileria.continuarEvento();
-                    return;
-                }
-                break;
-            case 2:
-                // Lógica para depositar saldo
-                System.out.print("Ingrese la cantidad a depositar: ");
-                double cantidadADepositar = 0;
-
-                try {
-                    cantidadADepositar = Double.parseDouble(scanner.nextLine());
-                } catch (NumberFormatException e) {
-                    Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
-                    Utileria.continuarEvento();
-                    return;
-                }
-
-                if (cantidadADepositar <= 0) {
-                    Utileria.mensaje("La cantidad a depositar debe ser mayor que cero.", Utileria.TipoDeMensaje.ERROR);
-                    Utileria.continuarEvento();
-                    return;
-                }
-
-                
-                break;
-            case 3:
-                // Salir
-                Utileria.mensaje("Gracias por usar OnlineDeal. ¡Hasta pronto!", Utileria.TipoDeMensaje.EXITO);
-                break;
-            default:
-                Utileria.mensaje("Opción no válida. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
+                    break;
+            }
         }
     }
 

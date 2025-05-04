@@ -16,8 +16,10 @@ public class UsuarioComprador extends Usuario {
     }
 
     // Setters
-    public void setSaldo(double saldo){
+    // ******** Implementar la logica para actualizar el saldo ******** //
+    public boolean setSaldo(double saldo){
         this.saldo = saldo;
+        return true;
     }
 
     /* 
