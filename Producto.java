@@ -116,6 +116,7 @@ public class Producto{//Viktor
             cantidad=stock;
         }
         */
+        cantidad+=cantidadModificada;
         if(cantidad<0){
             cantidad=0;
         }
