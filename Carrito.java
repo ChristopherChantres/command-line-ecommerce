@@ -2,7 +2,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Carrito {//Clase Carrito, que almacena los productos que el comprador ha agregado a su carrito de compras
+// Clase Carrito, que almacena los productos que el comprador ha agregado a su carrito de compras
+public class Carrito {
     private ArrayList <Producto> productos_en_carrito;
     private ArrayList <Producto> catalogoProductos;
     private int total;
@@ -136,7 +137,7 @@ public class Carrito {//Clase Carrito, que almacena los productos que el comprad
         }
 
         //se escribira la orden en el archivo ArchivoCompras.txt
-        try (FileWriter writer = new FileWriter("ArchivoCompras.txt", true)) {
+        try (FileWriter writer = new FileWriter(Utileria.archivoCompras, true)) {
             String idUsuarioString= String.valueOf(idComprador);
             String idCompraString= String.valueOf(idCompra);
             String totalString= String.valueOf(total);
@@ -157,15 +158,15 @@ public class Carrito {//Clase Carrito, que almacena los productos que el comprad
     //metodo que se llama al pagar
     public double pagar(int idCompra) {// regresa el saldo restante del comprador
         this.idCompra=idCompra;
-    //imprimir carrito
-    imprimirCarrito();
-    //guardar carrito al archivo
-    guardarEnArchivo();
-    
-    vaciarCarrito();
+        //imprimir carrito
+        imprimirCarrito();
+        //guardar carrito al archivo
+        guardarEnArchivo();
+        
+        vaciarCarrito();
 
-    //System.exit(0);
-    double saldoRestante=saldoComprador;
-    return saldoRestante;
+        //System.exit(0);
+        double saldoRestante=saldoComprador;
+        return saldoRestante;
     }
 }
