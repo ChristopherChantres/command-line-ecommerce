@@ -128,6 +128,26 @@ public class Carrito {
         productos_en_carrito.clear();
     }
 
+    public void refrescarTotal(){
+        if(productos_en_carrito.size()==0){
+            Utileria.mensaje("El carrito está vacío!", Utileria.TipoDeMensaje.INFO);
+        }else{
+            total=0;
+            //System.out.println("");
+            for(Producto p: productos_en_carrito){
+                //p.imprimirParaCarrito();
+                total+=p.getSubtotal();
+            }
+            //System.out.println("Total: $" + total);
+            //System.out.println("Saldo disponible: " + saldoComprador);
+            /*
+            if(saldoComprador<total){
+                System.out.println("No tienes suficiente saldo para realizar la compra. Elimina productos del carrito, o sal y recarga tu saldo");
+            }
+                 */
+        }
+    }
+
     //imprimir el carrito producto por producto, si no hay productos, imprimir mensaje de carrito vacio
     public void imprimirCarrito(){
         if(productos_en_carrito.size()==0){

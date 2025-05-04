@@ -6,7 +6,7 @@ public class OrdenPasada {
     private ArrayList<Producto> productosComprados = new ArrayList<Producto>(); // Almacena los productos comprados en la orden
     private double total; // Almacena el total de la orden
 
-    public OrdenPasada(int idOrden, int idComprador, double total){
+    public OrdenPasada(int idComprador, int idOrden, double total){
         this.idOrden = idOrden;
         this.idComprador = idComprador;
         this.total = total;

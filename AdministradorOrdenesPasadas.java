@@ -20,6 +20,7 @@ public class AdministradorOrdenesPasadas {
             Scanner scanner = new Scanner(new File(Utileria.archivoCompras)); // Abre el archivo de ordenes pasadas
             while (scanner.hasNextLine()) {
                 String linea = scanner.nextLine(); // Lee cada linea del archivo
+                //System.out.println(linea); // Imprime la linea leida
                 String[] partesOrden = linea.split(","); // Separa los atributos por comas
 
                 if (partesOrden.length >= 3) { // Comprueba que el arreglo es valido en tamaño
@@ -32,6 +33,7 @@ public class AdministradorOrdenesPasadas {
                     if (idCompra >= sigIdCompra) { // Si el id de compra es mayor al siguiente id de compra
                         sigIdCompra = idCompra+1; // Actualiza el siguiente id de compra
                     }
+                    //public OrdenPasada(int idComprador, int idOrden, double total)
                     OrdenPasada orden = new OrdenPasada(idUsuarioComprador,idCompra,total); // Crea una nueva orden pasada
                     //ciclo que añade cada producto a la orden pasada
                     for (int i = 3; i < partesOrden.length; i+=5) {
@@ -49,6 +51,7 @@ public class AdministradorOrdenesPasadas {
                     }
 
                     ordenesPasadas.add(orden); // Agrega la orden a la lista de ordenes pasadas
+                    //System.out.println("Orden pasada cargada: " + orden.getIdOrden());
                 }
             }
             scanner.close(); // Cierra el archivo
@@ -60,7 +63,7 @@ public class AdministradorOrdenesPasadas {
     //Volver a registrar las ordenes pasadas en el archivo
     public void guardarOrdenesEnArchivo() {
         try {
-            FileWriter writer = new FileWriter(Utileria.archivoCompras); // Abre el archivo de ordenes pasadas
+            FileWriter writer = new FileWriter(Utileria.archivoCompras,false); // Abre el archivo de ordenes pasadas
             for (OrdenPasada orden : ordenesPasadas) { // Recorre todas las ordenes pasadas
                 writer.write(orden.getIdComprador() + "," + orden.getIdOrden() + "," + orden.getTotal() + ","); // Escribe el id del comprador, id de la compra y total
                 for (Producto producto : orden.getProductosComprados()) { // Recorre todos los productos de la orden
@@ -86,6 +89,7 @@ public class AdministradorOrdenesPasadas {
     public boolean imprimirOrdenesPasadas(int idComprador) {
         //ArrayList<OrdenPasada> ordenesDelComprador = new ArrayList<OrdenPasada>(); // Almacena las ordenes del comprador
         boolean ordenesDelComprador = false; // Variable que indica si el comprador tiene ordenes pasadas que se imprimieron
+        System.out.println("Ordenes pasadas del comprador con ID: " + idComprador); // Imprime el id del comprador
         for (OrdenPasada orden : ordenesPasadas) { // Recorre todas las ordenes pasadas
             if (orden.getIdComprador() == idComprador) { // Si la orden es del comprador
                 orden.imprimirOrden(); // Imprime la orden

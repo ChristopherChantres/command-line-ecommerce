@@ -5,12 +5,24 @@ public class Test {
         //tienda.cargarProductosDesdeArchivo();
         //tienda.impirmirCatalogoBasico();
         //tienda.impirmirCatalogoConDetalles();
-        UsuarioComprador usuario=new UsuarioComprador(1,"usuario","1234");
-        usuario.mostrarProductosDeLaTienda();
-        UsuarioVendedor vendedor=new UsuarioVendedor(-2,"chris","Contrasena");
-        vendedor.imprimirVentas();
-        AccesoUsuario acceso=new AccesoUsuario("SebasGansito","12345678",Utileria.usuarioComprador);
-        acceso.
+        UsuarioComprador usuario=new UsuarioComprador(8,"pepe","89");
+        AdministradorOrdenesPasadas administradorOrdenesPasadas= new AdministradorOrdenesPasadas();
+        //usuario.mostrarProductosDeLaTienda();
+
+        //administradorOrdenesPasadas.cargarOrdenesDesdeArchivo();
+        //administradorOrdenesPasadas.imprimirOrdenesPasadas(8);
+        usuario.imprimirOrdenesPasadas();
+
+
+        // if(usuario.imprimirOrdenesPasadas()){
+        //     System.out.println("Ordenes pasadas impresas");
+        // }else{
+        //     System.out.println("No hay ordenes pasadas");
+        // }
+        //UsuarioVendedor vendedor=new UsuarioVendedor(-2,"chris","Contrasena");
+        //vendedor.imprimirVentas();
+        //AccesoUsuario acceso=new AccesoUsuario("SebasGansito","12345678",Utileria.usuarioComprador);
+        //acceso.
 
 
         //tienda.impirmirCatalogoConDetalles();
