@@ -22,7 +22,7 @@ public class AdministradorOrdenesPasadas {
 
                 if (partesOrden.length >= 3) { // Comprueba que el arreglo es valido en tamaño
                     //id del usuario, id de la compra, total, [Producto1], [Producto2], ... [ProductoN]
-                    //Por cada [Productok] almacenamos idProducto, nombre, cantidad, subtotal
+                    //Por cada [Productok] almacenamos idProducto, nombre, idVendedor, cantidad, subtotal
                     int idUsuarioComprador = Integer.parseInt(partesOrden[0]);
                     int idCompra = Integer.parseInt(partesOrden[1]);
                     double total = Double.parseDouble(partesOrden[2]);
@@ -30,14 +30,15 @@ public class AdministradorOrdenesPasadas {
                     OrdenPasada orden = new OrdenPasada(idUsuarioComprador,idCompra,total); // Crea una nueva orden pasada
                     //ciclo que añade cada producto a la orden pasada
                     for (int i = 3; i < partesOrden.length; i+=4) {
-                        //Por cada [Productok] almacenamos idProducto, nombre, cantidad, subtotal
+                        //Por cada [Productok] almacenamos idProducto, nombre, idVendedor, cantidad, subtotal
                         if (i+3<partesOrden.length) { // Comprueba que el arreglo es valido en tamaño
                             int idProducto = Integer.parseInt(partesOrden[i]);
                             String nombre = partesOrden[i+1];
-                            int cantidad = Integer.parseInt(partesOrden[i+2]);
-                            double subtotal = Double.parseDouble(partesOrden[i+3]);
+                            int idVendedor = Integer.parseInt(partesOrden[i+2]);
+                            int cantidad = Integer.parseInt(partesOrden[i+3]);
+                            double subtotal = Double.parseDouble(partesOrden[i+4]);
 
-                            Producto producto = new Producto(idProducto, nombre, cantidad, subtotal); // Crea un nuevo producto
+                            Producto producto = new Producto(idProducto, nombre, idVendedor, cantidad, subtotal); // Crea un nuevo producto
                             orden.anadirProducto(producto); // Agrega el producto a la orden pasada
                         }
                     }

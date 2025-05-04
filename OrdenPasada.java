@@ -49,18 +49,7 @@ public class OrdenPasada {
         }
     }
 
-    public void imprimirVentasVendedor(int idVendedor) {
-        System.out.println("Orden ID: " + idOrden);
-        System.out.println("Comprador ID: " + idComprador);
-        System.out.println("Total: " + total);
-        System.out.println("Productos comprados:");
-        for (Producto producto : productosComprados) {
-            if (producto.getIdVendedor() == idVendedor) { // Si el producto es del vendedor
-                producto.imprimirParaCarrito(); // Imprime los detalles de cada producto el la orden
-            }
-        }
-    }
-
+    
 
 
 

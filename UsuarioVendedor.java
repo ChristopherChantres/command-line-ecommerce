@@ -8,6 +8,7 @@ public class UsuarioVendedor extends Usuario {
 
     protected ArrayList <Producto> productosVendidos;//almacena los productos de las ordenes pasadas, integrar con CompradorOrdenesPasadas
     protected TiendaAdministradoraCatalogo tienda;//accede a la tienda para obtener los productos que tiene a la venta, modificar los productos de la tienda, etc
+    protected AdministradorOrdenesPasadas administradorOrdenesPasadas;//accede a las ordenes pasadas del vendedor, para que pueda ver sus ventas pasadas
 
     //----------------------------------------------------------------------------------------------------------------------------------
     //INICIALIZACION 
@@ -35,7 +36,7 @@ public class UsuarioVendedor extends Usuario {
             tienda.agregarProducto(producto);//agrega el producto a la tienda
         }
     }
-
+    /* 
     //agrega el stock de un producto en particular
     public void agregarStockProducto(int id_producto, int stock){
         //busca el producto en la lista de productos del vendedor
@@ -49,17 +50,17 @@ public class UsuarioVendedor extends Usuario {
             }
         }
     }
+        */
 
     //modifica el producto, en cada argumento modificable que se solicite
 
-    public void modificarProducto(int id_producto, String nombre, String descripcion, double precio, int stock){
+    public void modificarProducto(int id_producto, String nombre, String descripcion, double precio){
         for(Producto p: productosOfrecidos){
             if(p.getID()==id_producto){
                 p.setNombre(nombre);
                 p.setDescripcion(descripcion);
                 p.setPrecio(precio);
-                p.setStock(stock);
-                tienda.modificarProducto(id_producto, nombre, descripcion, precio, stock);//modifica el producto en la tienda
+                //tienda.modificarProducto(id_producto, nombre, descripcion, precio);//modifica el producto en la tienda
                 break;
             }
         }
@@ -91,7 +92,8 @@ public class UsuarioVendedor extends Usuario {
 
 //----------------------------------------------------------------------------------------------------------------------------------
 //IMPRESION DE PRODUCTOS, VENTAS Y ORDENES PASADAS
-    //imprime los productos ofrecidos por el vendedor, se ejecuta al iniciar sesion
+
+    //imprime los productos ofrecidos por el vendedor
     public void imprimirProductosOfrecidos(){
         if(productosOfrecidos.isEmpty()){
             Utileria.mensaje("No tienes productos a la venta", Utileria.TipoDeMensaje.INFO);
@@ -104,13 +106,17 @@ public class UsuarioVendedor extends Usuario {
     }
 
     public void imprimirVentas(){
+        productosVendidos= administradorOrdenesPasadas.ordenesPasadasVendedor(super.getId());//obtiene los productos vendidos por el vendedor
         if(productosVendidos.isEmpty()){
             Utileria.mensaje("No tienes ventas", Utileria.TipoDeMensaje.INFO);
         }else{
             Utileria.mensaje("Se imprimen los productos vendidos:", Utileria.TipoDeMensaje.INFO);
+            double total=0;
             for(Producto p: productosVendidos){
-                p.imprimirBasico();
+                p.imprimirParaCarrito();
+                total+=p.getSubtotal();//suma el total de las ventas
             }
+            System.out.println("Total vendido: " + total);//imprime el total de las ventas
         }
     }
 

@@ -1,10 +1,17 @@
 public class Test {
     
     public static void main(String [] args){
-        Tienda tienda=new Tienda();
-        tienda.cargarProductosDesdeArchivo();
-        tienda.impirmirCatalogoBasico();
+        TiendaAdministradoraCatalogo tienda=new TiendaAdministradoraCatalogo();
+        //tienda.cargarProductosDesdeArchivo();
+        //tienda.impirmirCatalogoBasico();
+        //tienda.impirmirCatalogoConDetalles();
+        UsuarioComprador usuario=new UsuarioComprador(1,"usuario","1234");
+        usuario.mostrarProductosDeLaTienda();
+        UsuarioVendedor vendedor=new UsuarioVendedor(-2,"chris","Contrasena");
+        vendedor.imprimirVentas();
 
-        tienda.impirmirCatalogoConDetalles();
+
+
+        //tienda.impirmirCatalogoConDetalles();
     }
 }

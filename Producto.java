@@ -30,9 +30,10 @@ public class Producto{//Viktor
     }
 
     //Por cada [Productok] almacenamos idProducto, nombre, cantidad, subtotal
-    public Producto(int id, String nombre, int cantidad, double subtotal){//formato para consultar ordenes pasadas y devolver productos
+    public Producto(int id, String nombre, int idVendedor, int cantidad, double subtotal){//formato para consultar ordenes pasadas y devolver productos
         this.id=id;
         this.nombre=nombre;
+        this.id_vendedor=idVendedor;
         this.cantidad=cantidad;
         this.subTotal=subtotal;
         setPrecioPorSubtotal(subtotal);
