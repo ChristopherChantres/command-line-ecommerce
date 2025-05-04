@@ -107,12 +107,11 @@ public class AdministradorOrdenesPasadas {
                 System.out.println("Se devolvió la compra con ID: " + idCompra + " del comprador con ID: " + idComprador);
                 orden.imprimirOrden(); // Imprime la orden
                 ordenesPasadas.remove(orden); // Elimina la orden de la lista de ordenes pasadas
-                guardarOrdenesEnArchivo();// Guarda las ordenes en el archivo
                 seDevolvio = true; // Cambia la variable a true
-                return seDevolvio; // Devuelve true, se devolvio la compra
+                break;
             }
         }
-
+        if(seDevolvio)guardarOrdenesEnArchivo(); // Guarda las ordenes en el archivo
 
         return seDevolvio; // Si no se encuentra la orden, devuelve false
     }
