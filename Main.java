@@ -261,7 +261,7 @@ public class Main {
                 case 3:
                     // Lógica para Pagar
                     Utileria.limpiarConsola();
-                    realizarPagoComprador();
+                    realizarPagoComprador(comprador);
                     break;
                 case 4:
                     // Lógica para Mi cuenta
@@ -299,11 +299,68 @@ public class Main {
         Utileria.continuarEvento();
     }
 
-    public static void realizarPagoComprador() {
+    public static void realizarPagoComprador(UsuarioComprador comprador) {
         // Lógica para gestionar el pago
         // ...
-        Utileria.mensaje("Realizando el pago |--|/", Utileria.TipoDeMensaje.INFO);
-        Utileria.continuarEvento();
+        boolean salirDePago = false;
+
+        while (!salirDePago) {
+            // Limpiar la pantalla para mostrar información actualizada
+            Utileria.limpiarConsola();
+            
+            // Lógica para realizar el pago
+            System.out.println("=================================================");
+            System.out.println("             Realizar Pago                       ");
+            System.out.println("=================================================");
+            System.out.println("Total a pagar: " + 8888);
+            System.out.println("-------------------------------------------------");
+            System.out.println("1. Pagar Total");
+            System.out.println("2. Salir");
+            System.out.println("-------------------------------------------------");
+            System.out.print("Seleccione una opción: ");
+            int opcion = 0;
+            
+            try {
+                opcion = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                Utileria.mensaje("Por favor, ingrese una opción válida.", Utileria.TipoDeMensaje.ERROR);
+                Utileria.continuarEvento();
+                continue; // Continuar el ciclo sin salir
+            }
+            
+            switch (opcion) {
+                case 1:
+                    // Lógica para pagar el total
+                    if (comprador.getSaldo() < 8888) {
+                        Utileria.mensaje("No tienes suficiente saldo para realizar el pago.", Utileria.TipoDeMensaje.INFO);
+                        Utileria.continuarEvento();
+                        continue; // Continuar el ciclo sin salir
+                    } else {
+                        // ******** Implementar la lógica para realizar el pago ******** //
+                        // pagarTotal(comprador, totalAPagar);
+                        // Actualizar el saldo del comprador
+                        // Validar si pagarTotal() fue exitoso
+                        boolean pagoExitoso = true; // Simulación de pago exitoso
+                        if (pagoExitoso) {
+                            Utileria.mensaje("Pago realizado con éxito. Saldo restante: $" + comprador.getSaldo(), Utileria.TipoDeMensaje.EXITO);
+                        } else {
+                            Utileria.mensaje("Error al realizar el pago. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
+                            Utileria.continuarEvento();
+                            continue; // Continuar el ciclo sin salir
+                        }
+                    }
+                    salirDePago = true; // Salir del bucle de pago
+                    break;
+                case 2:
+                    salirDePago = true; // Salir del bucle de pago
+                    Utileria.limpiarConsola();
+                    break;
+                default:
+                    Utileria.mensaje("Opción no válida. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
+                    Utileria.continuarEvento();
+                    break;
+            }
+        }
     }
 
     public static void consultarMiCuentaComprador(UsuarioComprador comprador) {
