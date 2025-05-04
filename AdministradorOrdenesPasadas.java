@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class AdministradorOrdenesPasadas {
     private ArrayList<OrdenPasada> ordenesPasadas = new ArrayList<>(); // Almacena las ordenes pasadas
+    private int sigIdCompra;
 
     AdministradorOrdenesPasadas() {
         cargarOrdenesDesdeArchivo(); // Carga las ordenes desde el archivo al iniciar la clase
@@ -26,7 +27,10 @@ public class AdministradorOrdenesPasadas {
                     int idUsuarioComprador = Integer.parseInt(partesOrden[0]);
                     int idCompra = Integer.parseInt(partesOrden[1]);
                     double total = Double.parseDouble(partesOrden[2]);
-
+                    //siguiente id de compra
+                    if (idCompra > sigIdCompra) { // Si el id de compra es mayor al siguiente id de compra
+                        sigIdCompra = idCompra+1; // Actualiza el siguiente id de compra
+                    }
                     OrdenPasada orden = new OrdenPasada(idUsuarioComprador,idCompra,total); // Crea una nueva orden pasada
                     //ciclo que añade cada producto a la orden pasada
                     for (int i = 3; i < partesOrden.length; i+=5) {
@@ -50,6 +54,11 @@ public class AdministradorOrdenesPasadas {
         } catch (FileNotFoundException e) {
             System.out.println("Archivo no encontrado: " + e.getMessage());
         }
+    }
+
+    //get id compra
+    public int getSigIdCompra() {
+        return sigIdCompra; // Devuelve el siguiente id de compra
     }
 
     //metodo que da al usuario la lista de ordenes pasadas
