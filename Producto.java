@@ -157,7 +157,7 @@ public class Producto{//Viktor
     }
 
     public void imprimirParaCarrito(){//imprime el producto para retroalimentacion del carrito
-        System.out.println("Cantidad: "+cantidad+"  ID: "+id+" "+nombre+" Subtotal $"+subTotal);
+        System.out.println("Cantidad: "+cantidad+"  ID: "+id+" "+nombre+" Subtotal $"+getSubtotal());
     }
 
     public void imprimirActualizacionProducto(){//imprime el producto para retroalimentacion del carrito
