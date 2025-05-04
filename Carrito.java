@@ -9,7 +9,7 @@ public class Carrito {
     private double total;
     private int idCompra;
     private int idComprador;
-    private double saldoComprador;
+    //private double saldoComprador;
     private TiendaAdministradoraCatalogo tienda;
     /*
     public Carrito(int idComprador, double saldoComprador, int idCompra) { 
@@ -26,9 +26,10 @@ public class Carrito {
     }
          */
 
-    public Carrito(int idComprador, int idCompra) { 
+    public Carrito(int idComprador) { 
         this.idComprador=idComprador;
-        this.idCompra=idCompra;
+        AdministradorOrdenesPasadas administradorOrdenesPasadas= new AdministradorOrdenesPasadas();
+        this.idCompra=administradorOrdenesPasadas.getSigIdCompra(); //se obtiene el siguiente id de compra, para que no se repita el id de compra
 
         //inicializamos arreglo el carrito
         tienda= new TiendaAdministradoraCatalogo();
@@ -45,9 +46,9 @@ public class Carrito {
     }
 
     //setter saldo
-    public void setSaldo(double saldoComprador){
-        this.saldoComprador=saldoComprador;
-    }
+    // public void setSaldo(double saldoComprador){
+    //     this.saldoComprador=saldoComprador;
+    // }
 
     //setter id compra
     public void setIdCompra(int idCompra){
@@ -153,10 +154,10 @@ public class Carrito {
     public void guardarEnArchivo() {
         //id del usuario, id de la compra, total, [Producto1], [Producto2], ... [ProductoN]
         //Por cada [Productok] almacenamos idProducto, nombre, cantidad, subtotal
-        if(saldoComprador<total){
-            //System.out.println("No tienes suficiente saldo para realizar la compra. Elimina productos del carrito, o sal y recarga tu saldo");
-            return;
-        }
+        // if(saldoComprador<total){
+        //     //System.out.println("No tienes suficiente saldo para realizar la compra. Elimina productos del carrito, o sal y recarga tu saldo");
+        //     return;
+        // }
 
         if(productos_en_carrito.size()==0){
             //System.out.println("El carrito está vacío!");
@@ -177,6 +178,7 @@ public class Carrito {
             writer.write(stringAguardar + "\n");
             //saldoComprador-=total;
             System.out.println("¡Compra realizada con éxito! Gracias por su compra.");
+            idCompra++;//incrementar el id de compra para la siguiente compra
         } catch (IOException e) {
             System.out.println("Error al guardar el archivo: " + e.getMessage());
         }
