@@ -12,6 +12,11 @@ public class Test {
         //administradorOrdenesPasadas.cargarOrdenesDesdeArchivo();
         //administradorOrdenesPasadas.imprimirOrdenesPasadas(8);
         usuario.imprimirOrdenesPasadas();
+        if(usuario.devolverOrdenPasada(4)){
+            System.out.println("Orden pasada devuelta");
+        }else{
+            System.out.println("No se pudo devolver la orden pasada");
+        }
 
 
         // if(usuario.imprimirOrdenesPasadas()){

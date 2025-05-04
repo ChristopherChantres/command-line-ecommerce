@@ -38,10 +38,25 @@ public class OrdenPasada {
         System.out.println("ID de compra: " + idOrden);
         //System.out.println("Comprador ID: " + idComprador);
         System.out.println("Total: " + total);
-        System.out.println("Productos comprados:");
+        System.out.println("Productos:");
         for (Producto producto : productosComprados) {
             producto.imprimirParaCarrito(); // Imprime los detalles de cada producto el la orden
         }
+    }
+
+    public String registrarOrdenString() {
+        String idUsuarioString= String.valueOf(getIdComprador());
+            String idCompraString= String.valueOf(getIdOrden());
+            String totalString= String.valueOf(getTotal());
+            String stringAguardar= idUsuarioString + "," + idCompraString + "," + totalString + ",";
+            for(Producto p: productosComprados){
+            //Por cada [Productok] almacenamos idProducto, nombre, idVendedor, cantidad, subtotal
+                    stringAguardar+= p.stringRegistrarProductoEnOrden();
+            }
+            //stringAguardar+= "\n";
+            return stringAguardar; // Devuelve la cadena que representa la orden para ser guardada en el archivo
+                
+            
     }
 
     

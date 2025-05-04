@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,6 +17,7 @@ public class AdministradorOrdenesPasadas {
     
     // Carga las ordenes desde el archivo
     public void cargarOrdenesDesdeArchivo() {
+        ordenesPasadas.clear(); // Limpia la lista de ordenes pasadas
         try {
             Scanner scanner = new Scanner(new File(Utileria.archivoCompras)); // Abre el archivo de ordenes pasadas
             while (scanner.hasNextLine()) {
@@ -35,10 +37,11 @@ public class AdministradorOrdenesPasadas {
                     }
                     //public OrdenPasada(int idComprador, int idOrden, double total)
                     OrdenPasada orden = new OrdenPasada(idUsuarioComprador,idCompra,total); // Crea una nueva orden pasada
+                    
                     //ciclo que añade cada producto a la orden pasada
-                    for (int i = 3; i < partesOrden.length; i+=5) {
+                    for (int i = 3; i+4 < partesOrden.length; i+=5) {
                         //Por cada [Productok] almacenamos idProducto, nombre, idVendedor, cantidad, subtotal
-                        if (i+3<partesOrden.length) { // Comprueba que el arreglo es valido en tamaño
+                        //if (i+3<partesOrden.length) { // Comprueba que el arreglo es valido en tamaño
                             int idProducto = Integer.parseInt(partesOrden[i]);
                             String nombre = partesOrden[i+1];
                             int idVendedor = Integer.parseInt(partesOrden[i+2]);
@@ -47,7 +50,7 @@ public class AdministradorOrdenesPasadas {
 
                             Producto producto = new Producto(idProducto, nombre, idVendedor, cantidad, subtotal); // Crea un nuevo producto
                             orden.anadirProducto(producto); // Agrega el producto a la orden pasada
-                        }
+                        //}
                     }
 
                     ordenesPasadas.add(orden); // Agrega la orden a la lista de ordenes pasadas
@@ -63,15 +66,18 @@ public class AdministradorOrdenesPasadas {
     //Volver a registrar las ordenes pasadas en el archivo
     public void guardarOrdenesEnArchivo() {
         try {
-            FileWriter writer = new FileWriter(Utileria.archivoCompras,false); // Abre el archivo de ordenes pasadas
-            for (OrdenPasada orden : ordenesPasadas) { // Recorre todas las ordenes pasadas
-                writer.write(orden.getIdComprador() + "," + orden.getIdOrden() + "," + orden.getTotal() + ","); // Escribe el id del comprador, id de la compra y total
-                for (Producto producto : orden.getProductosComprados()) { // Recorre todos los productos de la orden
-                    writer.write(producto.stringRegistrarProductoEnOrden()); // Escribe el id del producto, nombre, id del vendedor, cantidad y subtotal
-                }
-                writer.write("\n"); // Salto de linea
+            FileWriter file = new FileWriter(Utileria.archivoCompras,false); // Abre el archivo de ordenes pasadas
+            PrintWriter printWriter = new PrintWriter(file); // Crea un nuevo PrintWriter para escribir en el archivo
+     
+            for (int i=0;i<ordenesPasadas.size();i++) { // Recorre todas las ordenes pasadas
+                System.out.println("Guardando orden pasada: "+ordenesPasadas.get(i).getIdOrden()); // Imprime el id de la orden
+                //printWriter.write(orden.getIdComprador() + "," + orden.getIdOrden() + "," + orden.getTotal() + ","); // Escribe el id del comprador, id de la compra y total
+
+                String stringAguardar= ordenesPasadas.get(i).registrarOrdenString(); // Obtiene la cadena que representa la orden para ser guardada en el archivo
+                printWriter.write(stringAguardar+"\n"); // Escribe la cadena en el archivo
             }
-            writer.close(); // Cierra el archivo
+            printWriter.close(); // Cierra el archivo
+            file.close();
         } catch (IOException e) {
             Utileria.mensaje("Error al guardar las ordenes en el archivo: " + e.getMessage(), Utileria.TipoDeMensaje.ERROR); // Muestra un mensaje de error
         }
@@ -102,14 +108,20 @@ public class AdministradorOrdenesPasadas {
     //devolver compra
     public boolean devolverCompra(int idCompra, int idComprador) {
         boolean seDevolvio = false; // Variable que indica si se devolvió la compra
-        for (OrdenPasada orden : ordenesPasadas) { // Recorre todas las ordenes pasadas
-            if (orden.getIdOrden() == idCompra && orden.getIdComprador() == idComprador) { // Si la orden es del comprador
-                System.out.println("Se devolvió la compra con ID: " + idCompra + " del comprador con ID: " + idComprador);
-                orden.imprimirOrden(); // Imprime la orden
-                seDevolvio = ordenesPasadas.remove(orden);// Elimina la orden de la lista de ordenes pasadas, cambia la variable a true
-                break;
+        try{
+            for(int i=0; i<ordenesPasadas.size(); i++) { // Recorre todas las ordenes pasadas
+                //OrdenPasada orden = ordenesPasadas.get(i); // Obtiene la orden
+                if (ordenesPasadas.get(i).getIdOrden() == idCompra && ordenesPasadas.get(i).getIdComprador() == idComprador) { // Si la orden es del comprador
+                    System.out.println("Se devolvió la compra con ID: " + idCompra + " del comprador con ID: " + idComprador);
+                    ordenesPasadas.get(i).imprimirOrden(); // Imprime la orden
+                    seDevolvio = (ordenesPasadas.remove(i)!=null); // Cambia la variable a true
+                    break;
+                }
             }
+        }catch (IndexOutOfBoundsException e) {
+            Utileria.mensaje("Error al devolver la compra: " + e.getMessage(), Utileria.TipoDeMensaje.ERROR); // Muestra un mensaje de error
         }
+        
         if(seDevolvio)guardarOrdenesEnArchivo(); // Guarda las ordenes en el archivo
 
         return seDevolvio; // Si no se encuentra la orden, devuelve false
