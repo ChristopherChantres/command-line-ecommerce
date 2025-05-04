@@ -72,18 +72,14 @@ public class TiendaAdministradoraCatalogo {//clase que representa la tienda, adm
         }
     }
 
-
     //imprime todo de cada producto, incluyendo nombre, descripcion, stock...
     public void impirmirCatalogoConDetalles(){
+        Producto.imprimirEncabezado();
         for(Producto p: productos){
-            p.imprimirDetalles();
+            p.imprimirFila();;
         }
     }
 
-
-
-
-    
     //devuelve el producto con el ID requerido, aunque cuidado, devuelve un Producto vacio si no encuentra ninguno con el id requerido
     public Producto getProductoConID(int id){
         Producto productoTemporal=new Producto();

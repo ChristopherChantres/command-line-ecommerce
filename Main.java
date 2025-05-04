@@ -281,11 +281,6 @@ public class Main {
     }
 
     public static void carritoDelComprador(UsuarioComprador comprador) {
-        // Hacer fetch de los productos del carrito
-        // Mostrar los productos en el carrito
-        // Permitir al usuario eliminar productos o proceder a pagar
-        // Lógica para gestionar el carrito
-        // ...
         boolean salirDeCarrito = false;
         
         while (!salirDeCarrito) {
@@ -434,8 +429,6 @@ public class Main {
     }
 
     public static void realizarPagoComprador(UsuarioComprador comprador) {
-        // Lógica para gestionar el pago
-        // ...
         boolean salirDePago = false;
         double totalPagar = comprador.getCarrito().getTotal();
 
@@ -462,11 +455,18 @@ public class Main {
                 Utileria.continuarEvento();
                 continue; // Continuar el ciclo sin salir
             }
-            
+
             switch (opcion) {
                 case 1:
+                    // Validamos si total a pagar es 0
+                    if (totalPagar == 0) {
+                        Utileria.mensaje("No hay productos en el carrito para pagar.", Utileria.TipoDeMensaje.INFO);
+                        Utileria.continuarEvento();
+                        continue;
+                    }
+
                     // Lógica para pagar el total
-                    if (comprador.getSaldo() < 8888) {
+                    if (comprador.getSaldo() < totalPagar) {
                         Utileria.mensaje("No tienes suficiente saldo para realizar el pago.", Utileria.TipoDeMensaje.INFO);
                         Utileria.continuarEvento();
                         continue; // Continuar el ciclo sin salir
@@ -485,7 +485,6 @@ public class Main {
                     break;
                 case 2:
                     salirDePago = true; // Salir del bucle de pago
-                    Utileria.limpiarConsola();
                     break;
                 default:
                     Utileria.mensaje("Opción no válida. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
@@ -493,6 +492,7 @@ public class Main {
                     break;
             }
         }
+        Utileria.limpiarConsola();
     }
 
     public static void consultarMiCuentaComprador(UsuarioComprador comprador) {

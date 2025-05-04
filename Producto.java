@@ -1,4 +1,5 @@
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class Producto{//Viktor
     protected int id, stock, id_vendedor;
@@ -141,6 +142,66 @@ public class Producto{//Viktor
     //---------------------------------------------------------------------------------------------------------------------
     //METODOS DE IMPRESION PARA EL COMPRADOR Y EL CARRITO
     //metodo que imprime las caracteristicas completas del producto
+
+    public static void imprimirEncabezado() {
+        String line = repeat("=", 63);
+        System.out.println(line);
+        System.out.println(centerText("PRODUCTOS DISPONIBLES", 63));
+        System.out.println(line);
+        System.out.printf("| %-2s | %-20s | %7s | %8s | %-11s |\n",
+                          "ID", "Nombre", "Precio", "Vendedor", "Descripción");
+        System.out.println("|" + repeat("-", 4)
+                         + "+" + repeat("-", 22)
+                         + "+" + repeat("-", 9)
+                         + "+" + repeat("-", 10)
+                         + "+" + repeat("-", 13)
+                         + "|");
+    }
+
+    public void imprimirFila() {
+        // Establecer el ancho de la tabla
+        List<String> descLines = wrapText(descripcion, 30);
+
+        // Imprime la primera línea con el encabezado
+        System.out.printf("| %2d | %-20s | %7.2f | %8d | %-11s |\n",
+                          id, nombre, precio, id_vendedor, descLines.get(0));
+
+        // Las siguientes líneas de la descripción
+        for (int i = 1; i < descLines.size(); i++) {
+            System.out.printf("| %-2s | %-20s | %7s | %8s | %-11s |\n",
+                              "", "", "", "", descLines.get(i));
+        }
+    }
+
+    // Repite un string un número específico de veces
+    private static String repeat(String s, int times) {
+        return new String(new char[times]).replace("\0", s);
+    }
+
+    // Centra un texto dentro de un ancho específico
+    private static String centerText(String text, int width) {
+        int pad = (width - text.length()) / 2;
+        return repeat(" ", pad) + text + repeat(" ", width - text.length() - pad);
+    }
+
+    // Divide un texto en líneas de longitud máxima especificada
+    private static List<String> wrapText(String text, int maxLineLength) {
+        List<String> lines = new ArrayList<>();
+        String[] words = text.split("\\s+");
+        StringBuilder line = new StringBuilder();
+
+        for (String w : words) {
+            if (line.length() + w.length() + 1 > maxLineLength) {
+                lines.add(line.toString());
+                line = new StringBuilder();
+            }
+            if (line.length() > 0) line.append(' ');
+            line.append(w);
+        }
+        if (line.length() > 0) lines.add(line.toString());
+        return lines;
+    }
+
     public void imprimirDetalles(){
         //refrescar nombre vendedor
         System.out.println("\nID: "+id+" "+nombre+" \t$"+precio);
