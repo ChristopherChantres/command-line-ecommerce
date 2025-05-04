@@ -135,7 +135,20 @@ public class AccesoUsuario {
     }
 //----------------------------------------------------------------------------------------------------------------------------------
 //MODIFICACION DEL USUARIO, contraseña
-    public boolean cambiarContrasenaComprador(String password) {
+
+    public boolean cambiarContrasena(String password) {
+        // Cambia la contraseña del usuario en el archivo
+        boolean funciono = false;
+        this.password=password;
+        if (tipoUsuario.equals(Utileria.usuarioComprador)) {
+            funciono=cambiarContrasenaComprador(password);
+        } else if (tipoUsuario.equals(Utileria.usuarioVendedor)) {
+            funciono=cambiarContrasenaVendedor(password);
+        }
+        return funciono;
+    }
+
+    private boolean cambiarContrasenaComprador(String password) {
         // Cambia la contraseña del comprador en el archivo
         boolean funciono = false;
         this.password=password;
@@ -155,7 +168,7 @@ public class AccesoUsuario {
         return funciono;
     }
 
-    public boolean cambiarContrasenaVendedor(String password) {
+    private boolean cambiarContrasenaVendedor(String password) {
         // Cambia la contraseña del vendedor en el archivo
         boolean funciono = false;
         this.password=password;
