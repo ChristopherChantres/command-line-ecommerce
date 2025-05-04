@@ -536,10 +536,11 @@ public class Main {
                     if (nuevaPassword.isEmpty()) {
                         Utileria.mensaje("Contraseña password no puede estar vacía.", Utileria.TipoDeMensaje.ERROR);
                         Utileria.continuarEvento();
-                        continue; // Continuar en Mi Cuenta
+                        continue;
                     }
-    
-                    boolean passwordCambiada = comprador.setPassword(nuevaPassword);
+                    
+                    AccesoUsuario accesoUsuario = new AccesoUsuario(comprador.getUsername(), nuevaPassword, Utileria.usuarioComprador);
+                    boolean passwordCambiada = accesoUsuario.cambiarPassword(nuevaPassword);
                     if (passwordCambiada) {
                         Utileria.mensaje("Contraseña cambiada con éxito.", Utileria.TipoDeMensaje.EXITO);
                         Utileria.continuarEvento();
