@@ -471,14 +471,9 @@ public class Main {
                         Utileria.continuarEvento();
                         continue; // Continuar el ciclo sin salir
                     } else {
-                        // ******** Implementar la lógica para realizar el pago ******** //
-                        // pagarTotal(comprador, totalAPagar);
-                        // Actualizar el saldo del comprador
-                        // Validar si pagarTotal() fue exitoso
-                        comprador.getCarrito().ordenar();
-                        boolean pagoExitoso = true; // Simulación de pago exitoso
+                        boolean pagoExitoso = comprador.getCarrito().ordenar();
                         if (pagoExitoso) {
-                            Utileria.mensaje("Pago realizado con éxito. Saldo restante: $" + comprador.getSaldo(), Utileria.TipoDeMensaje.EXITO);
+                            Utileria.mensaje("Pago realizado con éxito." + comprador.getSaldo(), Utileria.TipoDeMensaje.EXITO);
                         } else {
                             Utileria.mensaje("Error al realizar el pago. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
                             Utileria.continuarEvento();

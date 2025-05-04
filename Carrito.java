@@ -151,7 +151,7 @@ public class Carrito {
     
 
     //guardar el carrito en un archivo, se guardara en el formato: id del usuario, id de la compra, total, [Producto1], [Producto2], ... [ProductoN]
-    public void guardarEnArchivo() {
+    public boolean guardarEnArchivo() {
         //id del usuario, id de la compra, total, [Producto1], [Producto2], ... [ProductoN]
         //Por cada [Productok] almacenamos idProducto, nombre, cantidad, subtotal
         // if(saldoComprador<total){
@@ -161,7 +161,7 @@ public class Carrito {
 
         if(productos_en_carrito.size()==0){
             //System.out.println("El carrito está vacío!");
-            return;
+            return false;
         }
 
         //se escribira la orden en el archivo ArchivoCompras.txt
@@ -177,25 +177,19 @@ public class Carrito {
 
             writer.write(stringAguardar + "\n");
             //saldoComprador-=total;
-            System.out.println("¡Compra realizada con éxito! Gracias por su compra.");
             idCompra++;//incrementar el id de compra para la siguiente compra
+            return true;
         } catch (IOException e) {
             System.out.println("Error al guardar el archivo: " + e.getMessage());
+            Utileria.continuarEvento();
+            return false;
         }
     }
     
     //metodo que se llama al pagar
-    public void ordenar() {// regresa el saldo restante del comprador
-        // this.idCompra=idCompra;
-        //imprimir carrito
-        imprimirCarrito();
-        //guardar carrito al archivo
-        guardarEnArchivo();
-        
+    public boolean ordenar() {
+        boolean seGuardoEnArchivo = guardarEnArchivo();
         vaciarCarrito();
-
-        //System.exit(0);
-        //double saldoRestante=saldoComprador;
-        //return saldoRestante;
+        return seGuardoEnArchivo;
     }
 }
