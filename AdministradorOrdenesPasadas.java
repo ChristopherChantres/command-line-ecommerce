@@ -29,7 +29,7 @@ public class AdministradorOrdenesPasadas {
                     int idCompra = Integer.parseInt(partesOrden[1]);
                     double total = Double.parseDouble(partesOrden[2]);
                     //siguiente id de compra
-                    if (idCompra > sigIdCompra) { // Si el id de compra es mayor al siguiente id de compra
+                    if (idCompra >= sigIdCompra) { // Si el id de compra es mayor al siguiente id de compra
                         sigIdCompra = idCompra+1; // Actualiza el siguiente id de compra
                     }
                     OrdenPasada orden = new OrdenPasada(idUsuarioComprador,idCompra,total); // Crea una nueva orden pasada
@@ -86,7 +86,6 @@ public class AdministradorOrdenesPasadas {
     public boolean imprimirOrdenesPasadas(int idComprador) {
         //ArrayList<OrdenPasada> ordenesDelComprador = new ArrayList<OrdenPasada>(); // Almacena las ordenes del comprador
         boolean ordenesDelComprador = false; // Variable que indica si el comprador tiene ordenes pasadas que se imprimieron
-        System.out.println("Las ordenes pasadas del comprador con ID: " + idComprador);
         for (OrdenPasada orden : ordenesPasadas) { // Recorre todas las ordenes pasadas
             if (orden.getIdComprador() == idComprador) { // Si la orden es del comprador
                 orden.imprimirOrden(); // Imprime la orden

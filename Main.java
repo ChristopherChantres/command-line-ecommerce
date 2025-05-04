@@ -86,6 +86,7 @@ public class Main {
         System.out.println("-------------------------------------------------");
         System.out.println("1. Comprador (Cliente)");
         System.out.println("2. Vendedor");
+        System.out.println("-------------------------------------------------");
         System.out.print("Seleccione una opción (1-2): ");
         
         int opcion = 0;
@@ -118,6 +119,7 @@ public class Main {
         System.out.println("|  Ya tienes una cuenta creada?");
         System.out.println("|  1. Si");
         System.out.println("|  2. No");
+        System.out.println("-------------------------------------------------");
         System.out.print("Seleccione una opción (1-2): ");
         int opcion = 0;
 
@@ -298,6 +300,7 @@ public class Main {
             System.out.println("1. Eliminar producto del carrito");
             System.out.println("2. Vaciar todo el carrito");
             System.out.println("3. Regresar");
+            System.out.println("-------------------------------------------------");
     
             int opcion = 0;
             System.out.print("Seleccione una opción: ");
@@ -363,6 +366,7 @@ public class Main {
             System.out.println("-------------------------------------------------");
             System.out.println("1. Agregar producto al carrito");
             System.out.println("2. Regresar");
+            System.out.println("-------------------------------------------------");
     
             int opcion = 0;
             System.out.print("Seleccione una opción: ");
@@ -469,7 +473,7 @@ public class Main {
                     } else {
                         boolean pagoExitoso = comprador.getCarrito().ordenar();
                         if (pagoExitoso) {
-                            Utileria.mensaje("Pago realizado con éxito." + comprador.getSaldo(), Utileria.TipoDeMensaje.EXITO);
+                            Utileria.mensaje("Pago realizado con éxito.", Utileria.TipoDeMensaje.EXITO);
                             Utileria.continuarEvento();
                         } else {
                             Utileria.mensaje("Error al realizar el pago. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
@@ -592,13 +596,67 @@ public class Main {
     }
 
     public static void mostrarComprasComprador(UsuarioComprador comprador) {
-        // Lógica para ver mis compras
+        boolean salirDeCompras = false;
+        while (!salirDeCompras) {
+            Utileria.limpiarConsola();
+            System.out.println("=================================================");
+            System.out.println("             Mis Compras                        ");
+            System.out.println("=================================================");
+
+            boolean hayOrdenesPasadas = comprador.imprimirOrdenesPasadas();
+            if (!hayOrdenesPasadas) {
+                Utileria.mensaje("No tienes compras pasadas.", Utileria.TipoDeMensaje.INFO);
+                Utileria.continuarEvento();
+                salirDeCompras = true; // Salir del bucle
+                break;
+            }
+
+            System.out.println("-------------------------------------------------");
+            System.out.println("1. Devolver compra");
+            System.out.println("2. Regresar");
+            System.out.println("-------------------------------------------------");
+
+            System.out.print("Seleccione una opción: ");
+            int opcion = 0;
+            try {
+                opcion = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
+                Utileria.continuarEvento();
+                continue; // Continuar el ciclo sin salir
+            }
+            switch (opcion) {
+                case 1:
+                    // Lógica para devolver compra
+                    System.out.println("=================================================");
+                    System.out.print("Ingrese el ID de la compra a devolver: ");
+                    int idCompra = 0;
+                    try {
+                        idCompra = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
+                        Utileria.continuarEvento();
+                        continue; // Salir del método
+                    }
+                    
+                    boolean compraDevuelta = comprador.devolverOrdenPasada(idCompra);
+                    if (compraDevuelta) {
+                        Utileria.mensaje("Compra devuelta!", Utileria.TipoDeMensaje.EXITO);
+                        Utileria.continuarEvento();
+                    } else {
+                        Utileria.mensaje("Error al devolver la compra. Verifica que el ID es correcto.", Utileria.TipoDeMensaje.ERROR);
+                        Utileria.continuarEvento();
+                    }
+                    break;
+                case 2:
+                    salirDeCompras = true; // Salir del bucle
+                    break;
+                default:
+                    Utileria.mensaje("Opción no válida. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
+                    Utileria.continuarEvento();
+            }
+        }
         Utileria.limpiarConsola();
-        System.out.println("=================================================");
-        System.out.println("             Mis Compras                        ");
-        System.out.println("=================================================");
-        // comprador.mostrarCompras(); // Método para mostrar las compras del comprador
-        Utileria.continuarEvento();
     }
 
     // -------------------- METODOS PARA VENDEDOR -------------------- //
