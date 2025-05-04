@@ -14,6 +14,8 @@ public class UsuarioVendedor extends Usuario {
     //INICIALIZACION 
     public UsuarioVendedor(int id,String username, String contrasena){
         super(username, contrasena, id);
+        tienda= new TiendaAdministradoraCatalogo();
+        administradorOrdenesPasadas= new AdministradorOrdenesPasadas();
         iniciarProductos();
     }
 
@@ -26,16 +28,20 @@ public class UsuarioVendedor extends Usuario {
     //----------------------------------------------------------------------------------------------------------------------------------
     //MODIFICACION DE PRODUCTOS PROPIOS
     //agrega un nuevo producto a la lista de productos ofrecidos por el vendedor
-    public boolean agregarProducto(Producto producto){
+    public boolean agregarProducto(String nombre, String descripcion, double precio){
         boolean agregado=false;
         //le asignamos el id del vendedor al producto
-        if(producto != null && !productosOfrecidos.contains(producto)){
+        if(nombre != null && descripcion != null && precio > 0){
+            Producto producto= new Producto();
+            producto.setNombre(nombre);
+            producto.setDescripcion(descripcion);
+            producto.setPrecio(precio);
             producto.setID(tienda.getProximoIdProducto());
             producto.setId_vendedor(super.getId());//le asignamos el id del vendedor al producto
             productosOfrecidos.add(producto);//agrega el producto a la lista de productos ofrecidos por el vendedor
 
             tienda.agregarProducto(producto);//agrega el producto a la tienda
-            agregado=true;
+            agregado = guardarModificacionesProductos();
         }
         return agregado;
     }
@@ -76,7 +82,7 @@ public class UsuarioVendedor extends Usuario {
             if(productosOfrecidos.get(i).getID()==id_producto){
                 productosOfrecidos.remove(i);//elimina el producto de la lista de productos ofrecidos por el vendedor
                 tienda.eliminarProducto(id_producto);//elimina el producto de la tienda
-                eliminado=true;
+                eliminado = guardarModificacionesProductos();
                 break;
             }
         }
@@ -87,13 +93,13 @@ public class UsuarioVendedor extends Usuario {
 //----------------------------------------------------------------------------------------------------------------------------------
 //MODIFICACION DEL USUARIO
 
-    public void eliminarUsuario(){
+    public void eliminarTodosLosProductos(){
         //eliminar el usuario de la tienda, solo elimina los productos existentes del usuario, el usuario en si se elimina desde control de accesos
         for(int i=0;i<productosOfrecidos.size();i++){
             tienda.eliminarProducto(productosOfrecidos.get(i).getID());//elimina el producto de la tienda
         }
         //eliminar usuario con acceso USUARIOS, manejar desde el main
-        guardarSesion();
+        guardarModificacionesProductos();
     }
 
 //----------------------------------------------------------------------------------------------------------------------------------
@@ -104,7 +110,6 @@ public class UsuarioVendedor extends Usuario {
         if(productosOfrecidos.isEmpty()){
             Utileria.mensaje("No tienes productos a la venta", Utileria.TipoDeMensaje.INFO);
         }else{
-            Utileria.mensaje("Se imprimen los productos que ofreces:", Utileria.TipoDeMensaje.INFO);
             for(Producto p: productosOfrecidos){
                 p.imprimirBasico();
             }
@@ -116,13 +121,12 @@ public class UsuarioVendedor extends Usuario {
         if(productosVendidos.isEmpty()){
             Utileria.mensaje("No tienes ventas", Utileria.TipoDeMensaje.INFO);
         }else{
-            Utileria.mensaje("Se imprimen los productos vendidos:", Utileria.TipoDeMensaje.INFO);
             double total=0;
             for(Producto p: productosVendidos){
                 p.imprimirParaCarrito();
                 total+=p.getSubtotal();//suma el total de las ventas
             }
-            System.out.println("Total vendido: " + total);//imprime el total de las ventas
+            System.out.println("Total vendido: $" + total);//imprime el total de las ventas
         }
     }
 
@@ -130,7 +134,7 @@ public class UsuarioVendedor extends Usuario {
 
 //----------------------------------------------------------------------------------------------------------------------------------
 //GUARDAR CAMBIOS EN LOS PRODUCTOS, EN EL ARCHIVO DE PRODUCTOS
-    public boolean guardarSesion(){//metodo que se ejecuta al cerrar sesion, guarda los cambios de productos y elimina los productos correspondientes en el archivo de la tienda
+    public boolean guardarModificacionesProductos(){//metodo que se ejecuta al cerrar sesion, guarda los cambios de productos y elimina los productos correspondientes en el archivo de la tienda
         //guarda los cambios de productos en el archivo de la tienda
         return tienda.guardarProductosEnArchivo();//retorna si se guardaron los cambios o no
     }

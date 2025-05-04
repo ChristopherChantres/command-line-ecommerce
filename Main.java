@@ -676,9 +676,8 @@ public class Main {
         System.out.println("|  1. Agregar nuevo producto                    |");
         System.out.println("|  2. Ver mis productos                         |");
         System.out.println("|  3. Ver mis ventas                            |");
-        System.out.println("|  4. Editar detalles de productos              |");
-        System.out.println("|  5. Mi cuenta                                 |");
-        System.out.println("|  6. Salir                                     |");
+        System.out.println("|  4. Mi cuenta                                 |");
+        System.out.println("|  5. Salir                                     |");
         System.out.println("-------------------------------------------------");
         System.out.print("Seleccione una opción: ");
     }
@@ -703,34 +702,26 @@ public class Main {
                 case 1:
                     // Lógica para Agregar nuevo producto
                     Utileria.limpiarConsola();
-                    agregarNuevoProductoVendedor();
-                    Utileria.continuarEvento();
+                    agregarNuevoProductoVendedor(vendedor);
                     break;
                 case 2:
                     // Lógica para Ver mis productos
                     Utileria.limpiarConsola();
-                    verMisProductosVendedor();
-                    Utileria.continuarEvento();
+                    verMisProductosVendedor(vendedor);
                     break;
                 case 3:
                     // Lógica para Ver mis ventas
                     Utileria.limpiarConsola();
-                    verMisVentasVendedor();
-                    Utileria.continuarEvento();
+                    verMisVentasVendedor(vendedor);
                     break;
+
                 case 4:
-                    // Lógica para Editar detalles de productos
-                    Utileria.limpiarConsola();
-                    editarDetallesProductoVendedor();
-                    Utileria.continuarEvento();
-                    break;
-                case 5:
                     // Lógica para Mi cuenta
                     Utileria.limpiarConsola();
-                    consultarMiCuentaVendedor();
-                    Utileria.continuarEvento();
+                    consultarMiCuentaVendedor(vendedor);
                     break;
-                case 6:
+
+                case 5:
                     // Salir
                     Utileria.mensaje("Gracias por usar OnlineDeal. ¡Hasta pronto!", Utileria.TipoDeMensaje.EXITO);
                     salir = true;
@@ -742,34 +733,221 @@ public class Main {
         }
     }
 
-    public static void agregarNuevoProductoVendedor() {
-        // Lógica para agregar un nuevo producto
-        // ...
-        Utileria.mensaje("Agregando nuevo producto |--|/", Utileria.TipoDeMensaje.INFO);
+    public static void agregarNuevoProductoVendedor(UsuarioVendedor vendedor) {
+        boolean salirDeAgregarProducto = false;
+
+        while (!salirDeAgregarProducto) {
+            Utileria.limpiarConsola();
+            System.out.println("=================================================");
+            System.out.println("             Agregar Nuevo Producto             ");
+            System.out.println("=================================================");
+            System.out.print("Nombre del producto: ");
+            String nombreProducto = scanner.nextLine();
+    
+            System.out.print("Descripción del producto: ");
+            String descripcionProducto = scanner.nextLine();
+    
+            System.out.print("Precio del producto: ");
+            double precioProducto = 0;
+            try {
+                precioProducto = Double.parseDouble(scanner.nextLine());
+                if (precioProducto <= 0) {
+                    Utileria.mensaje("El precio debe ser mayor que cero.", Utileria.TipoDeMensaje.ERROR);
+                    Utileria.continuarEvento();
+                    continue; // Salir del método
+                }
+            } catch (NumberFormatException e) {
+                Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
+                Utileria.continuarEvento();
+                continue; // Salir del método
+            }
+    
+            boolean seAgregoProducto = vendedor.agregarProducto(nombreProducto, descripcionProducto, precioProducto);
+            if (seAgregoProducto) {
+                Utileria.mensaje("Producto agregado!", Utileria.TipoDeMensaje.EXITO);
+                Utileria.continuarEvento();
+                salirDeAgregarProducto = true; // Salir del bucle
+            } else {
+                Utileria.mensaje("Error al agregar el producto. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
+                Utileria.continuarEvento();
+                salirDeAgregarProducto = false; // No salir del bucle
+                continue; // Salir del método
+            }
+        }
+        Utileria.limpiarConsola();
+    }
+
+    public static void verMisProductosVendedor(UsuarioVendedor vendedor) {
+        boolean salirDeProductos = false;
+
+        while (!salirDeProductos) {
+            System.out.println("=================================================");
+            System.out.println("             Mis Productos                       ");
+            System.out.println("=================================================");
+            vendedor.imprimirProductosOfrecidos();
+            System.out.println("-------------------------------------------------");
+            Utileria.continuarEvento();
+            salirDeProductos = true; // Salir del bucle
+        }
+        Utileria.limpiarConsola();
+    }
+
+    public static void verMisVentasVendedor(UsuarioVendedor vendedor) {
+        boolean salirDeVentas = false;
+
+        while (!salirDeVentas) {
+            System.out.println("=================================================");
+            System.out.println("             Mis Ventas                          ");
+            System.out.println("=================================================");
+            vendedor.imprimirVentas();
+            System.out.println("-------------------------------------------------");
+            Utileria.continuarEvento();
+            salirDeVentas = true; // Salir del bucle
+        }
+        Utileria.limpiarConsola();
+    }
+
+    public static void consultarMiCuentaVendedor(UsuarioVendedor vendedor) {
+        boolean salirDeCuenta = false;
         
-    }
+        while (!salirDeCuenta) {
+            Utileria.limpiarConsola();
+            System.out.println("=================================================");
+            System.out.println("             Mi Cuenta                          ");
+            System.out.println("=================================================");
+            System.out.println("Usuario: " + vendedor.getUsername());
+            System.out.println("Contraseña: " + vendedor.getPassword());
+            System.out.println("-------------------------------------------------");
+            System.out.println("1. Cambiar contraseña");
+            System.out.println("2. Borrar cuenta");
+            System.out.println("3. Eliminar todos los productos");
+            System.out.println("4. Regresar");
+            System.out.println("-------------------------------------------------");
+    
+            int opcion = 0;
+            System.out.print("Seleccione una opción: ");
+            try {
+                opcion = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
+                Utileria.continuarEvento();
+                continue; // Continuar el ciclo sin salir
+            }
+    
+            switch (opcion) {
+                case 1:
+                    // Lógica para cambiar contraseña
+                    System.out.print("Ingrese la nueva contraseña: ");
+                    String nuevaPassword = scanner.nextLine();
+    
+                    if (nuevaPassword.isEmpty()) {
+                        Utileria.mensaje("Contraseña no puede estar vacía.", Utileria.TipoDeMensaje.ERROR);
+                        Utileria.continuarEvento();
+                        continue;
+                    }
+                    
+                    AccesoUsuario accesoUsuario = new AccesoUsuario(vendedor.getUsername(), vendedor.getPassword(), Utileria.usuarioVendedor);
+                    boolean passwordCambiada = accesoUsuario.cambiarPassword(nuevaPassword);
+                    if (passwordCambiada) {
+                        Utileria.mensaje("Contraseña cambiada con éxito.", Utileria.TipoDeMensaje.EXITO);
+                        Utileria.continuarEvento();
+                    } else {
+                        Utileria.mensaje("Error al cambiar la contraseña. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
+                        Utileria.continuarEvento();
+                    }
+                    break;
+                    
+                case 2:
+                    // Borrar vendedor
+                    System.out.println("------------------------------------------------");
+                    System.out.println("¿Está seguro de que desea borrar su cuenta?");
+                    System.out.println("1. Sí");
+                    System.out.println("2. No");
+                    System.out.println("-------------------------------------------------");
+                    System.out.print("Seleccione una opción: ");
+                    int opcionBorrar = 0;
+                    try {
+                        opcionBorrar = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
+                        Utileria.continuarEvento();
+                        continue; // Continuar el ciclo sin salir
+                    }
+                    switch (opcionBorrar) {
+                        case 1:
+                            // Lógica para borrar cuenta
+                            Utileria.limpiarConsola();
+                            System.out.println("------------------------------------------------");
+                            System.out.print("Ingrese su contraseña para confirmar: ");
+                            String passwordConfirmacion = scanner.nextLine();
+                            if (!vendedor.getPassword().equals(passwordConfirmacion)) {
+                                Utileria.mensaje("Contraseña incorrecta. No se puede borrar la cuenta.", Utileria.TipoDeMensaje.ERROR);
+                                Utileria.continuarEvento();
+                                continue; // Continuar el ciclo sin salir
+                            }
 
-    public static void verMisProductosVendedor() {
-        // Lógica para ver los productos del vendedor
-        // ...
-        Utileria.mensaje("Estos son tus productos |--|/", Utileria.TipoDeMensaje.INFO);
-    }
+                            AccesoUsuario accesoUsuarioBorrar = new AccesoUsuario(vendedor.getUsername(), vendedor.getPassword(), Utileria.usuarioVendedor);
+                            boolean cuentaBorrada = accesoUsuarioBorrar.eliminarUsuario();
+                            if (cuentaBorrada) {
+                                vendedor.eliminarTodosLosProductos();
+                                Utileria.mensaje("Cuenta borrada con éxito. Adios vaquero!", Utileria.TipoDeMensaje.EXITO);
+                                Utileria.continuarEvento();
+                                salirDeCuenta = true; // Salir del bucle
+                                System.exit(0); // Salir del programa
+                            } else {
+                                Utileria.mensaje("Error al borrar la cuenta. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
+                                Utileria.continuarEvento();
+                            }
+                            break;
+                        case 2:
+                            break;
+                        default:
+                            Utileria.mensaje("Opción no válida. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
+                            Utileria.continuarEvento();
+                    }
+                    break;
 
-    public static void verMisVentasVendedor() {
-        // Lógica para ver las ventas del vendedor
-        // ...
-        Utileria.mensaje("Estas son tus ventas |--|/", Utileria.TipoDeMensaje.INFO);
-    }
+                case 3:
+                    // Lógica para eliminar todos los productos
+                    System.out.println("------------------------------------------------");
+                    System.out.println("¿Está seguro de que desea eliminar todos los productos?");
+                    System.out.println("1. Sí");
+                    System.out.println("2. No");
+                    System.out.println("-------------------------------------------------");
+                    System.out.print("Seleccione una opción: ");
+                    int opcionEliminar = 0;
 
-    public static void editarDetallesProductoVendedor() {
-        // Lógica para editar los detalles de un producto
-        // ...
-        Utileria.mensaje("Editando detalles del producto |--|/", Utileria.TipoDeMensaje.INFO);
-    }
+                    try {
+                        opcionEliminar = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
+                        Utileria.continuarEvento();
+                        continue; // Continuar el ciclo sin salir
+                    }
 
-    public static void consultarMiCuentaVendedor() {
-        // Lógica para mostrar la cuenta del vendedor
-        // ...
-        Utileria.mensaje("Esta es tu cuenta |--|/", Utileria.TipoDeMensaje.INFO);
+                    switch (opcionEliminar) {
+                        case 1:
+                            // Lógica para eliminar todos los productos
+                            vendedor.eliminarTodosLosProductos();
+                            Utileria.mensaje("Todos los productos han sido eliminados.", Utileria.TipoDeMensaje.EXITO);
+                            Utileria.continuarEvento();
+                            break;
+                        case 2:
+                            break;
+                        default:
+                            Utileria.mensaje("Opción no válida. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
+                            Utileria.continuarEvento();
+                    }
+                    break;
+                
+                case 4:
+                    salirDeCuenta = true; // Establecer la bandera para salir del bucle
+                    break;
+                default:
+                    Utileria.mensaje("Opción no válida. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
+                    Utileria.continuarEvento();
+            }
+        }
+        Utileria.limpiarConsola();
     }
 }

@@ -41,7 +41,9 @@ public class Producto{//Viktor
     }
 
     public Producto(){
-        
+        this.nombre="";
+        this.descripcion="";
+        this.precio=0;
     }
 
     //---------------------------------------------------------------------------------------------------------------------
