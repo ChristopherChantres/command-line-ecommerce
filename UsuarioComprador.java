@@ -33,8 +33,8 @@ public class UsuarioComprador extends Usuario {
         this.carrito.agregarOQuitarCantidadProducto(idProducto, cantidad);
     }
     
-    public void eliminarProductoDelCarrito(int idProducto) {
-        this.carrito.eliminarProducto(idProducto);
+    public boolean eliminarProductoDelCarrito(int idProducto) {
+        return this.carrito.eliminarProducto(idProducto);
     }
     
     public void mostrarCarrito() {

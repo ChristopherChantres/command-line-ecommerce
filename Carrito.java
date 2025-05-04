@@ -78,7 +78,7 @@ public class Carrito {
         //si no esta en carrito y se debe agregar, agregar objeto producto a carrito
         if(!yaEnCarrrito && !eliminarProducto){
         for(Producto p: catalogoProductos){
-            if(p.getID()==id&&cantidad>0){
+            if(p.getID()==id){
                 p.setCantidad(cantidad);
                 productos_en_carrito.add(p);
                 p.imprimirProductoAgregado();
@@ -95,15 +95,16 @@ public class Carrito {
     }
 
     //eliminar en su totalidad un tipo de producto del carrito
-    public void eliminarProducto(int id){
+    public boolean eliminarProducto(int id){
         for(int i=0;i<productos_en_carrito.size();i++){
             Producto productoTemporal=productos_en_carrito.get(i);
             if(productoTemporal.getID()==id){
                 productos_en_carrito.remove(i);
                 productoTemporal.imprimirEliminarProducto();
-                break;
+                return true;
             }
         }
+        return false;
     }
 
     //eliminar todos los productos del carrito al terminar la compra

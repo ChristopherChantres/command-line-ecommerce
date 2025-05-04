@@ -251,7 +251,7 @@ public class Main {
                 case 1:
                     // Lógica para Carrito
                     Utileria.limpiarConsola();
-                    carritoDelComprador();
+                    carritoDelComprador(comprador);
                     break;
                 case 2:
                     // Lógica para Mostrar productos
@@ -280,14 +280,80 @@ public class Main {
         }
     }
 
-    public static void carritoDelComprador() {
+    public static void carritoDelComprador(UsuarioComprador comprador) {
         // Hacer fetch de los productos del carrito
         // Mostrar los productos en el carrito
         // Permitir al usuario eliminar productos o proceder a pagar
         // Lógica para gestionar el carrito
         // ...
-        Utileria.mensaje("Este es el carrito |--|/", Utileria.TipoDeMensaje.INFO);
-        Utileria.continuarEvento();
+        boolean salirDeCarrito = false;
+        
+        while (!salirDeCarrito) {
+            // Limpiar la pantalla para mostrar información actualizada
+            Utileria.limpiarConsola();
+            
+            // Lógica para mostrar el carrito
+            System.out.println("=================================================");
+            System.out.println("             Carrito de Compras                 ");
+            System.out.println("=================================================");
+        
+            // Mostrar los productos en el carrito
+            comprador.mostrarCarrito();
+            System.out.println("-------------------------------------------------");
+            System.out.println("1. Eliminar producto del carrito");
+            System.out.println("2. Vaciar todo el carrito");
+            System.out.println("3. Regresar");
+    
+            int opcion = 0;
+            System.out.print("Seleccione una opción: ");
+            try {
+                opcion = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
+                Utileria.continuarEvento();
+                continue; // Salir del método
+            }
+    
+            switch (opcion) {
+                case 1:
+                    // Lógica para eliminar producto del carrito
+                    System.out.print("Ingrese el ID del producto a eliminar: ");
+                    int idProducto = 0;
+                    try {
+                        idProducto = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
+                        Utileria.continuarEvento();
+                        continue; // Salir del método
+                    }
+                    
+                    boolean productoEliminado = comprador.eliminarProductoDelCarrito(idProducto);
+                    if (productoEliminado) {
+                        Utileria.mensaje("Producto eliminado del carrito con éxito.", Utileria.TipoDeMensaje.EXITO);
+                        Utileria.continuarEvento();
+                        break;
+                    } else {
+                        Utileria.mensaje("No se encontró el id del producto en el carrito.", Utileria.TipoDeMensaje.ERROR);
+                        Utileria.continuarEvento();
+                        continue; // Salir del método
+                    }
+                case 2:
+                    // Lógica para vaciar el carrito
+                    comprador.vaciarCarrito();
+                    Utileria.mensaje("Carrito vaciado con éxito.", Utileria.TipoDeMensaje.EXITO);
+                    Utileria.continuarEvento();
+                    break;
+                case 3:
+                    // Regresar
+                    salirDeCarrito = true;
+                    break;
+                default:
+                    Utileria.mensaje("Opción no válida. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
+                    Utileria.continuarEvento();
+                    break;
+            }
+        }
+        Utileria.limpiarConsola();
     }
 
     public static void mostrarProductosComprador(UsuarioComprador comprador) {
