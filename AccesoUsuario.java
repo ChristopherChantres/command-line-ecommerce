@@ -188,6 +188,57 @@ public class AccesoUsuario {
         return funciono;
     }
 
+//----------------------------------------------------------------------------------------------------------------------------------
+//ELIMINACION DEL USUARIO, vendedor o comprador
+    public boolean eliminarUsuario() {
+        // Elimina el usuario del archivo
+        boolean funciono = false;
+        if (tipoUsuario.equals(Utileria.usuarioComprador)) {
+            funciono=eliminarComprador();
+        } else if (tipoUsuario.equals(Utileria.usuarioVendedor)) {
+            funciono=eliminarVendedor();
+        }
+        return funciono;
+    }
+
+    private boolean eliminarComprador() {
+        // Elimina el comprador del archivo
+        boolean funciono = false;
+        try (FileWriter w = new FileWriter(Utileria.archivoCompradores)) {
+            for (UsuarioComprador comprador : compradores) {
+                if (comprador.getId()==idUsuario) {
+                    //funciono=comprador.eliminarUsuario();
+                    funciono=true;
+                } else {
+                    w.write(comprador.getId() + "," + comprador.getUsername() + "," + comprador.getPassword() + "\n");
+                }
+            }
+        } catch (IOException e) {
+            Utileria.mensaje("Error al eliminar el comprador en el archivo: " + e.getMessage(), Utileria.TipoDeMensaje.ERROR);
+            return false;
+        }
+        return funciono;
+    }
+
+    private boolean eliminarVendedor() {
+        // Elimina el vendedor del archivo
+        boolean funciono = false;
+        try (FileWriter w = new FileWriter(Utileria.archivoVendedores)) {
+            for (UsuarioVendedor vendedor : vendedores) {
+                if (vendedor.getId()==idUsuario) {
+                    //funciono=vendedor.eliminarUsuario();
+                    funciono=true;
+                } else {
+                    w.write(vendedor.getId() + "," + vendedor.getUsername() + "," + vendedor.getPassword() + "\n");
+                }
+            }
+        } catch (IOException e) {
+            Utileria.mensaje("Error al eliminar el vendedor en el archivo: " + e.getMessage(), Utileria.TipoDeMensaje.ERROR);
+            return false;
+        }
+        return funciono;
+    }
+
     //agregar verificacion de usuarios
 
     public int max(int a, int b){
