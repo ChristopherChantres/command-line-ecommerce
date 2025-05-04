@@ -96,7 +96,19 @@ public class UsuarioVendedor extends Usuario {
         if(productosOfrecidos.isEmpty()){
             Utileria.mensaje("No tienes productos a la venta", Utileria.TipoDeMensaje.INFO);
         }else{
+            Utileria.mensaje("Se imprimen los productos que ofreces:", Utileria.TipoDeMensaje.INFO);
             for(Producto p: productosOfrecidos){
+                p.imprimirBasico();
+            }
+        }
+    }
+
+    public void imprimirVentas(){
+        if(productosVendidos.isEmpty()){
+            Utileria.mensaje("No tienes ventas", Utileria.TipoDeMensaje.INFO);
+        }else{
+            Utileria.mensaje("Se imprimen los productos vendidos:", Utileria.TipoDeMensaje.INFO);
+            for(Producto p: productosVendidos){
                 p.imprimirBasico();
             }
         }

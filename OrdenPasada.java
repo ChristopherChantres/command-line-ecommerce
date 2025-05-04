@@ -16,6 +16,7 @@ public class OrdenPasada {
         this.idComprador = idComprador;
         this.total = total;
     }
+    
 
     public int getIdOrden() {
         return idOrden;
@@ -37,5 +38,31 @@ public class OrdenPasada {
     public void anadirProducto(Producto producto) {
         productosComprados.add(producto); // Agrega un producto a la lista de productos comprados
     }
+
+    public void imprimirOrden() {
+        System.out.println("Orden ID: " + idOrden);
+        System.out.println("Comprador ID: " + idComprador);
+        System.out.println("Total: " + total);
+        System.out.println("Productos comprados:");
+        for (Producto producto : productosComprados) {
+            producto.imprimirParaCarrito(); // Imprime los detalles de cada producto el la orden
+        }
+    }
+
+    public void imprimirVentasVendedor(int idVendedor) {
+        System.out.println("Orden ID: " + idOrden);
+        System.out.println("Comprador ID: " + idComprador);
+        System.out.println("Total: " + total);
+        System.out.println("Productos comprados:");
+        for (Producto producto : productosComprados) {
+            if (producto.getIdVendedor() == idVendedor) { // Si el producto es del vendedor
+                producto.imprimirParaCarrito(); // Imprime los detalles de cada producto el la orden
+            }
+        }
+    }
+
+
+
+
 
 }

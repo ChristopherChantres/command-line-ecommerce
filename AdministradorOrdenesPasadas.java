@@ -38,7 +38,7 @@ public class AdministradorOrdenesPasadas {
                             double subtotal = Double.parseDouble(partesOrden[i+3]);
 
                             Producto producto = new Producto(idProducto, nombre, cantidad, subtotal); // Crea un nuevo producto
-                            orden.getProductosComprados().add(producto); // Agrega el producto a la orden pasada
+                            orden.anadirProducto(producto); // Agrega el producto a la orden pasada
                         }
                     }
 
@@ -51,6 +51,48 @@ public class AdministradorOrdenesPasadas {
         }
     }
 
+    //metodo que da al usuario la lista de ordenes pasadas
+    public ArrayList<OrdenPasada> getOrdenesPasadas(int idComprador) {
+        ArrayList<OrdenPasada> ordenesDelComprador = new ArrayList<OrdenPasada>(); // Almacena las ordenes del comprador
+        for (OrdenPasada orden : ordenesPasadas) { // Recorre todas las ordenes pasadas
+            if (orden.getIdComprador() == idComprador) { // Si la orden es del comprador
+                ordenesDelComprador.add(orden); // Agrega la orden a la lista de ordenes del comprador
+            }
+        }
+        return ordenesDelComprador; // Devuelve la lista de ordenes del comprador
+    }
+
     //metodo que retroalimenta al vendedor de las ordenes pasadas
+    public ArrayList <Producto> ordenesPasadasVendedor(int idVendedor) {
+        ArrayList<Producto> productosVendidos = new ArrayList<Producto>(); // Almacena los productos del vendedor
+        System.out.println("Ordenes pasadas del vendedor con ID: " + idVendedor);
+        for (OrdenPasada orden : ordenesPasadas) { // Recorre todas las ordenes pasadas
+            for (Producto producto : orden.getProductosComprados()) { // Recorre todos los productos de la orden
+                if (producto.getId_vendedor() == idVendedor) { // Si el producto es del vendedor
+                    productosVendidos.add(producto );
+                }
+            }
+        }
+        productosVendidos = unirProductosDuplicados(productosVendidos); // Une los productos duplicados
+        return productosVendidos; // Devuelve la lista de productos del vendedor
+    }
+
+    public ArrayList <Producto> unirProductosDuplicados(ArrayList <Producto> productos) {
+        ArrayList <Producto> productosSinDuplicar = new ArrayList<>(); // Almacena las ordenes sin duplicados
+        for(Producto producto : productos) { // Recorre todos los productos
+            boolean existe = false; // Variable que indica si el producto ya existe en la lista
+            for (Producto productoSinDuplicar : productosSinDuplicar) { // Recorre todos los productos sin duplicar
+                if (producto.getID() == productoSinDuplicar.getID()) { // Si el producto ya existe en la lista
+                    existe = true; // Cambia la variable a true
+                    productoSinDuplicar.setCantidad(productoSinDuplicar.getCantidad() + producto.getCantidad()); // Suma las cantidades del producto
+                    break; // Sale del ciclo
+                }
+            }
+            if (!existe) { // Si el producto no existe en la lista
+                productosSinDuplicar.add(producto); // Agrega el producto a la lista de productos sin duplicar
+            }
+        }
+        return productosSinDuplicar; // Actualiza la lista de ordenes pasadas
+    }
     
 }
