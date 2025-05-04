@@ -166,12 +166,15 @@ public class Carrito {
 
         //se escribira la orden en el archivo ArchivoCompras.txt
         try (FileWriter writer = new FileWriter(Utileria.archivoCompras, true)) {
+            //id del usuario, id de la compra, total, [Producto1], [Producto2], ... [ProductoN]
+        
+            writer.write("\n");
             String idUsuarioString= String.valueOf(idComprador);
             String idCompraString= String.valueOf(idCompra);
             String totalString= String.valueOf(total);
             String stringAguardar= idUsuarioString + "," + idCompraString + "," + totalString + ",";
             for(Producto p: productos_en_carrito){
-                //idProducto, nombre, cantidad, subtotal
+                //Por cada [Productok] almacenamos idProducto, nombre, idVendedor, cantidad, subtotal
                 stringAguardar+= p.stringRegistrarProductoEnOrden();
             }
 
