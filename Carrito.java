@@ -68,8 +68,13 @@ public class Carrito {
         return this.idCompra;
     }
 
-    public double getTotal(){
+    public double getTotal() {
+        refrescarTotal();
         return this.total;
+    }
+
+    public void setTotal(double total){
+        this.total=total;
     }
 
 
@@ -129,22 +134,14 @@ public class Carrito {
     }
 
     public void refrescarTotal(){
-        if(productos_en_carrito.size()==0){
+        if (productos_en_carrito.size()==0) {
             Utileria.mensaje("El carrito está vacío!", Utileria.TipoDeMensaje.INFO);
-        }else{
+        } else {
             total=0;
-            //System.out.println("");
             for(Producto p: productos_en_carrito){
                 //p.imprimirParaCarrito();
                 total+=p.getSubtotal();
             }
-            //System.out.println("Total: $" + total);
-            //System.out.println("Saldo disponible: " + saldoComprador);
-            /*
-            if(saldoComprador<total){
-                System.out.println("No tienes suficiente saldo para realizar la compra. Elimina productos del carrito, o sal y recarga tu saldo");
-            }
-                 */
         }
     }
 
@@ -199,7 +196,8 @@ public class Carrito {
 
             writer.write(stringAguardar + "\n");
             //saldoComprador-=total;
-            idCompra++;//incrementar el id de compra para la siguiente compra
+            idCompra++; // incrementar el id de compra para la siguiente compra
+            setTotal(0); // reiniciar el total
             return true;
         } catch (IOException e) {
             System.out.println("Error al guardar el archivo: " + e.getMessage());

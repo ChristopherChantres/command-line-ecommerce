@@ -409,6 +409,7 @@ public class Main {
                     comprador.agregarProductoOQuitarDelCarrito(idProducto, cantidad);
                     if (cantidad > 0) {
                         Utileria.mensaje("Producto agregado al carrito con éxito.", Utileria.TipoDeMensaje.EXITO);
+                        // Incrementar el total del carrito
                         Utileria.continuarEvento();
                     } else {
                         Utileria.mensaje("Producto eliminado del carrito con éxito.", Utileria.TipoDeMensaje.EXITO);
@@ -473,6 +474,8 @@ public class Main {
                     } else {
                         boolean pagoExitoso = comprador.getCarrito().ordenar();
                         if (pagoExitoso) {
+                            double nuevoSaldo = comprador.getSaldo() - totalPagar;
+                            comprador.setSaldo(nuevoSaldo);
                             Utileria.mensaje("Pago realizado con éxito.", Utileria.TipoDeMensaje.EXITO);
                             Utileria.continuarEvento();
                         } else {
@@ -628,7 +631,7 @@ public class Main {
             switch (opcion) {
                 case 1:
                     // Lógica para devolver compra
-                    System.out.println("=================================================");
+                    System.out.println("------------------------------------------------");
                     System.out.print("Ingrese el ID de la compra a devolver: ");
                     int idCompra = 0;
                     try {
@@ -639,12 +642,14 @@ public class Main {
                         continue; // Salir del método
                     }
                     
-                    boolean compraDevuelta = comprador.devolverOrdenPasada(idCompra);
-                    if (compraDevuelta) {
-                        Utileria.mensaje("Compra devuelta!", Utileria.TipoDeMensaje.EXITO);
+                    double totalOrdenDevuelta = comprador.devolverOrdenPasada(idCompra);
+                    if (totalOrdenDevuelta == -1) {
+                        Utileria.mensaje("Error al devolver la compra. Verifica que el ID es correcto.", Utileria.TipoDeMensaje.ERROR);
                         Utileria.continuarEvento();
                     } else {
-                        Utileria.mensaje("Error al devolver la compra. Verifica que el ID es correcto.", Utileria.TipoDeMensaje.ERROR);
+                        double nuevoSaldo = comprador.getSaldo() + totalOrdenDevuelta;
+                        comprador.setSaldo(nuevoSaldo);
+                        Utileria.mensaje("Compra devuelta!", Utileria.TipoDeMensaje.EXITO);
                         Utileria.continuarEvento();
                     }
                     break;

@@ -30,6 +30,7 @@ public class UsuarioComprador extends Usuario {
     // Metodos
     public void agregarProductoOQuitarDelCarrito(int idProducto, int cantidad) {
         this.carrito.agregarOQuitarCantidadProducto(idProducto, cantidad);
+        this.carrito.refrescarTotal();
     }
     
     public boolean eliminarProductoDelCarrito(int idProducto) {
@@ -69,12 +70,9 @@ public class UsuarioComprador extends Usuario {
         }
     }
 
-    public boolean devolverOrdenPasada(int idOrden) {
-        if (this.administradorOrdenesPasadas.devolverCompra(idOrden, super.getId())) {
-            return true;
-        } else {
-            return false;
-        }
+    // Si devolverCompra devuelve -1, significa que no se encontró la orden
+    public double devolverOrdenPasada(int idOrden) {
+        return this.administradorOrdenesPasadas.devolverCompra(idOrden, super.getId());
     }
 
     /* 

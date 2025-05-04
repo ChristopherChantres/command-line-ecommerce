@@ -106,25 +106,27 @@ public class AdministradorOrdenesPasadas {
     }
 
     //devolver compra
-    public boolean devolverCompra(int idCompra, int idComprador) {
-        boolean seDevolvio = false; // Variable que indica si se devolvió la compra
-        try{
-            for(int i=0; i<ordenesPasadas.size(); i++) { // Recorre todas las ordenes pasadas
+    public double devolverCompra(int idCompra, int idComprador) {
+        boolean ordenEncontrada = false; // Variable que indica si se encontró la orden
+        double totalDeOrden = -1; // Almacena el total de la orden
+        try {
+            for (int i=0; i<ordenesPasadas.size(); i++) { // Recorre todas las ordenes pasadas
                 //OrdenPasada orden = ordenesPasadas.get(i); // Obtiene la orden
                 if (ordenesPasadas.get(i).getIdOrden() == idCompra && ordenesPasadas.get(i).getIdComprador() == idComprador) { // Si la orden es del comprador
+                    totalDeOrden = ordenesPasadas.get(i).getTotal();
+                    ordenEncontrada = true; // Cambia la variable a true
                     System.out.println("Se devolvió la compra con ID: " + idCompra + " del comprador con ID: " + idComprador);
                     ordenesPasadas.get(i).imprimirOrden(); // Imprime la orden
-                    seDevolvio = (ordenesPasadas.remove(i)!=null); // Cambia la variable a true
+                    ordenesPasadas.remove(i); // Elimina la orden de la lista de ordenes pasadas
                     break;
                 }
             }
-        }catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             Utileria.mensaje("Error al devolver la compra: " + e.getMessage(), Utileria.TipoDeMensaje.ERROR); // Muestra un mensaje de error
         }
-        
-        if(seDevolvio)guardarOrdenesEnArchivo(); // Guarda las ordenes en el archivo
+        if (ordenEncontrada) guardarOrdenesEnArchivo(); // Guarda las ordenes en el archivo
 
-        return seDevolvio; // Si no se encuentra la orden, devuelve false
+        return totalDeOrden; // Si no se encuentra la orden, devuelve false
     }
 //-----------------------------------------------------------------------------------------------------------------------
 //VENDEDOR
