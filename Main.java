@@ -437,6 +437,7 @@ public class Main {
         // Lógica para gestionar el pago
         // ...
         boolean salirDePago = false;
+        double totalPagar = comprador.getCarrito().getTotal();
 
         while (!salirDePago) {
             // Limpiar la pantalla para mostrar información actualizada
@@ -446,7 +447,7 @@ public class Main {
             System.out.println("=================================================");
             System.out.println("             Realizar Pago                       ");
             System.out.println("=================================================");
-            System.out.println("Total a pagar: " + 8888);
+            System.out.println("Total a pagar: " + totalPagar);
             System.out.println("-------------------------------------------------");
             System.out.println("1. Pagar Total");
             System.out.println("2. Salir");
@@ -474,6 +475,7 @@ public class Main {
                         // pagarTotal(comprador, totalAPagar);
                         // Actualizar el saldo del comprador
                         // Validar si pagarTotal() fue exitoso
+                        comprador.getCarrito().ordenar();
                         boolean pagoExitoso = true; // Simulación de pago exitoso
                         if (pagoExitoso) {
                             Utileria.mensaje("Pago realizado con éxito. Saldo restante: $" + comprador.getSaldo(), Utileria.TipoDeMensaje.EXITO);

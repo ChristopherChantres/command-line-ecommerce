@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Carrito {
     private ArrayList <Producto> productos_en_carrito;
     private ArrayList <Producto> catalogoProductos;
-    private int total;
+    private double total;
     private int idCompra;
     private int idComprador;
     private double saldoComprador;
@@ -64,7 +64,11 @@ public class Carrito {
 
     //get de id de la compra
     public int getIdCompra(){
-        return idCompra;
+        return this.idCompra;
+    }
+
+    public double getTotal(){
+        return this.total;
     }
 
 
@@ -179,8 +183,8 @@ public class Carrito {
     }
     
     //metodo que se llama al pagar
-    public void ordenar(int idCompra) {// regresa el saldo restante del comprador
-        this.idCompra=idCompra;
+    public void ordenar() {// regresa el saldo restante del comprador
+        // this.idCompra=idCompra;
         //imprimir carrito
         imprimirCarrito();
         //guardar carrito al archivo
