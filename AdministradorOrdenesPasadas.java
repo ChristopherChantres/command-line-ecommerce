@@ -29,7 +29,7 @@ public class AdministradorOrdenesPasadas {
 
                     OrdenPasada orden = new OrdenPasada(idUsuarioComprador,idCompra,total); // Crea una nueva orden pasada
                     //ciclo que añade cada producto a la orden pasada
-                    for (int i = 3; i < partesOrden.length; i+=4) {
+                    for (int i = 3; i < partesOrden.length; i+=5) {
                         //Por cada [Productok] almacenamos idProducto, nombre, idVendedor, cantidad, subtotal
                         if (i+3<partesOrden.length) { // Comprueba que el arreglo es valido en tamaño
                             int idProducto = Integer.parseInt(partesOrden[i]);
@@ -66,7 +66,7 @@ public class AdministradorOrdenesPasadas {
     //metodo que retroalimenta al vendedor de las ordenes pasadas
     public ArrayList <Producto> ordenesPasadasVendedor(int idVendedor) {
         ArrayList<Producto> productosVendidos = new ArrayList<Producto>(); // Almacena los productos del vendedor
-        System.out.println("Ordenes pasadas del vendedor con ID: " + idVendedor);
+        //System.out.println("Ordenes pasadas del vendedor con ID: " + idVendedor);
         for (OrdenPasada orden : ordenesPasadas) { // Recorre todas las ordenes pasadas
             for (Producto producto : orden.getProductosComprados()) { // Recorre todos los productos de la orden
                 if (producto.getId_vendedor() == idVendedor) { // Si el producto es del vendedor

@@ -174,24 +174,26 @@ public class Producto{//Viktor
     //METODOS PARA GENERAR REGISTROS
     //metodo para registrar cada producto del carrito
     public String stringRegistrarProductoEnOrden(){
-        String idProductoString= String.valueOf(id);
+        //Por cada [Productok] almacenamos idProducto, nombre, idVendedor, cantidad, subtotal
+        String idProductoString= String.valueOf(this.id);
         String nombreString= nombre;
-        String cantidadString= String.valueOf(cantidad);
-        String subtotalString= String.valueOf(subTotal);
+        String idVendedorString= String.valueOf(this.id_vendedor);
+        String cantidadString= String.valueOf(this.cantidad);
+        String subtotalString= String.valueOf(this.subTotal);
 
-        String stringRetornable=idProductoString + "," + nombreString + "," + cantidadString + "," + subtotalString + ",";
+        String stringRetornable=idProductoString + "," + nombreString + "," +idVendedorString+ "," + cantidadString + "," + subtotalString + ",";
         return stringRetornable;
     }
 
     public String stringRegistrarProductoEnArchivo(){
         //formato: idProducto, nombre,descripcion, precio, stock, id_vendedor
         //12,Piguinos,Unos ricos pinguinos,28,10,-4
-        String idProductoString= String.valueOf(id);
-        String nombreString= nombre;
-        String descripcionString= descripcion;
-        String precioString= String.valueOf(precio);
+        String idProductoString= String.valueOf(this.id);
+        String nombreString= this.nombre;
+        String descripcionString= this.descripcion;
+        String precioString= String.valueOf(this.precio);
         //String stockString= String.valueOf(stock);
-        String idVendedorString= String.valueOf(id_vendedor);
+        String idVendedorString= String.valueOf(this.id_vendedor);
 
         String stringRetornable=idProductoString + "," + nombreString + "," +descripcionString+ ","+ precioString + ","+idVendedorString;
         return stringRetornable;
