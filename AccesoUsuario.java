@@ -35,8 +35,8 @@ public class AccesoUsuario {
                 for (int i=0 ; i < compradores.size(); i++){
                     if (compradores.get(i).getUsername().equals(this.username) && compradores.get(i).getPassword().equals(this.password)){
                         // El usuario comprador existe
-                        idUsuario = compradores.get(i).getId();
-                        this.usuarioComprador = new UsuarioComprador(idUsuario, this.username, this.password);
+                        this.idUsuario = compradores.get(i).getId();
+                        this.usuarioComprador = new UsuarioComprador(this.idUsuario, this.username, this.password);
                         setExisteUsuario(true);
                     }
                 }
@@ -49,8 +49,8 @@ public class AccesoUsuario {
                 for (int i=0 ; i < vendedores.size(); i++){
                     if (vendedores.get(i).getUsername().equals(this.username) && vendedores.get(i).getPassword().equals(this.password)){
                         // El usuario vendedor existe
-                        idUsuario= vendedores.get(i).getId();
-                        this.usuarioVendedor = new UsuarioVendedor(idUsuario, this.username, this.password);
+                        this.idUsuario= vendedores.get(i).getId();
+                        this.usuarioVendedor = new UsuarioVendedor(this.idUsuario, this.username, this.password);
                         setExisteUsuario(true);
                     }
                 }
@@ -133,21 +133,46 @@ public class AccesoUsuario {
             return false;
         }
     }
-
-    public boolean cambiarContrasenaComprador(int id, String password) {
-        for (UsuarioComprador comprador : compradores) {
-            if (comprador.getId()==id) {
-                comprador.setPassword(password);
-                try (FileWriter w = new FileWriter(Utileria.archivoCompradores, true)) {
-                    w.write(comprador.getId() + "," + comprador.getUsername() + "," + comprador.getPassword() + "\n");
-                    return true;
-                } catch (IOException e) {
-                    Utileria.mensaje("Error al cambiar la contraseña del comprador en el archivo: " + e.getMessage(), Utileria.TipoDeMensaje.ERROR);
-                    return false;
+//----------------------------------------------------------------------------------------------------------------------------------
+//MODIFICACION DEL USUARIO, contraseña
+    public boolean cambiarContrasenaComprador(String password) {
+        // Cambia la contraseña del comprador en el archivo
+        boolean funciono = false;
+        this.password=password;
+        try (FileWriter w = new FileWriter(Utileria.archivoCompradores)) {
+            for (UsuarioComprador comprador : compradores) {
+                if (comprador.getId()==idUsuario) {
+                    funciono=comprador.setPassword(password);
                 }
+            
+                w.write(comprador.getId() + "," + comprador.getUsername() + "," + comprador.getPassword() + "\n");
+
             }
+        } catch (IOException e) {
+            Utileria.mensaje("Error al cambiar la contraseña del comprador en el archivo: " + e.getMessage(), Utileria.TipoDeMensaje.ERROR);
+            return false;
         }
-        return false;
+        return funciono;
+    }
+
+    public boolean cambiarContrasenaVendedor(String password) {
+        // Cambia la contraseña del vendedor en el archivo
+        boolean funciono = false;
+        this.password=password;
+        try (FileWriter w = new FileWriter(Utileria.archivoVendedores)) {
+            for (UsuarioVendedor vendedor : vendedores) {
+                if (vendedor.getId()==idUsuario) {
+                    funciono=vendedor.setPassword(password);
+                }
+            
+                w.write(vendedor.getId() + "," + vendedor.getUsername() + "," + vendedor.getPassword() + "\n");
+
+            }
+        } catch (IOException e) {
+            Utileria.mensaje("Error al cambiar la contraseña del vendedor en el archivo: " + e.getMessage(), Utileria.TipoDeMensaje.ERROR);
+            return false;
+        }
+        return funciono;
     }
 
     //agregar verificacion de usuarios
