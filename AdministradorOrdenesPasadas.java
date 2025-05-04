@@ -106,8 +106,7 @@ public class AdministradorOrdenesPasadas {
             if (orden.getIdOrden() == idCompra && orden.getIdComprador() == idComprador) { // Si la orden es del comprador
                 System.out.println("Se devolvió la compra con ID: " + idCompra + " del comprador con ID: " + idComprador);
                 orden.imprimirOrden(); // Imprime la orden
-                ordenesPasadas.remove(orden); // Elimina la orden de la lista de ordenes pasadas
-                seDevolvio = true; // Cambia la variable a true
+                seDevolvio = ordenesPasadas.remove(orden);// Elimina la orden de la lista de ordenes pasadas, cambia la variable a true
                 break;
             }
         }
