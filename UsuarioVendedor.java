@@ -26,7 +26,8 @@ public class UsuarioVendedor extends Usuario {
     //----------------------------------------------------------------------------------------------------------------------------------
     //MODIFICACION DE PRODUCTOS PROPIOS
     //agrega un nuevo producto a la lista de productos ofrecidos por el vendedor
-    public void agregarProducto(Producto producto){
+    public boolean agregarProducto(Producto producto){
+        boolean agregado=false;
         //le asignamos el id del vendedor al producto
         if(producto != null && !productosOfrecidos.contains(producto)){
             producto.setID(tienda.getProximoIdProducto());
@@ -34,7 +35,9 @@ public class UsuarioVendedor extends Usuario {
             productosOfrecidos.add(producto);//agrega el producto a la lista de productos ofrecidos por el vendedor
 
             tienda.agregarProducto(producto);//agrega el producto a la tienda
+            agregado=true;
         }
+        return agregado;
     }
     /* 
     //agrega el stock de un producto en particular
@@ -52,8 +55,8 @@ public class UsuarioVendedor extends Usuario {
     }
         */
 
-    //modifica el producto, en cada argumento modificable que se solicite
-
+    
+    //modifica el producto, en cada argumento modificable que se solicite, NO IMPLEMENTAR, EXTRA
     public void modificarProducto(int id_producto, String nombre, String descripcion, double precio){
         for(Producto p: productosOfrecidos){
             if(p.getID()==id_producto){
@@ -67,15 +70,17 @@ public class UsuarioVendedor extends Usuario {
     }
 
     //metodo que elimina un producto de la lista de productos ofrecidos por el vendedor
-    public void eliminarProducto(int id_producto){
-        for(Producto p: productosOfrecidos){
-            if(p.getID()==id_producto){
-                productosOfrecidos.remove(p);//elimina el producto de la lista de productos ofrecidos por el vendedor
-
+    public boolean eliminarProducto(int id_producto){
+        boolean eliminado=false;
+        for(int i=0;i<productosOfrecidos.size();i++){
+            if(productosOfrecidos.get(i).getID()==id_producto){
+                productosOfrecidos.remove(i);//elimina el producto de la lista de productos ofrecidos por el vendedor
                 tienda.eliminarProducto(id_producto);//elimina el producto de la tienda
+                eliminado=true;
                 break;
             }
         }
+        return eliminado;
     }
 
 
@@ -84,11 +89,11 @@ public class UsuarioVendedor extends Usuario {
 
     public void eliminarUsuario(){
         //eliminar el usuario de la tienda, solo elimina los productos existentes del usuario, el usuario en si se elimina desde control de accesos
-        for(Producto p: productosOfrecidos){
-            eliminarProducto(p.getID());
+        for(int i=0;i<productosOfrecidos.size();i++){
+            tienda.eliminarProducto(productosOfrecidos.get(i).getID());//elimina el producto de la tienda
         }
-        //eliminar usuario con acceso USUARIOS
-        salir();
+        //eliminar usuario con acceso USUARIOS, manejar desde el main
+        guardarSesion();
     }
 
 //----------------------------------------------------------------------------------------------------------------------------------
@@ -125,8 +130,9 @@ public class UsuarioVendedor extends Usuario {
 
 //----------------------------------------------------------------------------------------------------------------------------------
 //GUARDAR CAMBIOS EN LOS PRODUCTOS, EN EL ARCHIVO DE PRODUCTOS
-    public void salir(){//metodo que se ejecuta al cerrar sesion, guarda los cambios de productos y elimina los productos correspondientes en el archivo de la tienda
-        tienda.guardarProductosEnArchivo();//guarda los cambios de productos en el archivo de la tienda
+    public boolean guardarSesion(){//metodo que se ejecuta al cerrar sesion, guarda los cambios de productos y elimina los productos correspondientes en el archivo de la tienda
+        //guarda los cambios de productos en el archivo de la tienda
+        return tienda.guardarProductosEnArchivo();//retorna si se guardaron los cambios o no
     }
 
 

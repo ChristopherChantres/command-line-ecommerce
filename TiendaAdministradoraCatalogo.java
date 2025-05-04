@@ -20,6 +20,7 @@ public class TiendaAdministradoraCatalogo {//clase que representa la tienda, adm
 
     //metodo que extrae en una arraylist todos los productos de la tienda desde un archivo
     public void cargarProductosDesdeArchivo(){
+        productos.clear();//limpiamos la lista de productos, para que no se repitan los productos al cargar el archivo
         try{
 
             Scanner scanner=new Scanner(new File(Utileria.archivoProductos));//se abre el archivo de productos
@@ -161,7 +162,8 @@ public class TiendaAdministradoraCatalogo {//clase que representa la tienda, adm
     //METODO PARA GUARDAR LOS PRODUCTOS EN EL ARCHIVO
 
     //metodo para reescribir el archivo de productos de la tienda, se ejecuta al cerrar sesion, o guardar cambios
-    public void guardarProductosEnArchivo(){
+    public boolean guardarProductosEnArchivo(){
+        boolean seGuardaronEnArchivo=false;
         //se guarda el archivo de productos, se sobrescribe el archivo
         //12,Piguinos,Unos ricos pinguinos,28,10,-4
         try (FileWriter writer = new FileWriter(Utileria.archivoProductos)) {
@@ -171,9 +173,11 @@ public class TiendaAdministradoraCatalogo {//clase que representa la tienda, adm
                 writer.write(p.stringRegistrarProductoEnArchivo() + "\n");
             }
             writer.close();
-            System.out.println("Archivo guardado correctamente.");
+            //System.out.println("Archivo guardado correctamente.");
+            seGuardaronEnArchivo=true;
         } catch (IOException e) {
-            System.out.println("Error al guardar el archivo: " + e.getMessage());
+            Utileria.mensaje("Error al guardar el archivo: " + e.getMessage(), Utileria.TipoDeMensaje.ERROR);
         }
+        return seGuardaronEnArchivo;
     }
 }
