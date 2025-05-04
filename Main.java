@@ -848,6 +848,7 @@ public class Main {
                     
                     AccesoUsuario accesoUsuario = new AccesoUsuario(vendedor.getUsername(), vendedor.getPassword(), Utileria.usuarioVendedor);
                     boolean passwordCambiada = accesoUsuario.cambiarPassword(nuevaPassword);
+                    vendedor.setPassword(nuevaPassword); // Actualizar la contraseña en el objeto UsuarioVendedor
                     if (passwordCambiada) {
                         Utileria.mensaje("Contraseña cambiada con éxito.", Utileria.TipoDeMensaje.EXITO);
                         Utileria.continuarEvento();
