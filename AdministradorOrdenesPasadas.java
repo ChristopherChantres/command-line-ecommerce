@@ -70,7 +70,7 @@ public class AdministradorOrdenesPasadas {
             PrintWriter printWriter = new PrintWriter(file); // Crea un nuevo PrintWriter para escribir en el archivo
      
             for (int i=0;i<ordenesPasadas.size();i++) { // Recorre todas las ordenes pasadas
-                System.out.println("Guardando orden pasada: "+ordenesPasadas.get(i).getIdOrden()); // Imprime el id de la orden
+                //System.out.println("Guardando orden pasada: "+ordenesPasadas.get(i).getIdOrden()); // Imprime el id de la orden
                 //printWriter.write(orden.getIdComprador() + "," + orden.getIdOrden() + "," + orden.getTotal() + ","); // Escribe el id del comprador, id de la compra y total
 
                 String stringAguardar= ordenesPasadas.get(i).registrarOrdenString(); // Obtiene la cadena que representa la orden para ser guardada en el archivo

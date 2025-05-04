@@ -1,12 +1,18 @@
-1,Pan blanco,Pan blanco artesanal,15,-2
-2,Leche 1L,Leche entera pasteurizada 1L,25,-2
-3,Queso 500g,Queso manchego rallado finamente 500g,50,-2
-4,Docena de huevos,Docena de huevos orgánicos traidos de la granja de Juan,40,-5
-5,Jugo de naranja 1l,1L de jugo de naranja natural del arbol a tu casa,22,-5
-6,Cereal Cheerios,Cereal de avena con miel mezclando una gran combinacion de sabores,35,-3
-7,Café 250g,250g de café molido para que disfrutes cada momento de tu dia,60,-3
-8,Azúcar 1kg, 1kg de azúcar cuidadosamente refinada,20,-2
-9,Sal 500g,500g de fina sal de mar,12,-3
-10,Aceite 1L,1L de aceite vegetal bajo en grasas,45,-3
-11,Gansito Marinela,Un delicioso gansito marinela,20,-4
-12,Piguinos,Unos ricos pinguinos,28,-4
+1,Pan blanco,Pan blanco artesanal,15.0,-2
+2,Leche 1L,Leche entera pasteurizada 1L,25.0,-2
+3,Queso 500g,Queso manchego rallado finamente 500g,50.0,-2
+4,Docena de huevos,Docena de huevos orgánicos traidos de la granja de Juan,40.0,-5
+5,Jugo de naranja 1l,1L de jugo de naranja natural del arbol a tu casa,22.0,-5
+6,Cereal Cheerios,Cereal de avena con miel mezclando una gran combinacion de sabores,35.0,-3
+7,Café 250g,250g de café molido para que disfrutes cada momento de tu dia,60.0,-3
+8,Azúcar 1kg, 1kg de azúcar cuidadosamente refinada,20.0,-2
+9,Sal 500g,500g de fina sal de mar,12.0,-3
+10,Aceite 1L,1L de aceite vegetal bajo en grasas,45.0,-3
+11,Gansito Marinela,Un delicioso gansito marinela,20.0,-4
+12,Piguinos,Unos ricos pinguinos,28.0,-4
+13,11 tacos de canasta,11 tacos de canasta. Quieres algo mas?,2300.0,-2
+14,Papa,Una papa,20.0,-2
+15,1kg frijoles,Un kilo de frijoles,65.0,-1
+16,1kg arroz,Un kilo de arroz,34.0,-1
+17,si,un si,30.0,-1
+18,no,un no,93.0,-1
