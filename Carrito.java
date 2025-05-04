@@ -21,6 +21,16 @@ public class Carrito {
         this.total=0;
     }
 
+    public Carrito(int idComprador, int idCompra) { 
+        this.idComprador=idComprador;
+        this.idCompra=idCompra;
+
+        //inicializamos arreglo el carrito
+        productos_en_carrito = new ArrayList <Producto>();
+        catalogoProductos= new ArrayList <Producto>();
+        this.total=0;
+    }
+
     //setter id comprador
     public void setIdComprador(int idComprador){
         this.idComprador=idComprador;
@@ -114,10 +124,12 @@ public class Carrito {
                 total+=p.getSubtotal();
             }
             System.out.println("Total: " + total);
-            System.out.println("Saldo disponible: " + saldoComprador);
+            //System.out.println("Saldo disponible: " + saldoComprador);
+            /*
             if(saldoComprador<total){
                 System.out.println("No tienes suficiente saldo para realizar la compra. Elimina productos del carrito, o sal y recarga tu saldo");
             }
+                 */
         }
     }
     
@@ -148,7 +160,7 @@ public class Carrito {
             }
 
             writer.write(stringAguardar + "\n");
-            saldoComprador-=total;
+            //saldoComprador-=total;
             System.out.println("¡Compra realizada con éxito! Gracias por su compra.");
         } catch (IOException e) {
             System.out.println("Error al guardar el archivo: " + e.getMessage());
@@ -156,7 +168,7 @@ public class Carrito {
     }
     
     //metodo que se llama al pagar
-    public double pagar(int idCompra) {// regresa el saldo restante del comprador
+    public void ordenar(int idCompra) {// regresa el saldo restante del comprador
         this.idCompra=idCompra;
         //imprimir carrito
         imprimirCarrito();
@@ -166,7 +178,7 @@ public class Carrito {
         vaciarCarrito();
 
         //System.exit(0);
-        double saldoRestante=saldoComprador;
-        return saldoRestante;
+        //double saldoRestante=saldoComprador;
+        //return saldoRestante;
     }
 }

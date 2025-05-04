@@ -34,4 +34,8 @@ public class OrdenPasada {
         return productosComprados;
     }
 
+    public void anadirProducto(Producto producto) {
+        productosComprados.add(producto); // Agrega un producto a la lista de productos comprados
+    }
+
 }

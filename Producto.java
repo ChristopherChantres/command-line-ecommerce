@@ -108,12 +108,13 @@ public class Producto{//Viktor
     //METODOS MODIFICADORES
     public void modificarCantidad(int cantidadModificada){
         //comprobar si despues de la operacion el stock es positivo o cero
+        /* 
         if(stock>= cantidadModificada +cantidad){
             cantidad+=cantidadModificada;
         }else{
             cantidad=stock;
         }
-        
+        */
         if(cantidad<0){
             cantidad=0;
         }
@@ -141,7 +142,7 @@ public class Producto{//Viktor
         //refrescar nombre vendedor
         System.out.println("ID: "+id+" "+nombre+" \t$"+precio);
         System.out.println(" \tNombre del vendedor:"+nombreVendedor);
-        System.out.println(" \tDisponibilidad de: "+stock+" Piezas");
+        //System.out.println(" \tDisponibilidad de: "+stock+" Piezas");
         System.out.println(" \tDescripcion: "+descripcion);
     }
 
