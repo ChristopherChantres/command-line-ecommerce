@@ -1,4 +1,4 @@
-public class Usuario {
+public abstract class Usuario {
     private String username;
     private String password;
     private final int id;
@@ -34,7 +34,5 @@ public class Usuario {
         this.username=username;
     }
 
-    public String toString() {
-        return "username: " + username + ", ID: " + id;
-    }
+    public abstract String toString();
 }

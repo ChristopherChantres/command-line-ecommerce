@@ -25,6 +25,9 @@ public class UsuarioVendedor extends Usuario {
     }
 
 
+    public String toString() {
+        return "Vendedor ID: " + super.getId() + ",username: " + super.getUsername() +  ", Monto vendido: " + montoVendido;
+    }
     //----------------------------------------------------------------------------------------------------------------------------------
     //MODIFICACION DE PRODUCTOS PROPIOS
     //agrega un nuevo producto a la lista de productos ofrecidos por el vendedor

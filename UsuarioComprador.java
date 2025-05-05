@@ -17,6 +17,10 @@ public class UsuarioComprador extends Usuario {
         this(idUsuario, username, password);
         this.saldo = saldo;
     }
+
+    public String toString() {
+        return "Comprador ID: " + super.getId() + ",username: " + super.getUsername() +  ", Saldo: " + saldo;
+    }
     
     // Getters
     public double getSaldo() {

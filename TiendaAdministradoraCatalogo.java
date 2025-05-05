@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TiendaAdministradoraCatalogo {//clase que representa la tienda, administra los productos ofrecidos en el catalogo.
+public class TiendaAdministradoraCatalogo implements IGestionProductos{//clase que representa la tienda, administra los productos ofrecidos en el catalogo.
     protected ArrayList<Producto> productos= new ArrayList<>();
     protected int idUsuario;
     protected int proximoIdProducto;
