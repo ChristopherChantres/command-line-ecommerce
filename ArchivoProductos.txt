@@ -10,7 +10,6 @@
 10,Aceite 1L,1L de aceite vegetal bajo en grasas,45.0,-3
 11,Gansito Marinela,Un delicioso gansito marinela,20.0,-4
 12,Piguinos,Unos ricos pinguinos,28.0,-4
-13,11 tacos de canasta,11 tacos de canasta. Quieres algo mas?,2300.0,-2
 14,Papa,Una papa,20.0,-2
 15,1kg frijoles,Un kilo de frijoles,65.0,-1
 16,1kg arroz,Un kilo de arroz,34.0,-1

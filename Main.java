@@ -786,8 +786,49 @@ public class Main {
             System.out.println("=================================================");
             vendedor.imprimirProductosOfrecidos();
             System.out.println("-------------------------------------------------");
-            Utileria.continuarEvento();
-            salirDeProductos = true; // Salir del bucle
+            System.out.println("1. Eliminar producto");
+            System.out.println("2. Regresar");
+            System.out.println("-------------------------------------------------");
+            System.out.print("Seleccione una opción: ");
+            int opcion = 0;
+            try {
+                opcion = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
+                Utileria.continuarEvento();
+                continue; // Salir del método
+            }
+            switch (opcion) {
+                case 1:
+                    // Lógica para eliminar un producto
+                    System.out.println("------------------------------------------------");
+                    System.out.print("ID del producto a eliminar: ");
+                    int idProductoEliminar = 0;
+                    try {
+                        idProductoEliminar = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        Utileria.mensaje("Por favor, ingrese un número válido.", Utileria.TipoDeMensaje.ERROR);
+                        Utileria.continuarEvento();
+                        continue; // Salir del método
+                    }
+                    
+                    boolean productoEliminado = vendedor.eliminarProducto(idProductoEliminar);
+                    if (productoEliminado) {
+                        Utileria.mensaje("Producto eliminado con éxito.", Utileria.TipoDeMensaje.EXITO);
+                        Utileria.continuarEvento();
+                    } else {
+                        Utileria.mensaje("No se encontró el producto con el ID especificado.", Utileria.TipoDeMensaje.ERROR);
+                        Utileria.continuarEvento();
+                    }
+                    break;
+                case 2:
+                    salirDeProductos = true; // Salir del bucle
+                    break;
+                default:
+                    Utileria.mensaje("Opción no válida. Intente nuevamente.", Utileria.TipoDeMensaje.ERROR);
+                    Utileria.continuarEvento();
+            }
+
         }
         Utileria.limpiarConsola();
     }
@@ -940,7 +981,7 @@ public class Main {
                             Utileria.continuarEvento();
                     }
                     break;
-                
+
                 case 4:
                     salirDeCuenta = true; // Establecer la bandera para salir del bucle
                     break;
