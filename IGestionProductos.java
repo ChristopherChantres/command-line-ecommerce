@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public interface IGestionProductos {
-    void agregarProducto(Producto producto);
-    void eliminarProducto(int id_producto);
-    ArrayList<Producto> getProductosOfrecidos(int id_vendedor);
+    public void agregarProducto(Producto producto);
+    public void eliminarProducto(int id_producto);
+    public ArrayList<Producto> getProductosOfrecidos(int id_vendedor);
 }
